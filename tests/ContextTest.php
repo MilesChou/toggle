@@ -2,18 +2,18 @@
 
 namespace Tests;
 
-use MilesChou\Toggle\Feature;
+use MilesChou\Toggle\Context;
 
-class FeatureTest extends \PHPUnit_Framework_TestCase
+class ContextTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Feature
+     * @var Context
      */
     private $target;
 
     protected function setUp()
     {
-        $this->target = new Feature();
+        $this->target = new Context();
     }
 
     protected function tearDown()
@@ -26,6 +26,6 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
      */
     public function smoke()
     {
-        $this->assertInstanceOf('MilesChou\\Toggle\\Feature', $this->target);
+        $this->assertInstanceOf('MilesChou\\Toggle\\Context', $this->target);
     }
 }

@@ -2,6 +2,6 @@
 
 namespace MilesChou\Toggle;
 
-class Toggle
+class Context
 {
 }

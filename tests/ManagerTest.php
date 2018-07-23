@@ -2,18 +2,18 @@
 
 namespace Tests;
 
-use MilesChou\Toggle\Toggle;
+use MilesChou\Toggle\Manager;
 
-class ToggleTest extends \PHPUnit_Framework_TestCase
+class ManagerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Toggle
+     * @var Manager
      */
     private $target;
 
     protected function setUp()
     {
-        $this->target = new Toggle();
+        $this->target = new Manager();
     }
 
     protected function tearDown()
@@ -26,6 +26,6 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
      */
     public function smoke()
     {
-        $this->assertInstanceOf(Toggle::class, $this->target);
+        $this->assertInstanceOf('MilesChou\\Toggle\\Manager', $this->target);
     }
 }
