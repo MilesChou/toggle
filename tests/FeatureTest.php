@@ -13,7 +13,9 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->target = new Feature();
+        $this->target = new Feature(function () {
+            return null;
+        });
     }
 
     protected function tearDown()
@@ -35,5 +37,13 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnFalseWhenOff()
     {
         $this->assertFalse($this->target->off()->isActive());
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnNullWhenDefaultWithCallableReturnNull()
+    {
+        $this->assertNull($this->target->isActive());
     }
 }

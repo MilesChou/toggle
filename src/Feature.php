@@ -10,21 +10,34 @@ class Feature implements FeatureInterface
     private $alwaysReturn;
 
     /**
+     * @var callable
+     */
+    private $condition;
+
+    /**
+     * @param callable $condition The callable will return bool
      * @return static
      */
-    public static function create()
+    public static function create(callable $condition)
     {
-        return new static();
+        return new static($condition);
     }
 
     /**
-     * @return bool
+     * @param callable $condition
      */
-    public function isActive()
+    public function __construct(callable $condition)
+    {
+        $this->condition = $condition;
+    }
+
+    public function isActive(Context $context = null)
     {
         if (null !== $this->alwaysReturn) {
             return $this->alwaysReturn;
         }
+
+        return call_user_func($this->condition, $context);
     }
 
     /**
