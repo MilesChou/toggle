@@ -24,8 +24,16 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function smoke()
+    public function shouldReturnTrueWhenOn()
     {
-        $this->assertInstanceOf('MilesChou\\Toggle\\Feature', $this->target);
+        $this->assertTrue($this->target->on()->isActive());
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnFalseWhenOff()
+    {
+        $this->assertFalse($this->target->off()->isActive());
     }
 }
