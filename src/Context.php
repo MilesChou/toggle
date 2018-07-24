@@ -2,6 +2,6 @@
 
 namespace MilesChou\Toggle;
 
-class Context
+class Context implements ContextInterface
 {
 }

@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use MilesChou\Toggle\Manager;
 
 class ManagerTest extends \PHPUnit_Framework_TestCase
@@ -27,5 +28,15 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     public function smoke()
     {
         $this->assertInstanceOf('MilesChou\\Toggle\\Manager', $this->target);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldThrowExceptionWhenCallIsActiveWithNoData()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+
+        $this->target->isActive('myFeature');
     }
 }
