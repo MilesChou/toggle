@@ -41,11 +41,7 @@ class Group
      */
     public function select(Context $context = null)
     {
-        if (null !== $this->alwaysReturn) {
-            return $this->alwaysReturn;
-        }
-
-        return call_user_func($this->condition, $context);
+        return $this->process($context);
     }
 
     /**
@@ -67,5 +63,10 @@ class Group
         $this->alwaysReturn = null;
 
         return $this;
+    }
+
+    protected function assertResult($result)
+    {
+        // Pass
     }
 }

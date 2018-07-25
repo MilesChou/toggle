@@ -7,6 +7,11 @@ use MilesChou\Toggle\Context;
 trait ProcessorAwareTrait
 {
     /**
+     * @var mixed
+     */
+    private $processedResult;
+
+    /**
      * @var callable
      */
     private $processor;
@@ -17,15 +22,6 @@ trait ProcessorAwareTrait
     public function getProcessor()
     {
         return $this->processor;
-    }
-
-    /**
-     * @param Context|null $context
-     * @return mixed
-     */
-    public function process($context)
-    {
-        return call_user_func($this->getProcessor(), $context);
     }
 
     /**
@@ -42,4 +38,29 @@ trait ProcessorAwareTrait
 
         return $this;
     }
+
+    /**
+     * @param Context|null $context
+     * @return mixed
+     */
+    protected function process($context)
+    {
+        if (null !== $this->processedResult) {
+            return $this->processedResult;
+        }
+
+        $result = call_user_func($this->getProcessor(), $context);
+
+        $this->assertResult($result);
+
+        $this->processedResult = $result;
+
+        return $this->processedResult;
+    }
+
+    /**
+     * @param mixed $result
+     * @throws \InvalidArgumentException
+     */
+    abstract protected function assertResult($result);
 }

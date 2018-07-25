@@ -9,11 +9,6 @@ class Feature
     use ProcessorAwareTrait;
 
     /**
-     * @var bool
-     */
-    private $processedReturn;
-
-    /**
      * @param callable $processor The callable will return bool
      * @return static
      */
@@ -38,17 +33,7 @@ class Feature
      */
     public function isActive(Context $context = null)
     {
-        if (null !== $this->processedReturn) {
-            return $this->processedReturn;
-        }
-
-        $this->processedReturn = $this->process($context);
-
-        if (!is_bool($this->processedReturn)) {
-            throw new \RuntimeException('Processed result must be bool');
-        }
-
-        return $this->processedReturn;
+        return $this->process($context);
     }
 
     /**
@@ -56,7 +41,7 @@ class Feature
      */
     public function off()
     {
-        $this->processedReturn = false;
+        $this->processedResult = false;
 
         return $this;
     }
@@ -66,7 +51,7 @@ class Feature
      */
     public function on()
     {
-        $this->processedReturn = true;
+        $this->processedResult = true;
 
         return $this;
     }
@@ -76,8 +61,15 @@ class Feature
      */
     public function reset()
     {
-        $this->processedReturn = null;
+        $this->processedResult = null;
 
         return $this;
+    }
+
+    protected function assertResult($result)
+    {
+        if (!is_bool($result)) {
+            throw new \RuntimeException('Processed result must be bool');
+        }
     }
 }
