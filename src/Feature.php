@@ -9,11 +9,6 @@ class Feature
     use ProcessorAwareTrait;
 
     /**
-     * @var null|bool
-     */
-    private $alwaysReturn;
-
-    /**
      * @var bool
      */
     private $processedReturn;
@@ -47,9 +42,7 @@ class Feature
             return $this->processedReturn;
         }
 
-        $this->processedReturn = (null === $this->alwaysReturn)
-            ? call_user_func($this->getProcessor(), $context)
-            : $this->alwaysReturn;
+        $this->processedReturn = $this->process($context);
 
         if (!is_bool($this->processedReturn)) {
             throw new \RuntimeException('Processed result must be bool');
@@ -63,7 +56,7 @@ class Feature
      */
     public function off()
     {
-        $this->alwaysReturn = false;
+        $this->processedReturn = false;
 
         return $this;
     }
@@ -73,7 +66,7 @@ class Feature
      */
     public function on()
     {
-        $this->alwaysReturn = true;
+        $this->processedReturn = true;
 
         return $this;
     }
@@ -83,7 +76,7 @@ class Feature
      */
     public function reset()
     {
-        $this->alwaysReturn = null;
+        $this->processedReturn = null;
 
         return $this;
     }

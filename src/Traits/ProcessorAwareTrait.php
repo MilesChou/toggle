@@ -2,12 +2,31 @@
 
 namespace MilesChou\Toggle\Traits;
 
+use MilesChou\Toggle\Context;
+
 trait ProcessorAwareTrait
 {
     /**
      * @var callable
      */
     private $processor;
+
+    /**
+     * @return callable
+     */
+    public function getProcessor()
+    {
+        return $this->processor;
+    }
+
+    /**
+     * @param Context|null $context
+     * @return mixed
+     */
+    public function process($context)
+    {
+        return call_user_func($this->getProcessor(), $context);
+    }
 
     /**
      * @param callable $callback
@@ -22,13 +41,5 @@ trait ProcessorAwareTrait
         $this->processor = $callback;
 
         return $this;
-    }
-
-    /**
-     * @return callable
-     */
-    public function getProcessor()
-    {
-        return $this->processor;
     }
 }

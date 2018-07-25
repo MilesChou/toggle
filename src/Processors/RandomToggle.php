@@ -2,7 +2,7 @@
 
 namespace MilesChou\Toggle\Processors;
 
-class Random
+class RandomToggle
 {
     public function __invoke()
     {
