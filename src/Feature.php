@@ -2,33 +2,39 @@
 
 namespace MilesChou\Toggle;
 
+use MilesChou\Toggle\Traits\ProcessorAwareTrait;
+
 class Feature
 {
+    use ProcessorAwareTrait;
+
     /**
      * @var null|bool
      */
     private $alwaysReturn;
 
     /**
-     * @var callable
+     * @var bool
      */
-    private $condition;
+    private $processedReturn;
 
     /**
-     * @param callable $condition The callable will return bool
+     * @param callable $processor The callable will return bool
      * @return static
      */
-    public static function create(callable $condition)
+    public static function create(callable $processor = null)
     {
-        return new static($condition);
+        return new static($processor);
     }
 
     /**
-     * @param callable $condition
+     * @param callable $processor
      */
-    public function __construct(callable $condition)
+    public function __construct(callable $processor = null)
     {
-        $this->condition = $condition;
+        if (null !== $processor) {
+            $this->setProcessor($processor);
+        }
     }
 
     /**
@@ -37,11 +43,19 @@ class Feature
      */
     public function isActive(Context $context = null)
     {
-        if (null !== $this->alwaysReturn) {
-            return $this->alwaysReturn;
+        if (null !== $this->processedReturn) {
+            return $this->processedReturn;
         }
 
-        return call_user_func($this->condition, $context);
+        $this->processedReturn = (null === $this->alwaysReturn)
+            ? call_user_func($this->getProcessor(), $context)
+            : $this->alwaysReturn;
+
+        if (!is_bool($this->processedReturn)) {
+            throw new \RuntimeException('Processed result must be bool');
+        }
+
+        return $this->processedReturn;
     }
 
     /**

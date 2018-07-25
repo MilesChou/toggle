@@ -26,6 +26,16 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function shouldThrowExceptionWhenDefaultWithCallableReturnNull()
+    {
+        $this->setExpectedException('RuntimeException');
+
+        $this->assertNull($this->target->isActive());
+    }
+
+    /**
+     * @test
+     */
     public function shouldReturnTrueWhenOn()
     {
         $this->assertTrue($this->target->on()->isActive());
@@ -37,13 +47,5 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnFalseWhenOff()
     {
         $this->assertFalse($this->target->off()->isActive());
-    }
-
-    /**
-     * @test
-     */
-    public function shouldReturnNullWhenDefaultWithCallableReturnNull()
-    {
-        $this->assertNull($this->target->isActive());
     }
 }

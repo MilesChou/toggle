@@ -1,6 +1,6 @@
 <?php
 
-namespace MilesChou\Toggle\Conditions;
+namespace MilesChou\Toggle\Processors;
 
 class Random
 {

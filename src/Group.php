@@ -2,8 +2,12 @@
 
 namespace MilesChou\Toggle;
 
+use MilesChou\Toggle\Traits\ProcessorAwareTrait;
+
 class Group
 {
+    use ProcessorAwareTrait;
+
     /**
      * @var null|bool
      */
