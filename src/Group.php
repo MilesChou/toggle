@@ -2,7 +2,7 @@
 
 namespace MilesChou\Toggle;
 
-class Feature
+class Group
 {
     /**
      * @var null|bool
@@ -32,10 +32,10 @@ class Feature
     }
 
     /**
-     * @param Context|null $context
-     * @return bool
+     * @param null|Context $context
+     * @return string
      */
-    public function isActive(Context $context = null)
+    public function select(Context $context = null)
     {
         if (null !== $this->alwaysReturn) {
             return $this->alwaysReturn;
@@ -45,21 +45,12 @@ class Feature
     }
 
     /**
+     * @param string $feature
      * @return static
      */
-    public function off()
+    public function alwaysReturn($feature)
     {
-        $this->alwaysReturn = false;
-
-        return $this;
-    }
-
-    /**
-     * @return static
-     */
-    public function on()
-    {
-        $this->alwaysReturn = true;
+        $this->alwaysReturn = $feature;
 
         return $this;
     }

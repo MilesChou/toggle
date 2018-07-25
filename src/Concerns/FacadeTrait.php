@@ -1,6 +1,6 @@
 <?php
 
-namespace MilesChou\Toggle\Traits;
+namespace MilesChou\Toggle\Concerns;
 
 use RuntimeException;
 
