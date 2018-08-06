@@ -9,12 +9,12 @@ class Group
     use ProcessorAwareTrait;
 
     /**
-     * @param callable $condition The callable will return bool
+     * @param callable $processor The callable will return bool
      * @return static
      */
-    public static function create(callable $condition)
+    public static function create(callable $processor)
     {
-        return new static($condition);
+        return new static($processor);
     }
 
     /**
