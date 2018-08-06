@@ -96,6 +96,30 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function shouldThrowExceptionWhenFeatureIsNotExist()
+    {
+        $this->setExpectedException('RuntimeException', 'Feature \'not-exist\' is not set');
+
+        $this->target->addGroup('foo', ['not-exist']);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldThrowExceptionWhenFeatureHasBeenSetForSomeGroup()
+    {
+        $this->setExpectedException('RuntimeException', 'Feature has been set for \'foo\'');
+
+        $this->target
+            ->addFeature('f1')
+            ->addGroup('foo', ['f1']);
+
+        $this->target->addGroup('bar', ['f1']);
+    }
+
+    /**
+     * @test
+     */
     public function shouldReturnTrueWhenAddGroupAndReturnFeature1()
     {
         $this->target
