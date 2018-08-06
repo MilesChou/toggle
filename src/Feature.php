@@ -41,7 +41,7 @@ class Feature
      */
     public function off()
     {
-        $this->processedResult = false;
+        $this->setProcessedResult(false);
 
         return $this;
     }
@@ -51,17 +51,7 @@ class Feature
      */
     public function on()
     {
-        $this->processedResult = true;
-
-        return $this;
-    }
-
-    /**
-     * @return static
-     */
-    public function reset()
-    {
-        $this->processedResult = null;
+        $this->setProcessedResult(true);
 
         return $this;
     }

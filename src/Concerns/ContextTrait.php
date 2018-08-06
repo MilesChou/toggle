@@ -6,7 +6,6 @@ use MilesChou\Toggle\Context;
 
 trait ContextTrait
 {
-
     /**
      * @var Context
      */

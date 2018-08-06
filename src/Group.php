@@ -9,16 +9,6 @@ class Group
     use ProcessorAwareTrait;
 
     /**
-     * @var null|bool
-     */
-    private $alwaysReturn;
-
-    /**
-     * @var callable
-     */
-    private $condition;
-
-    /**
      * @param callable $condition The callable will return bool
      * @return static
      */
@@ -28,11 +18,11 @@ class Group
     }
 
     /**
-     * @param callable $condition
+     * @param callable $processor
      */
-    public function __construct(callable $condition)
+    public function __construct(callable $processor)
     {
-        $this->condition = $condition;
+        $this->processor = $processor;
     }
 
     /**
@@ -42,27 +32,6 @@ class Group
     public function select(Context $context = null)
     {
         return $this->process($context);
-    }
-
-    /**
-     * @param string $feature
-     * @return static
-     */
-    public function alwaysReturn($feature)
-    {
-        $this->alwaysReturn = $feature;
-
-        return $this;
-    }
-
-    /**
-     * @return static
-     */
-    public function reset()
-    {
-        $this->alwaysReturn = null;
-
-        return $this;
     }
 
     protected function assertResult($result)

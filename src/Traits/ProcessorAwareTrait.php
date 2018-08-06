@@ -25,6 +25,29 @@ trait ProcessorAwareTrait
     }
 
     /**
+     * @return static
+     */
+    public function resetResult()
+    {
+        $this->processedResult = null;
+
+        return $this;
+    }
+
+    /**
+     * @param mixed $result
+     * @return $this
+     */
+    public function setProcessedResult($result)
+    {
+        $this->assertResult($result);
+
+        $this->processedResult = $result;
+
+        return $this;
+    }
+
+    /**
      * @param callable $callback
      * @return $this
      */
