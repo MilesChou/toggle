@@ -12,19 +12,19 @@ class Group
 
     /**
      * @param Feature[] $features
-     * @param callable $processor The callable will return bool
+     * @param callable|null $processor The callable will return bool
      * @return static
      */
-    public static function create(array $features, callable $processor)
+    public static function create(array $features, $processor = null)
     {
         return new static($features, $processor);
     }
 
     /**
      * @param Feature[] $features
-     * @param callable $processor
+     * @param callable|null $processor
      */
-    public function __construct(array $features, callable $processor)
+    public function __construct(array $features, $processor = null)
     {
         $this->features = $features;
         $this->processor = $processor;

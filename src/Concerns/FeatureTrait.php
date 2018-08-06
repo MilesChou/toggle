@@ -13,11 +13,14 @@ trait FeatureTrait
 
     /**
      * @param string $name
-     * @param Feature $feature
+     * @param callable|null $processor
+     * @return static
      */
-    public function addFeature($name, Feature $feature)
+    public function addFeature($name, $processor = null)
     {
-        $this->features[$name] = $feature;
+        $this->features[$name] = Feature::create($processor);
+
+        return $this;
     }
 
     /**

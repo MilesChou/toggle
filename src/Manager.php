@@ -22,7 +22,7 @@ class Manager
     public function isActive($featureName, Context $context = null)
     {
         if (!array_key_exists($featureName, $this->features)) {
-            throw new \InvalidArgumentException("Feature '{$featureName}' is not found");
+            throw new \RuntimeException("Feature '{$featureName}' is not found");
         }
 
         if (null === $context) {
@@ -40,7 +40,7 @@ class Manager
     public function select($groupName, Context $context = null)
     {
         if (!array_key_exists($groupName, $this->group)) {
-            throw new \InvalidArgumentException("Group '{$groupName}' is not found");
+            throw new \RuntimeException("Group '{$groupName}' is not found");
         }
 
         if (null === $context) {
@@ -48,5 +48,34 @@ class Manager
         }
 
         return $this->group[$groupName]->select($context);
+    }
+
+    /**
+     * @param string $name
+     * @param callable|null $processor
+     * @return static
+     */
+    public function withFeature($name, $processor = null)
+    {
+        $clone = clone $this;
+
+        $clone->addFeature($name, $processor);
+
+        return $clone;
+    }
+
+    /**
+     * @param string $name
+     * @param array $features
+     * @param callable|null $processor
+     * @return Manager
+     */
+    public function withGroup($name, $features, $processor = null)
+    {
+        $clone = clone $this;
+
+        $clone->addGroup($name, $features, $processor);
+
+        return $clone;
     }
 }

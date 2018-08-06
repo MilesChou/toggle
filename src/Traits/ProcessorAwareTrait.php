@@ -79,7 +79,7 @@ trait ProcessorAwareTrait
         }
 
         if (null === $context) {
-            $context = new Context();
+            $context = Context::create();
         }
 
         $result = call_user_func($this->getProcessor(), $context);
