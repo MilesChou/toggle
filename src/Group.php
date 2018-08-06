@@ -2,26 +2,31 @@
 
 namespace MilesChou\Toggle;
 
+use MilesChou\Toggle\Concerns\FeatureTrait;
 use MilesChou\Toggle\Traits\ProcessorAwareTrait;
 
 class Group
 {
+    use FeatureTrait;
     use ProcessorAwareTrait;
 
     /**
+     * @param Feature[] $features
      * @param callable $processor The callable will return bool
      * @return static
      */
-    public static function create(callable $processor)
+    public static function create(array $features, callable $processor)
     {
-        return new static($processor);
+        return new static($features, $processor);
     }
 
     /**
+     * @param Feature[] $features
      * @param callable $processor
      */
-    public function __construct(callable $processor)
+    public function __construct(array $features, callable $processor)
     {
+        $this->features = $features;
         $this->processor = $processor;
     }
 
@@ -36,6 +41,10 @@ class Group
 
     protected function assertResult($result)
     {
-        // Pass
+        $featureNames = array_keys($this->features);
+
+        if (!in_array($result, $featureNames, true)) {
+            throw new \RuntimeException('Processed result must be features list');
+        }
     }
 }
