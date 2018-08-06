@@ -65,7 +65,7 @@ trait ProcessorAwareTrait
     }
 
     /**
-     * @param Context|null $context
+     * @param Context $context
      * @return mixed
      */
     protected function process($context)
@@ -76,6 +76,10 @@ trait ProcessorAwareTrait
 
         if (null === $this->processor) {
             throw new RuntimeException('It\'s must provide a processor to decide feature');
+        }
+
+        if (null === $context) {
+            $context = new Context();
         }
 
         $result = call_user_func($this->getProcessor(), $context);
