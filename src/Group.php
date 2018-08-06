@@ -36,7 +36,11 @@ class Group
      */
     public function select(Context $context = null)
     {
-        return $this->process($context);
+        $feature = $this->process($context);
+
+        $this->processFeaturesToggle($feature);
+
+        return $feature;
     }
 
     protected function assertResult($result)
@@ -46,5 +50,17 @@ class Group
         if (!in_array($result, $featureNames, true)) {
             throw new \RuntimeException('Processed result must be features list');
         }
+    }
+
+    /**
+     * @param string $featureName
+     */
+    private function processFeaturesToggle($featureName)
+    {
+        array_map(function ($name) use ($featureName) {
+            $toggle = $name === $featureName;
+
+            $this->features[$name]->setProcessedResult($toggle);
+        }, array_keys($this->features));
     }
 }

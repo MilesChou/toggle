@@ -50,10 +50,31 @@ class GroupTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldReturnTrueWhenOn()
+    public function shouldReturnTrueWhenSetResultFeature1()
     {
         $this->target->setProcessedResult('feature1');
 
         $this->assertSame('feature1', $this->target->select());
+    }
+
+    /**
+     * @test
+     */
+    public function shouldFeature1ReturnTrueAndFeature2ReturnFalseWhenSetResultFeature1()
+    {
+        $feature1 = new Feature();
+        $feature2 = new Feature();
+
+        $target = new Group([
+            'feature1' => $feature1,
+            'feature2' => $feature2,
+        ], function () {
+            return 'feature1';
+        });
+
+        $target->select();
+
+        $this->assertTrue($feature1->isActive());
+        $this->assertFalse($feature2->isActive());
     }
 }
