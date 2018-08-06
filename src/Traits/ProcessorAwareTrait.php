@@ -2,7 +2,9 @@
 
 namespace MilesChou\Toggle\Traits;
 
+use InvalidArgumentException;
 use MilesChou\Toggle\Context;
+use RuntimeException;
 
 trait ProcessorAwareTrait
 {
@@ -54,7 +56,7 @@ trait ProcessorAwareTrait
     public function setProcessor($callback)
     {
         if (!is_callable($callback)) {
-            throw new \InvalidArgumentException('Processor must be valid callable');
+            throw new InvalidArgumentException('Processor must be valid callable');
         }
 
         $this->processor = $callback;
@@ -72,6 +74,10 @@ trait ProcessorAwareTrait
             return $this->processedResult;
         }
 
+        if (null === $this->processor) {
+            throw new RuntimeException('It\'s must provide a processor to decide feature');
+        }
+
         $result = call_user_func($this->getProcessor(), $context);
 
         $this->assertResult($result);
@@ -83,7 +89,7 @@ trait ProcessorAwareTrait
 
     /**
      * @param mixed $result
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     abstract protected function assertResult($result);
 }
