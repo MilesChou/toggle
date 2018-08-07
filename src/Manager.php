@@ -100,33 +100,4 @@ class Manager
 
         return $this->group[$groupName]->select($context);
     }
-
-    /**
-     * @param string $name
-     * @param callable|null $processor
-     * @return static
-     */
-    public function withFeature($name, $processor = null)
-    {
-        $clone = clone $this;
-
-        $clone->addFeature($name, $processor);
-
-        return $clone;
-    }
-
-    /**
-     * @param string $name
-     * @param array $features
-     * @param callable|null $processor
-     * @return Manager
-     */
-    public function withGroup($name, $features, $processor = null)
-    {
-        $clone = clone $this;
-
-        $clone->addGroup($name, $features, $processor);
-
-        return $clone;
-    }
 }
