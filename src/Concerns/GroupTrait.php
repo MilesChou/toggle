@@ -20,10 +20,10 @@ trait GroupTrait
     /**
      * @param string $name
      * @param array $features
-     * @param Group|callable|null $group
+     * @param Group $group
      * @return static
      */
-    public function addGroup($name, array $features, $group = null)
+    public function addGroup($name, array $features, $group)
     {
         if (!($group instanceof Group)) {
             throw new \InvalidArgumentException('The param $group must be Group instance');

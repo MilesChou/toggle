@@ -13,10 +13,10 @@ trait FeatureTrait
 
     /**
      * @param string $name
-     * @param Feature|callable|null|bool $feature
+     * @param Feature $feature
      * @return static
      */
-    public function addFeature($name, $feature = null)
+    public function addFeature($name, $feature)
     {
         if (!($feature instanceof Feature)) {
             throw new \InvalidArgumentException('The param $feature must be Feature instance');
