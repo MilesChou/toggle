@@ -27,15 +27,6 @@ trait ProcessorAwareTrait
     }
 
     /**
-     * @param mixed $processor
-     * @return bool
-     */
-    public function isValidProcessor($processor)
-    {
-        return null === $processor || is_callable($processor);
-    }
-
-    /**
      * @return static
      */
     public function resetResult()
@@ -101,6 +92,15 @@ trait ProcessorAwareTrait
         }
 
         throw new InvalidArgumentException('Processor is not valid processor or result');
+    }
+
+    /**
+     * @param mixed $processor
+     * @return bool
+     */
+    protected function isValidProcessor($processor)
+    {
+        return null === $processor || is_callable($processor);
     }
 
     /**
