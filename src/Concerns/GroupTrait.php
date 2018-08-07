@@ -31,9 +31,7 @@ trait GroupTrait
 
         $this->groups[$name] = $group;
 
-        array_map(function ($featureName) use ($name) {
-            $this->featureGroupMapping[$featureName] = $name;
-        }, $features);
+        $this->updateFeatureGroupMapping($features, $name);
 
         return $this;
     }
@@ -54,9 +52,7 @@ trait GroupTrait
     {
         $this->groups[$name] = Group::create($this->normalizeFeatureMap($features), $processor);
 
-        array_map(function ($featureName) use ($name) {
-            $this->featureGroupMapping[$featureName] = $name;
-        }, $features);
+        $this->updateFeatureGroupMapping($features, $name);
 
         return $this;
     }
@@ -89,5 +85,16 @@ trait GroupTrait
         }, $features);
 
         return array_combine($features, $featureInstances);
+    }
+
+    /**
+     * @param array $featureNames
+     * @param string $groupName
+     */
+    protected function updateFeatureGroupMapping(array $featureNames, $groupName)
+    {
+        foreach ($featureNames as $featureName) {
+            $this->featureGroupMapping[$featureName] = $groupName;
+        }
     }
 }
