@@ -2,6 +2,16 @@
     "name": "mileschou/toggle",
     "license": "MIT",
     "description": "The feature toggle library for PHP",
+    "keywords": [
+        "feature",
+        "toggle"
+    ],
+    "authors": [
+        {
+            "name": "MilesChou",
+            "email": "jangconan@gmail.com"
+        }
+    ],
     "require": {
         "php": ">=5.4"
     },
