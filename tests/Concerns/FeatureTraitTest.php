@@ -24,7 +24,7 @@ class FeatureTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionWithInvalidFeature($invalidFeature)
     {
-        $this->setExpectedException('InvalidArgumentException', 'The $feature must be Feature or callable');
+        $this->setExpectedException('InvalidArgumentException', 'The param $feature must be Feature instance');
 
         $target = $this->getMockForTrait('MilesChou\Toggle\Concerns\FeatureTrait');
         $target->addFeature('foo', $invalidFeature);

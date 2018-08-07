@@ -18,13 +18,11 @@ trait FeatureTrait
      */
     public function addFeature($name, $feature = null)
     {
-        if ($feature instanceof Feature) {
-            $this->features[$name] = $feature;
-        } elseif (null === $feature || is_callable($feature)) {
-            $this->features[$name] = Feature::create($feature);
-        } else {
-            throw new \InvalidArgumentException('The $feature must be Feature or callable.');
+        if (!($feature instanceof Feature)) {
+            throw new \InvalidArgumentException('The param $feature must be Feature instance');
         }
+
+        $this->features[$name] = $feature;
 
         return $this;
     }
@@ -32,6 +30,18 @@ trait FeatureTrait
     public function cleanFeature()
     {
         $this->features = [];
+    }
+
+    /**
+     * @param string $name
+     * @param callable|bool|null $callable
+     * @return static
+     */
+    public function createFeature($name, $callable = null)
+    {
+        $this->features[$name] = Feature::create($callable);
+
+        return $this;
     }
 
     /**
@@ -52,15 +62,13 @@ trait FeatureTrait
 
     /**
      * @param string $name
-     * @param callable|null $processor
+     * @param callable|null $feature
      * @return static
      */
-    public function withFeature($name, $processor = null)
+    public function withFeature($name, $feature = null)
     {
         $clone = clone $this;
 
-        $clone->addFeature($name, $processor);
-
-        return $clone;
+        return $clone->createFeature($name, $feature);
     }
 }

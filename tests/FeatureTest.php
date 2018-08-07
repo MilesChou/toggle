@@ -33,6 +33,49 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->target->isActive());
     }
 
+    public function invalidParam()
+    {
+        return [
+            [123],
+            [3.14],
+            [''],
+            ['str'],
+            [[]],
+            [new \stdClass()],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider invalidParam
+     */
+    public function shouldThrowExceptionWhenNewWithInvalidParam($invalidParam)
+    {
+        $this->setExpectedException('InvalidArgumentException', 'The processor must be callable or bool result');
+
+        new Feature($invalidParam);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnTrueWhenNewWithDefaultValue()
+    {
+        $target = new Feature(true);
+
+        $this->assertTrue($target->isActive());
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnFalseWhenNewWithDefaultValue()
+    {
+        $target = new Feature(false);
+
+        $this->assertFalse($target->isActive());
+    }
+
     /**
      * @test
      */

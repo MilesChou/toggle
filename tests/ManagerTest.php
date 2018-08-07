@@ -46,7 +46,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnTrueWhenCreateFeatureAndReturnTrue()
     {
-        $this->target->addFeature('foo', function () {
+        $this->target->createFeature('foo', function () {
             return true;
         });
 
@@ -58,7 +58,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnTrueWhenCreateFeatureAndReturnFalse()
     {
-        $this->target->addFeature('foo', function () {
+        $this->target->createFeature('foo', function () {
             return false;
         });
 
@@ -68,11 +68,11 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldThrowExceptionWhenCreateFeatureAndRemove()
+    public function shouldThrowExceptionWhenCreateFeatureAndRemoveFeature()
     {
         $this->setExpectedException('RuntimeException', 'foo');
 
-        $this->target->addFeature('foo')
+        $this->target->createFeature('foo')
             ->removeFeature('foo');
 
         $this->target->isActive('foo');
@@ -86,7 +86,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('RuntimeException', 'foo');
 
         $this->target
-            ->addFeature('f1')
+            ->createFeature('f1')
             ->addGroup('foo', ['f1'])
             ->removeGroup('foo');
 
@@ -111,7 +111,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('RuntimeException', 'Feature has been set for \'foo\'');
 
         $this->target
-            ->addFeature('f1')
+            ->createFeature('f1')
             ->addGroup('foo', ['f1']);
 
         $this->target->addGroup('bar', ['f1']);
@@ -123,9 +123,9 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnTrueWhenAddGroupAndReturnFeature1()
     {
         $this->target
-            ->addFeature('f1')
-            ->addFeature('f2')
-            ->addFeature('f3')
+            ->createFeature('f1')
+            ->createFeature('f2')
+            ->createFeature('f3')
             ->addGroup('foo', [
                 'f1',
                 'f2',

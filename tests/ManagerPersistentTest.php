@@ -175,9 +175,9 @@ class ManagerPersistentTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnImportResultWhenInitAndExportFeatureAndGroup()
     {
         $this->target
-            ->addFeature('f1')
-            ->addFeature('f2')
-            ->addFeature('f3')
+            ->createFeature('f1')
+            ->createFeature('f2')
+            ->createFeature('f3')
             ->addGroup('g1', [
                 'f1',
                 'f2',
@@ -225,9 +225,9 @@ class ManagerPersistentTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('RuntimeException', 'Feature has been set');
 
         $this->target
-            ->addFeature('f1')
-            ->addFeature('f2')
-            ->addFeature('f3')
+            ->createFeature('f1')
+            ->createFeature('f2')
+            ->createFeature('f3')
             ->addGroup('g1', [
                 'f1',
                 'f2',

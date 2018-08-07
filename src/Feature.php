@@ -9,22 +9,34 @@ class Feature
     use ProcessorAwareTrait;
 
     /**
-     * @param callable $processor The callable will return bool
+     * @param callable $processor
      * @return static
      */
-    public static function create(callable $processor = null)
+    public static function create($processor = null)
     {
         return new static($processor);
     }
 
     /**
-     * @param callable $processor
+     * @param callable|bool|null $processor The callable will return bool
      */
-    public function __construct(callable $processor = null)
+    public function __construct($processor = null)
     {
-        if (null !== $processor) {
-            $this->setProcessor($processor);
+        if (null === $processor) {
+            return;
         }
+
+        if (is_callable($processor)) {
+            $this->setProcessor($processor);
+            return;
+        }
+
+        if (is_bool($processor)) {
+            $this->setProcessedResult($processor);
+            return;
+        }
+
+        throw new \InvalidArgumentException('The processor must be callable or bool result');
     }
 
     /**
