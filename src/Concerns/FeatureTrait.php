@@ -30,14 +30,6 @@ trait FeatureTrait
     }
 
     /**
-     * @return Feature[]
-     */
-    public function getFeatures()
-    {
-        return $this->features;
-    }
-
-    /**
      * @return array
      */
     public function getFeaturesName()

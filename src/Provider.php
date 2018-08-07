@@ -33,12 +33,12 @@ interface Provider
      * @param int $type
      * @return static
      */
-    public function serialize($type = self::SERIALIZE_TYPE_JSON);
+    public function serialize();
 
     /**
      * @param string $str
      * @param int $type
      * @return static
      */
-    public function unserialize($str, $type = self::SERIALIZE_TYPE_JSON);
+    public function unserialize($str);
 }
