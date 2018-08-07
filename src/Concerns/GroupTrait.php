@@ -32,7 +32,7 @@ trait GroupTrait
         } elseif (is_string($group)) {
             $this->group[$name] = Group::create($this->normalizeFeatureMap($features))->setProcessedResult($group);
         } else {
-            throw new \RuntimeException('The $group must be Feature or callable.');
+            throw new \InvalidArgumentException('The $group must be Feature or callable or string');
         }
 
         array_map(function ($featureName) use ($name) {

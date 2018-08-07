@@ -26,6 +26,26 @@ class ManagerPersistentTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function shouldThrowExceptionWhenExportToUnknownClass()
+    {
+        $this->setExpectedException('RuntimeException', 'Unknown class');
+
+        $this->target->export('Unknown');
+    }
+
+    /**
+     * @test
+     */
+    public function shouldThrowExceptionWhenExportToClassNotExtendsProvider()
+    {
+        $this->setExpectedException('RuntimeException', 'Driver must instance of Provider');
+
+        $this->target->export('stdClass');
+    }
+
+    /**
+     * @test
+     */
     public function shouldReturnCorrectResultWhenImportFeatureOnly()
     {
         $dataProvider = new ArrayProvider([

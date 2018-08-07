@@ -23,7 +23,7 @@ trait FeatureTrait
         } elseif (null === $feature || is_callable($feature)) {
             $this->features[$name] = Feature::create($feature);
         } else {
-            throw new \RuntimeException('The $feature must be Feature or callable.');
+            throw new \InvalidArgumentException('The $feature must be Feature or callable.');
         }
 
         return $this;

@@ -20,11 +20,15 @@ class Manager
      */
     public function export($providerDriver)
     {
+        if (!class_exists($providerDriver)) {
+            throw new \RuntimeException("Unknown class {$providerDriver}");
+        }
+
         /** @var Provider $persistentProvider */
         $persistentProvider = new $providerDriver();
 
         if (!$persistentProvider instanceof Provider) {
-            throw new \RuntimeException('$providerDriver must instance of Provider');
+            throw new \RuntimeException('Driver must instance of Provider');
         }
 
         return $persistentProvider
