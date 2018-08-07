@@ -16,12 +16,8 @@ trait FeatureTrait
      * @param Feature $feature
      * @return static
      */
-    public function addFeature($name, $feature)
+    public function addFeature($name, Feature $feature)
     {
-        if (!($feature instanceof Feature)) {
-            throw new \InvalidArgumentException('The param $feature must be Feature instance');
-        }
-
         $this->features[$name] = $feature;
 
         return $this;

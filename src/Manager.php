@@ -61,7 +61,7 @@ class Manager
             $list = $this->normalizeFeatureMap($group['list']);
             $result = $group['result'];
 
-            $this->addGroup($name, $group['list'], Group::create($list)->setProcessedResult($result));
+            $this->addGroup($name, Group::create($list)->setProcessedResult($result));
         }
     }
 

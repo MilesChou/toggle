@@ -4,11 +4,9 @@ namespace Tests\Concerns;
 
 class FeatureTraitTest extends \PHPUnit_Framework_TestCase
 {
-    public function invalidFeature()
+    public function invalidProcessor()
     {
         return [
-            [true],
-            [false],
             [123],
             [3.14],
             [''],
@@ -20,13 +18,13 @@ class FeatureTraitTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider invalidFeature
+     * @dataProvider invalidProcessor
      */
-    public function shouldThrowExceptionWithInvalidFeature($invalidFeature)
+    public function shouldThrowExceptionWithInvalidFeature($invalidProcessor)
     {
-        $this->setExpectedException('InvalidArgumentException', 'The param $feature must be Feature instance');
+        $this->setExpectedException('InvalidArgumentException', 'Processor is not valid processor or result');
 
         $target = $this->getMockForTrait('MilesChou\Toggle\Concerns\FeatureTrait');
-        $target->addFeature('foo', $invalidFeature);
+        $target->createFeature('foo', $invalidProcessor);
     }
 }

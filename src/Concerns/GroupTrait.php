@@ -19,19 +19,14 @@ trait GroupTrait
 
     /**
      * @param string $name
-     * @param array $features
      * @param Group $group
      * @return static
      */
-    public function addGroup($name, array $features, $group)
+    public function addGroup($name, Group $group)
     {
-        if (!($group instanceof Group)) {
-            throw new \InvalidArgumentException('The param $group must be Group instance');
-        }
-
         $this->groups[$name] = $group;
 
-        $this->updateFeatureGroupMapping($features, $name);
+        $this->updateFeatureGroupMapping($group->getFeaturesName(), $name);
 
         return $this;
     }
