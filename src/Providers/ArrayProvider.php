@@ -56,4 +56,38 @@ class ArrayProvider implements Provider
     {
         return $this;
     }
+
+    public function serialize($type = self::SERIALIZE_TYPE_JSON)
+    {
+        if (self::SERIALIZE_TYPE_JSON === $type) {
+            return json_encode([
+                'features' => $this->features,
+                'groups' => $this->groups,
+            ]);
+        }
+
+        if (self::SERIALIZE_TYPE_NATIVE === $type) {
+            return serialize($this);
+        }
+
+        throw new \InvalidArgumentException("Unknown type: {$type}");
+    }
+
+    public function unserialize($str, $type = self::SERIALIZE_TYPE_JSON)
+    {
+        if (self::SERIALIZE_TYPE_JSON === $type) {
+            $data = json_decode($str, true);
+
+            $this->setFeatures($data['features']);
+            $this->setGroups($data['groups']);
+
+            return $this;
+        }
+
+        if (self::SERIALIZE_TYPE_NATIVE === $type) {
+            return unserialize($str);
+        }
+
+        throw new \InvalidArgumentException("Unknown type: {$type}");
+    }
 }
