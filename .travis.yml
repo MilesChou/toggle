@@ -31,6 +31,7 @@ script:
 
 after_success:
 - php vendor/bin/phpbench run --report=default
+- if [[ "7.1" == "${TRAVIS_PHP_VERSION}" ]]; then bash <(curl -s https://codecov.io/bash) ; fi
 
 cache:
   directories:
