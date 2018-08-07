@@ -16,7 +16,7 @@ class Manager
 
     /**
      * @param string $providerDriver
-     * @return Provider
+     * @return ProviderInterface
      */
     public function export($providerDriver)
     {
@@ -24,10 +24,10 @@ class Manager
             throw new \RuntimeException("Unknown class {$providerDriver}");
         }
 
-        /** @var Provider $persistentProvider */
+        /** @var ProviderInterface $persistentProvider */
         $persistentProvider = new $providerDriver();
 
-        if (!$persistentProvider instanceof Provider) {
+        if (!$persistentProvider instanceof ProviderInterface) {
             throw new \RuntimeException('Driver must instance of Provider');
         }
 
@@ -37,10 +37,10 @@ class Manager
     }
 
     /**
-     * @param Provider $persistentProvider
+     * @param ProviderInterface $persistentProvider
      * @param bool $clean
      */
-    public function import(Provider $persistentProvider, $clean = true)
+    public function import(ProviderInterface $persistentProvider, $clean = true)
     {
         if ($clean) {
             $this->cleanFeature();

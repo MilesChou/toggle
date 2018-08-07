@@ -2,7 +2,7 @@
 
 namespace MilesChou\Toggle;
 
-interface Provider
+interface ProviderInterface
 {
     /**
      * @return array

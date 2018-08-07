@@ -3,9 +3,9 @@
 namespace MilesChou\Toggle\Providers;
 
 use MilesChou\Toggle\Concerns\ProviderTrait;
-use MilesChou\Toggle\Provider;
+use MilesChou\Toggle\ProviderInterface;
 
-class ArrayProvider implements Provider
+class ArrayProvider implements ProviderInterface
 {
     use ProviderTrait;
 
