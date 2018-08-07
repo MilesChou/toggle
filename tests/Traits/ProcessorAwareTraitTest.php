@@ -37,7 +37,7 @@ class ProcessorAwareTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionWhenSetNotCallbackProcessor()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Processor must be valid callable');
+        $this->setExpectedException('InvalidArgumentException', 'Processor must be callable');
 
         $target = new Feature();
         $target->setProcessor('not a callback');

@@ -51,7 +51,7 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionWhenNewWithInvalidParam($invalidProcessor)
     {
-        $this->setExpectedException('InvalidArgumentException', 'The Feature\'s processor must be callable or bool result');
+        $this->setExpectedException('InvalidArgumentException', 'Processor is not valid processor or result');
 
         new Feature($invalidProcessor);
     }

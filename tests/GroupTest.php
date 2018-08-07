@@ -45,7 +45,7 @@ class GroupTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionWhenNewWithInvalidParam($invalidProcessor)
     {
-        $this->setExpectedException('InvalidArgumentException', 'The Group\'s processor must be callable or string result');
+        $this->setExpectedException('InvalidArgumentException', 'Processor is not valid processor or result');
 
         new Group([], $invalidProcessor);
     }

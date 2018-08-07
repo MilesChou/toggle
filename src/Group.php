@@ -28,21 +28,7 @@ class Group
     {
         $this->features = $features;
 
-        if (null === $processor) {
-            return;
-        }
-
-        if (is_callable($processor)) {
-            $this->setProcessor($processor);
-            return;
-        }
-
-        if (is_string($processor)) {
-            $this->setProcessedResult($processor);
-            return;
-        }
-
-        throw new \InvalidArgumentException('The Group\'s processor must be callable or string result');
+        $this->init($processor);
     }
 
     /**
@@ -60,11 +46,18 @@ class Group
 
     protected function assertResult($result)
     {
-        $featureNames = array_keys($this->features);
-
-        if (!in_array($result, $featureNames, true)) {
+        if (!$this->isValidProcessedResult($result)) {
             throw new \RuntimeException('Processed result must be features list');
         }
+    }
+
+    /**
+     * @param mixed $result
+     * @return bool
+     */
+    protected function isValidProcessedResult($result)
+    {
+        return is_string($result) && array_key_exists($result, $this->features);
     }
 
     /**

@@ -22,21 +22,7 @@ class Feature
      */
     public function __construct($processor = null)
     {
-        if (null === $processor) {
-            return;
-        }
-
-        if (is_callable($processor)) {
-            $this->setProcessor($processor);
-            return;
-        }
-
-        if (is_bool($processor)) {
-            $this->setProcessedResult($processor);
-            return;
-        }
-
-        throw new \InvalidArgumentException('The Feature\'s processor must be callable or bool result');
+        $this->init($processor);
     }
 
     /**
@@ -70,8 +56,17 @@ class Feature
 
     protected function assertResult($result)
     {
-        if (!is_bool($result)) {
+        if (!$this->isValidProcessedResult($result)) {
             throw new \RuntimeException('Processed result must be bool');
         }
+    }
+
+    /**
+     * @param mixed $result
+     * @return bool
+     */
+    protected function isValidProcessedResult($result)
+    {
+        return is_bool($result);
     }
 }

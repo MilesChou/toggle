@@ -27,6 +27,15 @@ trait ProcessorAwareTrait
     }
 
     /**
+     * @param mixed $processor
+     * @return bool
+     */
+    public function isValidProcessor($processor)
+    {
+        return null === $processor || is_callable($processor);
+    }
+
+    /**
      * @return static
      */
     public function resetResult()
@@ -50,18 +59,36 @@ trait ProcessorAwareTrait
     }
 
     /**
-     * @param callable $callback
+     * @param callable|null $processor
      * @return $this
      */
-    public function setProcessor($callback)
+    public function setProcessor($processor)
     {
-        if (!is_callable($callback)) {
-            throw new InvalidArgumentException('Processor must be valid callable');
+        if (!$this->isValidProcessor($processor)) {
+            throw new InvalidArgumentException('Processor must be callable');
         }
 
-        $this->processor = $callback;
+        $this->processor = $processor;
 
         return $this;
+    }
+
+    /**
+     * @param mixed $processor
+     */
+    protected function init($processor)
+    {
+        if ($this->isValidProcessor($processor)) {
+            $this->setProcessor($processor);
+            return;
+        }
+
+        if ($this->isValidProcessedResult($processor)) {
+            $this->setProcessedResult($processor);
+            return;
+        }
+
+        throw new InvalidArgumentException('Processor is not valid processor or result');
     }
 
     /**
@@ -96,4 +123,10 @@ trait ProcessorAwareTrait
      * @throws InvalidArgumentException
      */
     abstract protected function assertResult($result);
+
+    /**
+     * @param mixed $result
+     * @return bool
+     */
+    abstract protected function isValidProcessedResult($result);
 }
