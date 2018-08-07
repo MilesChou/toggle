@@ -15,6 +15,36 @@ class Manager
     use GroupTrait;
 
     /**
+     * @param string $providerDriver
+     * @return Provider
+     */
+    public function export($providerDriver)
+    {
+        /** @var Provider $persistentProvider */
+        $persistentProvider = new $providerDriver();
+
+        if (!$persistentProvider instanceof Provider) {
+            throw new \RuntimeException('$providerDriver must instance of Provider');
+        }
+
+        return $persistentProvider
+            ->setFeatures($this->features)
+            ->setGroups($this->group);
+    }
+
+    /**
+     * @param Provider $persistentProvider
+     */
+    public function import(Provider $persistentProvider)
+    {
+        $features = $persistentProvider->getFeatures();
+
+        foreach ($features as $name => $result) {
+            $this->addFeature($name, Feature::create()->setProcessedResult($result));
+        }
+    }
+
+    /**
      * @param string $featureName
      * @param null|Context $context
      * @return bool

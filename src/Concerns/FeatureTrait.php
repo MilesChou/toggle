@@ -13,12 +13,18 @@ trait FeatureTrait
 
     /**
      * @param string $name
-     * @param callable|null $processor
+     * @param Feature|callable|null|bool $feature
      * @return static
      */
-    public function addFeature($name, $processor = null)
+    public function addFeature($name, $feature = null)
     {
-        $this->features[$name] = Feature::create($processor);
+        if ($feature instanceof Feature) {
+            $this->features[$name] = $feature;
+        } elseif (null === $feature || is_callable($feature)) {
+            $this->features[$name] = Feature::create($feature);
+        } else {
+            throw new \RuntimeException('The $feature must be Feature or callable.');
+        }
 
         return $this;
     }

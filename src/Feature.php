@@ -62,4 +62,8 @@ class Feature
             throw new \RuntimeException('Processed result must be bool');
         }
     }
+
+    public function serialize()
+    {
+    }
 }
