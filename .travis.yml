@@ -29,6 +29,9 @@ script:
 - php vendor/bin/phpcs
 - php vendor/bin/phpunit --coverage-clover=coverage.xml
 
+after_success:
+- php vendor/bin/phpbench run --report=default
+
 cache:
   directories:
   - $HOME/.composer/cache/files

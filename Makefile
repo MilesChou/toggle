@@ -18,3 +18,6 @@ test:
 
 coverage: test
 	php vendor/bin/phpunit --coverage-html=build
+
+benchmark: test
+	php vendor/bin/phpbench run --report=default
