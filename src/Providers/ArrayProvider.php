@@ -2,21 +2,12 @@
 
 namespace MilesChou\Toggle\Providers;
 
-use MilesChou\Toggle\Feature;
-use MilesChou\Toggle\Group;
+use MilesChou\Toggle\Concerns\ProviderTrait;
 use MilesChou\Toggle\Provider;
 
 class ArrayProvider implements Provider
 {
-    /**
-     * @var array
-     */
-    private $features = [];
-
-    /**
-     * @var array
-     */
-    private $groups = [];
+    use ProviderTrait;
 
     /**
      * @param array $features
@@ -36,41 +27,6 @@ class ArrayProvider implements Provider
     public function getGroups()
     {
         return $this->groups;
-    }
-
-    public function setFeatures(array $features)
-    {
-        $features = array_map(function ($feature) {
-            if ($feature instanceof Feature) {
-                return [
-                    'result' => $feature->isActive(),
-                ];
-            }
-
-            return $feature;
-        }, $features);
-
-        $this->features = array_merge($this->features, $features);
-
-        return $this;
-    }
-
-    public function setGroups(array $groups)
-    {
-        $groups = array_map(function ($group) {
-            if ($group instanceof Group) {
-                return [
-                    'list' => $group->getFeaturesName(),
-                    'result' => $group->select(),
-                ];
-            }
-
-            return $group;
-        }, $groups);
-
-        $this->groups = array_merge($this->groups, $groups);
-
-        return $this;
     }
 
     public function serialize()
