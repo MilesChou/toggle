@@ -42,7 +42,9 @@ class ArrayProvider implements Provider
     {
         $features = array_map(function ($feature) {
             if ($feature instanceof Feature) {
-                return $feature->isActive();
+                return [
+                    'result' => $feature->isActive(),
+                ];
             }
 
             return $feature;

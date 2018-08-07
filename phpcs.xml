@@ -14,4 +14,9 @@
     <file>benchmarks</file>
     <file>src</file>
     <file>tests</file>
+
+    <!-- specific and just exclude rules in some file -->
+    <rule ref="Generic.Files.LineLength.TooLong">
+        <exclude-pattern>tests/Providers/ArrayProviderTest.php</exclude-pattern>
+    </rule>
 </ruleset>

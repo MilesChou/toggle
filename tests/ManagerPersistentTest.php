@@ -29,9 +29,15 @@ class ManagerPersistentTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnCorrectResultWhenImportFeatureOnly()
     {
         $dataProvider = new ArrayProvider([
-            'f1' => true,
-            'f2' => false,
-            'f3' => false,
+            'f1' => [
+                'result' => true,
+            ],
+            'f2' => [
+                'result' => false,
+            ],
+            'f3' => [
+                'result' => false,
+            ],
         ]);
 
         $this->target->import($dataProvider);
@@ -47,9 +53,15 @@ class ManagerPersistentTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnCorrectResultWhenExportFeatureOnly()
     {
         $excepted = [
-            'f1' => true,
-            'f2' => false,
-            'f3' => false,
+            'f1' => [
+                'result' => true,
+            ],
+            'f2' => [
+                'result' => false,
+            ],
+            'f3' => [
+                'result' => false,
+            ],
         ];
 
         $this->target
@@ -68,9 +80,15 @@ class ManagerPersistentTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnCorrectResultWhenImportFeatureAndGroup()
     {
         $dataProvider = new ArrayProvider([
-            'f1' => true,
-            'f2' => false,
-            'f3' => false,
+            'f1' => [
+                'result' => true,
+            ],
+            'f2' => [
+                'result' => false,
+            ],
+            'f3' => [
+                'result' => false,
+            ],
         ], [
             'g1' => [
                 'list' => [
@@ -97,9 +115,15 @@ class ManagerPersistentTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnCorrectResultWhenExportFeatureAndGroup()
     {
         $exceptedFeature = [
-            'f1' => true,
-            'f2' => false,
-            'f3' => false,
+            'f1' => [
+                'result' => true,
+            ],
+            'f2' => [
+                'result' => false,
+            ],
+            'f3' => [
+                'result' => false,
+            ],
         ];
 
         $exceptedGroup = [

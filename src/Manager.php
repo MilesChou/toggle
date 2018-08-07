@@ -39,7 +39,9 @@ class Manager
     {
         $features = $persistentProvider->getFeatures();
 
-        foreach ($features as $name => $result) {
+        foreach ($features as $name => $feature) {
+            $result = $feature['result'];
+
             $this->addFeature($name, Feature::create()->setProcessedResult($result));
         }
 
