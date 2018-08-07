@@ -4,9 +4,6 @@ namespace MilesChou\Toggle;
 
 interface Provider
 {
-    const SERIALIZE_TYPE_JSON = 0;
-    const SERIALIZE_TYPE_NATIVE = 1;
-
     /**
      * @return array
      */
@@ -30,14 +27,12 @@ interface Provider
     public function setGroups(array $groups);
 
     /**
-     * @param int $type
      * @return static
      */
     public function serialize();
 
     /**
      * @param string $str
-     * @param int $type
      * @return static
      */
     public function unserialize($str);
