@@ -11,6 +11,7 @@
     <rule ref="PSR2"/>
 
     <!-- Paths and file to check -->
+    <file>benchmarks</file>
     <file>src</file>
     <file>tests</file>
 </ruleset>
