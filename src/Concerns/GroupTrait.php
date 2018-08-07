@@ -42,6 +42,12 @@ trait GroupTrait
         return $this;
     }
 
+    public function cleanGroup()
+    {
+        $this->group = [];
+        $this->featureGroupMapping = [];
+    }
+
     /**
      * @param string $name
      */

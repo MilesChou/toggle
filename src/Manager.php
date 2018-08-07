@@ -38,9 +38,15 @@ class Manager
 
     /**
      * @param Provider $persistentProvider
+     * @param bool $clean
      */
-    public function import(Provider $persistentProvider)
+    public function import(Provider $persistentProvider, $clean = true)
     {
+        if ($clean) {
+            $this->cleanFeature();
+            $this->cleanGroup();
+        }
+
         $features = $persistentProvider->getFeatures();
 
         foreach ($features as $name => $feature) {

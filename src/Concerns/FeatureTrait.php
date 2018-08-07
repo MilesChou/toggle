@@ -29,6 +29,11 @@ trait FeatureTrait
         return $this;
     }
 
+    public function cleanFeature()
+    {
+        $this->features = [];
+    }
+
     /**
      * @return array
      */

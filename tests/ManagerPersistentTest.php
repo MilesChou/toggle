@@ -168,4 +168,96 @@ class ManagerPersistentTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($exceptedFeature, $actual->getFeatures());
         $this->assertSame($exceptedGroup, $actual->getGroups());
     }
+
+    /**
+     * @test
+     */
+    public function shouldReturnImportResultWhenInitAndExportFeatureAndGroup()
+    {
+        $this->target
+            ->addFeature('f1')
+            ->addFeature('f2')
+            ->addFeature('f3')
+            ->addGroup('g1', [
+                'f1',
+                'f2',
+                'f3',
+            ], function () {
+                return 'f1';
+            })
+            ->select('g1');
+
+        $dataProvider = new ArrayProvider([
+            'f1' => [
+                'result' => false,
+            ],
+            'f2' => [
+                'result' => false,
+            ],
+            'f3' => [
+                'result' => true,
+            ],
+        ], [
+            'g1' => [
+                'list' => [
+                    'f1',
+                    'f2',
+                    'f3',
+                ],
+                'result' => 'f3',
+            ],
+        ]);
+
+        $this->target->import($dataProvider);
+
+        $this->assertSame('f3', $this->target->select('g1'));
+
+        $this->assertFalse($this->target->isActive('f1'));
+        $this->assertFalse($this->target->isActive('f2'));
+        $this->assertTrue($this->target->isActive('f3'));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldThrowExceptionWhenInitAndExportFeatureAndGroupWithoutClean()
+    {
+        $this->setExpectedException('RuntimeException', 'Feature has been set');
+
+        $this->target
+            ->addFeature('f1')
+            ->addFeature('f2')
+            ->addFeature('f3')
+            ->addGroup('g1', [
+                'f1',
+                'f2',
+                'f3',
+            ], function () {
+                return 'f1';
+            })
+            ->select('g1');
+
+        $dataProvider = new ArrayProvider([
+            'f1' => [
+                'result' => false,
+            ],
+            'f2' => [
+                'result' => false,
+            ],
+            'f3' => [
+                'result' => true,
+            ],
+        ], [
+            'g1' => [
+                'list' => [
+                    'f1',
+                    'f2',
+                    'f3',
+                ],
+                'result' => 'f3',
+            ],
+        ]);
+
+        $this->target->import($dataProvider, false);
+    }
 }
