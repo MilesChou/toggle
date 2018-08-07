@@ -57,10 +57,10 @@ class Group
      */
     private function processFeaturesToggle($featureName)
     {
-        array_map(function ($name) use ($featureName) {
+        foreach ($this->features as $name => $feature) {
             $toggle = $name === $featureName;
 
             $this->features[$name]->setProcessedResult($toggle);
-        }, array_keys($this->features));
+        }
     }
 }
