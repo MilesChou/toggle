@@ -42,6 +42,15 @@ class Manager
         foreach ($features as $name => $result) {
             $this->addFeature($name, Feature::create()->setProcessedResult($result));
         }
+
+        $groups = $persistentProvider->getGroups();
+
+        foreach ($groups as $name => $group) {
+            $list = $this->normalizeFeatureMap($group['list']);
+            $result = $group['result'];
+
+            $this->addGroup($name, $group['list'], Group::create($list)->setProcessedResult($result));
+        }
     }
 
     /**

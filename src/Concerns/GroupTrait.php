@@ -20,13 +20,20 @@ trait GroupTrait
     /**
      * @param string $name
      * @param array $features
-     * @param callable|null $processor
+     * @param Group|callable|null $group
      * @return static
      */
-    public function addGroup($name, array $features, $processor = null)
+    public function addGroup($name, array $features, $group = null)
     {
-        $featureMap = $this->normalizeFeatureMap($features);
-        $this->group[$name] = Group::create($featureMap, $processor);
+        if ($group instanceof Group) {
+            $this->group[$name] = $group;
+        } elseif (null === $group || is_callable($group)) {
+            $this->group[$name] = Group::create($this->normalizeFeatureMap($features), $group);
+        } elseif (is_string($group)) {
+            $this->group[$name] = Group::create($this->normalizeFeatureMap($features))->setProcessedResult($group);
+        } else {
+            throw new \RuntimeException('The $group must be Feature or callable.');
+        }
 
         array_map(function ($featureName) use ($name) {
             $this->featureGroupMapping[$featureName] = $name;

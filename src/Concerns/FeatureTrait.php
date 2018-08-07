@@ -30,6 +30,22 @@ trait FeatureTrait
     }
 
     /**
+     * @return Feature[]
+     */
+    public function getFeatures()
+    {
+        return $this->features;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFeaturesName()
+    {
+        return array_keys($this->features);
+    }
+
+    /**
      * @param string $name
      */
     public function removeFeature($name)

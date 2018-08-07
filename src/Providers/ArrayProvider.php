@@ -3,6 +3,7 @@
 namespace MilesChou\Toggle\Providers;
 
 use MilesChou\Toggle\Feature;
+use MilesChou\Toggle\Group;
 use MilesChou\Toggle\Provider;
 
 class ArrayProvider implements Provider
@@ -54,6 +55,19 @@ class ArrayProvider implements Provider
 
     public function setGroups(array $groups)
     {
+        $groups = array_map(function ($group) {
+            if ($group instanceof Group) {
+                return [
+                    'list' => $group->getFeaturesName(),
+                    'result' => $group->select(),
+                ];
+            }
+
+            return $group;
+        }, $groups);
+
+        $this->groups = array_merge($this->groups, $groups);
+
         return $this;
     }
 
