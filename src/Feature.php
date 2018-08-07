@@ -36,7 +36,7 @@ class Feature
             return;
         }
 
-        throw new \InvalidArgumentException('The processor must be callable or bool result');
+        throw new \InvalidArgumentException('The Feature\'s processor must be callable or bool result');
     }
 
     /**

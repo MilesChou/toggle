@@ -33,7 +33,7 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->target->isActive());
     }
 
-    public function invalidParam()
+    public function invalidProcessor()
     {
         return [
             [123],
@@ -47,13 +47,13 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider invalidParam
+     * @dataProvider invalidProcessor
      */
-    public function shouldThrowExceptionWhenNewWithInvalidParam($invalidParam)
+    public function shouldThrowExceptionWhenNewWithInvalidParam($invalidProcessor)
     {
-        $this->setExpectedException('InvalidArgumentException', 'The processor must be callable or bool result');
+        $this->setExpectedException('InvalidArgumentException', 'The Feature\'s processor must be callable or bool result');
 
-        new Feature($invalidParam);
+        new Feature($invalidProcessor);
     }
 
     /**
