@@ -57,21 +57,6 @@ trait GroupTrait
     }
 
     /**
-     * @param string $name
-     * @param array $features
-     * @param callable|null $processor
-     * @return static
-     */
-    public function withGroup($name, $features, $processor = null)
-    {
-        $clone = clone $this;
-
-        $clone->addGroup($name, $features, $processor);
-
-        return $clone;
-    }
-
-    /**
      * @param array $features
      * @return Feature[]
      */

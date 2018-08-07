@@ -140,28 +140,4 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->target->isActive('f2'));
         $this->assertFalse($this->target->isActive('f3'));
     }
-
-    /**
-     * @test
-     */
-    public function shouldReturnTrueWhenUsingWithGroupAndReturnFeature1()
-    {
-        $target = $this->target
-            ->withFeature('f1')
-            ->withFeature('f2')
-            ->withFeature('f3')
-            ->withGroup('foo', [
-                'f1',
-                'f2',
-                'f3',
-            ], function () {
-                return 'f1';
-            });
-
-        $this->assertSame('f1', $target->select('foo'));
-
-        $this->assertTrue($target->isActive('f1'));
-        $this->assertFalse($target->isActive('f2'));
-        $this->assertFalse($target->isActive('f3'));
-    }
 }

@@ -59,16 +59,4 @@ trait FeatureTrait
     {
         unset($this->features[$name]);
     }
-
-    /**
-     * @param string $name
-     * @param callable|null $feature
-     * @return static
-     */
-    public function withFeature($name, $feature = null)
-    {
-        $clone = clone $this;
-
-        return $clone->createFeature($name, $feature);
-    }
 }
