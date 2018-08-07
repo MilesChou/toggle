@@ -10,7 +10,7 @@ trait GroupTrait
     /**
      * @var Group[]
      */
-    private $group = [];
+    private $groups = [];
 
     /**
      * @var array
@@ -26,11 +26,11 @@ trait GroupTrait
     public function addGroup($name, array $features, $group = null)
     {
         if ($group instanceof Group) {
-            $this->group[$name] = $group;
+            $this->groups[$name] = $group;
         } elseif (null === $group || is_callable($group)) {
-            $this->group[$name] = Group::create($this->normalizeFeatureMap($features), $group);
+            $this->groups[$name] = Group::create($this->normalizeFeatureMap($features), $group);
         } elseif (is_string($group)) {
-            $this->group[$name] = Group::create($this->normalizeFeatureMap($features))->setProcessedResult($group);
+            $this->groups[$name] = Group::create($this->normalizeFeatureMap($features))->setProcessedResult($group);
         } else {
             throw new \InvalidArgumentException('The $group must be Feature or callable or string');
         }
@@ -44,7 +44,7 @@ trait GroupTrait
 
     public function cleanGroup()
     {
-        $this->group = [];
+        $this->groups = [];
         $this->featureGroupMapping = [];
     }
 
@@ -53,7 +53,7 @@ trait GroupTrait
      */
     public function removeGroup($name)
     {
-        unset($this->group[$name]);
+        unset($this->groups[$name]);
     }
 
     /**

@@ -33,7 +33,7 @@ class Manager
 
         return $persistentProvider
             ->setFeatures($this->features)
-            ->setGroups($this->group);
+            ->setGroups($this->groups);
     }
 
     /**
@@ -90,7 +90,7 @@ class Manager
      */
     public function select($groupName, Context $context = null)
     {
-        if (!array_key_exists($groupName, $this->group)) {
+        if (!array_key_exists($groupName, $this->groups)) {
             throw new \RuntimeException("Group '{$groupName}' is not found");
         }
 
@@ -98,6 +98,6 @@ class Manager
             $context = $this->context;
         }
 
-        return $this->group[$groupName]->select($context);
+        return $this->groups[$groupName]->select($context);
     }
 }
