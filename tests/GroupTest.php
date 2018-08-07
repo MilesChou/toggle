@@ -55,7 +55,7 @@ class GroupTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionWhenDefaultWithCallableReturnNull()
     {
-        $this->setExpectedException('RuntimeException');
+        $this->setExpectedException('InvalidArgumentException');
 
         $this->assertNull($this->target->select());
     }
@@ -65,7 +65,7 @@ class GroupTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionWhenResultOutOfRange()
     {
-        $this->setExpectedException('RuntimeException');
+        $this->setExpectedException('InvalidArgumentException');
 
         $this->target->setProcessedResult('feature3');
     }

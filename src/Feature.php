@@ -54,13 +54,6 @@ class Feature
         return $this;
     }
 
-    protected function assertResult($result)
-    {
-        if (!$this->isValidProcessedResult($result)) {
-            throw new \RuntimeException('Processed result must be bool');
-        }
-    }
-
     /**
      * @param mixed $result
      * @return bool

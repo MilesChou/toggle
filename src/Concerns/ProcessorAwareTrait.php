@@ -61,6 +61,7 @@ trait ProcessorAwareTrait
     /**
      * @param callable|null $processor
      * @return $this
+     * @throws InvalidArgumentException
      */
     public function setProcessor($processor)
     {
@@ -71,6 +72,17 @@ trait ProcessorAwareTrait
         $this->processor = $processor;
 
         return $this;
+    }
+
+    /**
+     * @param mixed $result
+     * @throws InvalidArgumentException
+     */
+    protected function assertResult($result)
+    {
+        if (!$this->isValidProcessedResult($result)) {
+            throw new InvalidArgumentException('Processed result is not valid');
+        }
     }
 
     /**
@@ -94,6 +106,7 @@ trait ProcessorAwareTrait
     /**
      * @param Context $context
      * @return mixed
+     * @throws RuntimeException
      */
     protected function process($context)
     {
@@ -117,12 +130,6 @@ trait ProcessorAwareTrait
 
         return $this->processedResult;
     }
-
-    /**
-     * @param mixed $result
-     * @throws InvalidArgumentException
-     */
-    abstract protected function assertResult($result);
 
     /**
      * @param mixed $result

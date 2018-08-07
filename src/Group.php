@@ -44,13 +44,6 @@ class Group
         return $feature;
     }
 
-    protected function assertResult($result)
-    {
-        if (!$this->isValidProcessedResult($result)) {
-            throw new \RuntimeException('Processed result must be features list');
-        }
-    }
-
     /**
      * @param mixed $result
      * @return bool

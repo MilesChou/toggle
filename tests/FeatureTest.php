@@ -28,7 +28,7 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionWhenDefaultWithCallableReturnNull()
     {
-        $this->setExpectedException('RuntimeException');
+        $this->setExpectedException('InvalidArgumentException');
 
         $this->assertNull($this->target->isActive());
     }
