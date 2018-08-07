@@ -17,6 +17,6 @@
 
     <!-- specific and just exclude rules in some file -->
     <rule ref="Generic.Files.LineLength.TooLong">
-        <exclude-pattern>tests/Providers/ArrayProviderTest.php</exclude-pattern>
+        <exclude-pattern>tests</exclude-pattern>
     </rule>
 </ruleset>

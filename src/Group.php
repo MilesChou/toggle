@@ -22,12 +22,27 @@ class Group
 
     /**
      * @param Feature[] $features
-     * @param callable|null $processor
+     * @param callable|string|null $processor
      */
     public function __construct(array $features, $processor = null)
     {
         $this->features = $features;
-        $this->processor = $processor;
+
+        if (null === $processor) {
+            return;
+        }
+
+        if (is_callable($processor)) {
+            $this->setProcessor($processor);
+            return;
+        }
+
+        if (is_string($processor)) {
+            $this->setProcessedResult($processor);
+            return;
+        }
+
+        throw new \InvalidArgumentException('The Group\'s processor must be callable or string result');
     }
 
     /**

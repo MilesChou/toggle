@@ -83,14 +83,14 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionWhenCreateGroupAndRemove()
     {
-        $this->setExpectedException('RuntimeException', 'foo');
+        $this->setExpectedException('RuntimeException', 'g1');
 
         $this->target
             ->createFeature('f1')
-            ->addGroup('foo', ['f1'])
-            ->removeGroup('foo');
+            ->createGroup('g1', ['f1'])
+            ->removeGroup('g1');
 
-        $this->target->select('foo');
+        $this->target->select('g1');
     }
 
     /**
@@ -100,7 +100,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('RuntimeException', 'Feature \'not-exist\' is not set');
 
-        $this->target->addGroup('foo', ['not-exist']);
+        $this->target->createGroup('g1', ['not-exist']);
     }
 
     /**
@@ -108,13 +108,13 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionWhenFeatureHasBeenSetForSomeGroup()
     {
-        $this->setExpectedException('RuntimeException', 'Feature has been set for \'foo\'');
+        $this->setExpectedException('RuntimeException', 'Feature has been set for \'g1\'');
 
         $this->target
             ->createFeature('f1')
-            ->addGroup('foo', ['f1']);
+            ->createGroup('g1', ['f1']);
 
-        $this->target->addGroup('bar', ['f1']);
+        $this->target->createGroup('bar', ['f1']);
     }
 
     /**
@@ -126,7 +126,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             ->createFeature('f1')
             ->createFeature('f2')
             ->createFeature('f3')
-            ->addGroup('foo', [
+            ->createGroup('foo', [
                 'f1',
                 'f2',
                 'f3',

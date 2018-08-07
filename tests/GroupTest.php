@@ -27,6 +27,29 @@ class GroupTest extends \PHPUnit_Framework_TestCase
         $this->target = null;
     }
 
+    public function invalidProcessor()
+    {
+        return [
+            [true],
+            [false],
+            [123],
+            [3.14],
+            [[]],
+            [new \stdClass()],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider invalidProcessor
+     */
+    public function shouldThrowExceptionWhenNewWithInvalidParam($invalidProcessor)
+    {
+        $this->setExpectedException('InvalidArgumentException', 'The Group\'s processor must be callable or string result');
+
+        new Group([], $invalidProcessor);
+    }
+
     /**
      * @test
      */

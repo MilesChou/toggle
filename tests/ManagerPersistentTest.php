@@ -161,7 +161,7 @@ class ManagerPersistentTest extends \PHPUnit_Framework_TestCase
             ->addFeature('f1', Feature::create()->setProcessedResult(true))
             ->addFeature('f2', Feature::create()->setProcessedResult(false))
             ->addFeature('f3', Feature::create()->setProcessedResult(false))
-            ->addGroup('g1', ['f1', 'f2', 'f3'], 'f1');
+            ->createGroup('g1', ['f1', 'f2', 'f3'], 'f1');
 
         $actual = $this->target->export('MilesChou\Toggle\Providers\ArrayProvider');
 
@@ -178,7 +178,7 @@ class ManagerPersistentTest extends \PHPUnit_Framework_TestCase
             ->createFeature('f1')
             ->createFeature('f2')
             ->createFeature('f3')
-            ->addGroup('g1', [
+            ->createGroup('g1', [
                 'f1',
                 'f2',
                 'f3',
@@ -228,7 +228,7 @@ class ManagerPersistentTest extends \PHPUnit_Framework_TestCase
             ->createFeature('f1')
             ->createFeature('f2')
             ->createFeature('f3')
-            ->addGroup('g1', [
+            ->createGroup('g1', [
                 'f1',
                 'f2',
                 'f3',

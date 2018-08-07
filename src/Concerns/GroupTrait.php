@@ -25,15 +25,11 @@ trait GroupTrait
      */
     public function addGroup($name, array $features, $group = null)
     {
-        if ($group instanceof Group) {
-            $this->groups[$name] = $group;
-        } elseif (null === $group || is_callable($group)) {
-            $this->groups[$name] = Group::create($this->normalizeFeatureMap($features), $group);
-        } elseif (is_string($group)) {
-            $this->groups[$name] = Group::create($this->normalizeFeatureMap($features))->setProcessedResult($group);
-        } else {
-            throw new \InvalidArgumentException('The $group must be Feature or callable or string');
+        if (!($group instanceof Group)) {
+            throw new \InvalidArgumentException('The param $group must be Group instance');
         }
+
+        $this->groups[$name] = $group;
 
         array_map(function ($featureName) use ($name) {
             $this->featureGroupMapping[$featureName] = $name;
@@ -46,6 +42,23 @@ trait GroupTrait
     {
         $this->groups = [];
         $this->featureGroupMapping = [];
+    }
+
+    /**
+     * @param string $name
+     * @param array $features
+     * @param callable|string|null $processor
+     * @return static
+     */
+    public function createGroup($name, array $features, $processor = null)
+    {
+        $this->groups[$name] = Group::create($this->normalizeFeatureMap($features), $processor);
+
+        array_map(function ($featureName) use ($name) {
+            $this->featureGroupMapping[$featureName] = $name;
+        }, $features);
+
+        return $this;
     }
 
     /**
