@@ -3,7 +3,7 @@
 namespace MilesChou\Toggle;
 
 use MilesChou\Toggle\Concerns\FeatureTrait;
-use MilesChou\Toggle\Traits\ProcessorAwareTrait;
+use MilesChou\Toggle\Concerns\ProcessorAwareTrait;
 
 class Group
 {

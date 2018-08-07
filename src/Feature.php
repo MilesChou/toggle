@@ -2,7 +2,7 @@
 
 namespace MilesChou\Toggle;
 
-use MilesChou\Toggle\Traits\ProcessorAwareTrait;
+use MilesChou\Toggle\Concerns\ProcessorAwareTrait;
 
 class Feature
 {
