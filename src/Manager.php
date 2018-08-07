@@ -47,21 +47,12 @@ class Manager
             $this->cleanGroup();
         }
 
-        $features = $persistentProvider->getFeatures();
-
-        foreach ($features as $name => $feature) {
-            $result = $feature['result'];
-
-            $this->addFeature($name, Feature::create()->setProcessedResult($result));
+        foreach ($persistentProvider->getFeatures() as $name => $feature) {
+            $this->createFeature($name, $feature['result']);
         }
 
-        $groups = $persistentProvider->getGroups();
-
-        foreach ($groups as $name => $group) {
-            $list = $this->normalizeFeatureMap($group['list']);
-            $result = $group['result'];
-
-            $this->addGroup($name, Group::create($list)->setProcessedResult($result));
+        foreach ($persistentProvider->getGroups() as $name => $group) {
+            $this->createGroup($name, $group['list'], $group['result']);
         }
     }
 
