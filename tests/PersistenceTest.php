@@ -182,9 +182,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
                 'f1',
                 'f2',
                 'f3',
-            ], function () {
-                return 'f1';
-            })
+            ], 'f1')
             ->select('g1');
 
         $dataProvider = new JsonSerializer([
@@ -232,9 +230,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
                 'f1',
                 'f2',
                 'f3',
-            ], function () {
-                return 'f1';
-            })
+            ], 'f1')
             ->select('g1');
 
         $dataProvider = new JsonSerializer([
