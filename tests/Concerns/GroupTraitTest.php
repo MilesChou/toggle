@@ -2,6 +2,8 @@
 
 namespace Tests\Concerns;
 
+use MilesChou\Toggle\Manager;
+
 class GroupTraitTest extends \PHPUnit_Framework_TestCase
 {
     public function invalidProcessor()
@@ -20,11 +22,12 @@ class GroupTraitTest extends \PHPUnit_Framework_TestCase
      * @test
      * @dataProvider invalidProcessor
      */
-    public function shouldThrowExceptionWithInvalidGroup($invalidProcessor)
+    public function shouldThrowExceptionWhenCreateGroupWithInvalidGroup($invalidProcessor)
     {
         $this->setExpectedException('InvalidArgumentException', 'Processor is not valid processor or result');
 
-        $target = $this->getMockForTrait('MilesChou\Toggle\Concerns\GroupTrait');
+        $target = new Manager();
+
         $target->createGroup('foo', [], $invalidProcessor);
     }
 }

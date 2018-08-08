@@ -2,6 +2,8 @@
 
 namespace Tests;
 
+use MilesChou\Toggle\Feature;
+use MilesChou\Toggle\Group;
 use MilesChou\Toggle\Manager;
 
 class ManagerTest extends \PHPUnit_Framework_TestCase
@@ -96,11 +98,21 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldThrowExceptionWhenFeatureIsNotExist()
+    public function shouldThrowExceptionWhenCreateGroupWithoutFeature()
     {
         $this->setExpectedException('RuntimeException', 'Feature \'not-exist\' is not set');
 
         $this->target->createGroup('g1', ['not-exist']);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldThrowExceptionWhenAddGroupWithoutFeature()
+    {
+        $this->setExpectedException('RuntimeException', 'Feature \'not-exist\' is not set');
+
+        $this->target->addGroup('g1', Group::create(['not-exist' => Feature::create()]));
     }
 
     /**

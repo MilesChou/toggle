@@ -24,9 +24,12 @@ trait GroupTrait
      */
     public function addGroup($name, Group $group)
     {
-        $this->groups[$name] = $group;
+        $featureNames = $group->getFeaturesName();
 
-        $this->updateFeatureGroupMapping($group->getFeaturesName(), $name);
+        $this->assertFeatureExist($featureNames);
+        $this->updateFeatureGroupMapping($featureNames, $name);
+
+        $this->groups[$name] = $group;
 
         return $this;
     }
@@ -45,6 +48,8 @@ trait GroupTrait
      */
     public function createGroup($name, array $features, $processor = null)
     {
+        $this->assertFeatureExist($features);
+
         $this->groups[$name] = Group::create($this->normalizeFeatureMap($features), $processor);
 
         $this->updateFeatureGroupMapping($features, $name);
@@ -67,10 +72,6 @@ trait GroupTrait
     protected function normalizeFeatureMap(array $features)
     {
         $featureInstances = array_map(function ($featureName) {
-            if (!array_key_exists($featureName, $this->features)) {
-                throw new \RuntimeException("Feature '{$featureName}' is not set");
-            }
-
             if (array_key_exists($featureName, $this->featureGroupMapping)) {
                 $group = $this->featureGroupMapping[$featureName];
                 throw new \RuntimeException("Feature has been set for '{$group}'");

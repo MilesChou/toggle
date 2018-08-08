@@ -3,6 +3,7 @@
 namespace MilesChou\Toggle\Concerns;
 
 use MilesChou\Toggle\Feature;
+use RuntimeException;
 
 trait FeatureTrait
 {
@@ -54,5 +55,18 @@ trait FeatureTrait
     public function removeFeature($name)
     {
         unset($this->features[$name]);
+    }
+
+    /**
+     * @param array $featureNames
+     * @throws RuntimeException
+     */
+    protected function assertFeatureExist($featureNames)
+    {
+        foreach ($featureNames as $featureName) {
+            if (!array_key_exists($featureName, $this->features)) {
+                throw new RuntimeException("Feature '{$featureName}' is not set");
+            }
+        }
     }
 }
