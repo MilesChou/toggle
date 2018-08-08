@@ -4,9 +4,9 @@ namespace Tests;
 
 use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Manager;
-use MilesChou\Toggle\Providers\ArrayProvider;
+use MilesChou\Toggle\Serializers\JsonSerializer;
 
-class ManagerPersistentTest extends \PHPUnit_Framework_TestCase
+class PersistenceTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var Manager
@@ -48,7 +48,7 @@ class ManagerPersistentTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnCorrectResultWhenImportFeatureOnly()
     {
-        $dataProvider = new ArrayProvider([
+        $dataProvider = new JsonSerializer([
             'f1' => [
                 'result' => true,
             ],
@@ -89,7 +89,7 @@ class ManagerPersistentTest extends \PHPUnit_Framework_TestCase
             ->addFeature('f2', Feature::create()->setProcessedResult(false))
             ->addFeature('f3', Feature::create()->setProcessedResult(false));
 
-        $actual = $this->target->export('MilesChou\Toggle\Providers\ArrayProvider');
+        $actual = $this->target->export('MilesChou\Toggle\Serializers\JsonSerializer');
 
         $this->assertSame($excepted, $actual->getFeatures());
     }
@@ -99,7 +99,7 @@ class ManagerPersistentTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnCorrectResultWhenImportFeatureAndGroup()
     {
-        $dataProvider = new ArrayProvider([
+        $dataProvider = new JsonSerializer([
             'f1' => [
                 'result' => true,
             ],
@@ -163,7 +163,7 @@ class ManagerPersistentTest extends \PHPUnit_Framework_TestCase
             ->addFeature('f3', Feature::create()->setProcessedResult(false))
             ->createGroup('g1', ['f1', 'f2', 'f3'], 'f1');
 
-        $actual = $this->target->export('MilesChou\Toggle\Providers\ArrayProvider');
+        $actual = $this->target->export('MilesChou\Toggle\Serializers\JsonSerializer');
 
         $this->assertSame($exceptedFeature, $actual->getFeatures());
         $this->assertSame($exceptedGroup, $actual->getGroups());
@@ -187,7 +187,7 @@ class ManagerPersistentTest extends \PHPUnit_Framework_TestCase
             })
             ->select('g1');
 
-        $dataProvider = new ArrayProvider([
+        $dataProvider = new JsonSerializer([
             'f1' => [
                 'result' => false,
             ],
@@ -237,7 +237,7 @@ class ManagerPersistentTest extends \PHPUnit_Framework_TestCase
             })
             ->select('g1');
 
-        $dataProvider = new ArrayProvider([
+        $dataProvider = new JsonSerializer([
             'f1' => [
                 'result' => false,
             ],

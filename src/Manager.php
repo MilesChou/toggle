@@ -18,7 +18,7 @@ class Manager
     /**
      * @param string $providerDriver
      * @param Context|null $context
-     * @return ProviderInterface
+     * @return SerializerInterface
      */
     public function export($providerDriver, Context $context = null)
     {
@@ -26,10 +26,10 @@ class Manager
             throw new RuntimeException("Unknown class {$providerDriver}");
         }
 
-        /** @var ProviderInterface $persistentProvider */
+        /** @var SerializerInterface $persistentProvider */
         $persistentProvider = new $providerDriver();
 
-        if (!$persistentProvider instanceof ProviderInterface) {
+        if (!$persistentProvider instanceof SerializerInterface) {
             throw new RuntimeException('Driver must instance of Provider');
         }
 
@@ -41,10 +41,10 @@ class Manager
     }
 
     /**
-     * @param ProviderInterface $persistentProvider
+     * @param SerializerInterface $persistentProvider
      * @param bool $clean
      */
-    public function import(ProviderInterface $persistentProvider, $clean = true)
+    public function import(SerializerInterface $persistentProvider, $clean = true)
     {
         if ($clean) {
             $this->cleanFeature();

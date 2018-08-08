@@ -1,13 +1,13 @@
 <?php
 
-namespace MilesChou\Toggle\Providers;
+namespace MilesChou\Toggle\Serializers;
 
-use MilesChou\Toggle\Concerns\ProviderTrait;
-use MilesChou\Toggle\ProviderInterface;
+use MilesChou\Toggle\Concerns\SerializerTrait;
+use MilesChou\Toggle\SerializerInterface;
 
-class ArrayProvider implements ProviderInterface
+class JsonSerializer implements SerializerInterface
 {
-    use ProviderTrait;
+    use SerializerTrait;
 
     /**
      * @param array $features
@@ -17,16 +17,6 @@ class ArrayProvider implements ProviderInterface
     {
         $this->setFeatures($features);
         $this->setGroups($groups);
-    }
-
-    public function getFeatures()
-    {
-        return $this->features;
-    }
-
-    public function getGroups()
-    {
-        return $this->groups;
     }
 
     public function serialize()

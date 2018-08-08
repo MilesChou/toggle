@@ -6,7 +6,7 @@ use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Group;
 
-trait ProviderTrait
+trait SerializerTrait
 {
     /**
      * @var array
@@ -17,6 +17,22 @@ trait ProviderTrait
      * @var array
      */
     private $groups = [];
+
+    /**
+     * @return array
+     */
+    public function getFeatures()
+    {
+        return $this->features;
+    }
+
+    /**
+     * @return array
+     */
+    public function getGroups()
+    {
+        return $this->groups;
+    }
 
     /**
      * @param array $features

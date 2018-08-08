@@ -1,19 +1,19 @@
 <?php
 
-namespace Tests\Providers;
+namespace Tests\Serializers;
 
-use MilesChou\Toggle\Providers\ArrayProvider;
+use MilesChou\Toggle\Serializers\JsonSerializer;
 
-class ArrayProviderTest extends \PHPUnit_Framework_TestCase
+class JsonSerializerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var ArrayProvider
+     * @var JsonSerializer
      */
     private $target;
 
     protected function setUp()
     {
-        $this->target = new ArrayProvider();
+        $this->target = new JsonSerializer();
     }
 
     protected function tearDown()

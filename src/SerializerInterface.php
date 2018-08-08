@@ -2,7 +2,7 @@
 
 namespace MilesChou\Toggle;
 
-interface ProviderInterface
+interface SerializerInterface
 {
     /**
      * @return array
