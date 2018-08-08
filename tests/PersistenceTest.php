@@ -85,9 +85,9 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
         ];
 
         $this->target
-            ->addFeature('f1', Feature::create()->setProcessedResult(true))
-            ->addFeature('f2', Feature::create()->setProcessedResult(false))
-            ->addFeature('f3', Feature::create()->setProcessedResult(false));
+            ->createFeature('f1', true)
+            ->createFeature('f2', false)
+            ->createFeature('f3', false);
 
         $actual = $this->target->export();
 
@@ -180,11 +180,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
             ->createFeature('f1')
             ->createFeature('f2')
             ->createFeature('f3')
-            ->createGroup('g1', [
-                'f1',
-                'f2',
-                'f3',
-            ], 'f1')
+            ->createGroup('g1', ['f1', 'f2', 'f3'], 'f1')
             ->select('g1');
 
         $dataProvider = new DataProvider([
@@ -228,11 +224,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
             ->createFeature('f1')
             ->createFeature('f2')
             ->createFeature('f3')
-            ->createGroup('g1', [
-                'f1',
-                'f2',
-                'f3',
-            ], 'f1')
+            ->createGroup('g1', ['f1', 'f2', 'f3'], 'f1')
             ->select('g1');
 
         $dataProvider = new DataProvider([

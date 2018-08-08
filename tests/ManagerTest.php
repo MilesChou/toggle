@@ -179,11 +179,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             ->createFeature('f1')
             ->createFeature('f2')
             ->createFeature('f3')
-            ->createGroup('g1', [
-                'f1',
-                'f2',
-                'f3',
-            ], 'f1');
+            ->createGroup('g1', ['f1', 'f2', 'f3'], 'f1');
 
         $this->assertSame('f1', $this->target->select('g1'));
 
@@ -216,6 +212,61 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($this->target->isActive('f1'));
         $this->assertFalse($this->target->isActive('f2'));
+        $this->assertFalse($this->target->isActive('f3'));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnTrueWhenCreateGroupAndUsingContextSetterAndReturnFeature1()
+    {
+        $context = Context::create();
+        $context->return = 'f1';
+
+        $this->target
+            ->setContext($context)
+            ->createFeature('f1')
+            ->createFeature('f2')
+            ->createFeature('f3')
+            ->createGroup('g1', [
+                'f1',
+                'f2',
+                'f3',
+            ], function (Context $context) {
+                return $context->return;
+            });
+
+        $this->assertSame('f1', $this->target->select('g1'));
+
+        $this->assertTrue($this->target->isActive('f1'));
+        $this->assertFalse($this->target->isActive('f2'));
+        $this->assertFalse($this->target->isActive('f3'));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnF2WhenContextSetterF1AndMethodInjectF2()
+    {
+        $context = Context::create(['return' => 'f1']);
+
+        $this->target
+            ->setContext($context)
+            ->createFeature('f1')
+            ->createFeature('f2')
+            ->createFeature('f3')
+            ->createGroup('g1', [
+                'f1',
+                'f2',
+                'f3',
+            ], function (Context $context) {
+                return $context->return;
+            });
+
+        $this->assertSame('f2', $this->target->select('g1', Context::create(['return' => 'f2'])));
+
+        $this->assertFalse($this->target->isActive('f1'));
+        $this->assertTrue($this->target->isActive('f2'));
         $this->assertFalse($this->target->isActive('f3'));
     }
 }

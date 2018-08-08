@@ -24,8 +24,13 @@ class ContextTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function smoke()
+    public function shouldReturnCorrectResultWhenUsingIssetFunction()
     {
-        $this->assertInstanceOf('MilesChou\\Toggle\\Context', $this->target);
+        $this->target->set('exist', 'whatever');
+
+        $this->assertTrue($this->target->exist('exist'));
+        $this->assertTrue(isset($this->target->exist));
+        $this->assertFalse($this->target->exist('notExist'));
+        $this->assertFalse(isset($this->target->notExist));
     }
 }
