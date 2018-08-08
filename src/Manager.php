@@ -6,6 +6,7 @@ use MilesChou\Toggle\Concerns\ContextTrait;
 use MilesChou\Toggle\Concerns\FacadeTrait;
 use MilesChou\Toggle\Concerns\FeatureTrait;
 use MilesChou\Toggle\Concerns\GroupTrait;
+use MilesChou\Toggle\Contracts\DataProviderInterface;
 use RuntimeException;
 
 class Manager

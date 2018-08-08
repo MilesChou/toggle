@@ -1,6 +1,6 @@
 <?php
 
-namespace MilesChou\Toggle;
+namespace MilesChou\Toggle\Contracts;
 
 interface SerializerInterface
 {

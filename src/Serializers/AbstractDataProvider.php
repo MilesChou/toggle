@@ -3,7 +3,7 @@
 namespace MilesChou\Toggle\Serializers;
 
 use MilesChou\Toggle\Concerns\DataProviderTrait;
-use MilesChou\Toggle\DataProviderInterface;
+use MilesChou\Toggle\Contracts\DataProviderInterface;
 
 abstract class AbstractDataProvider implements DataProviderInterface
 {

@@ -2,7 +2,7 @@
 
 namespace MilesChou\Toggle\Serializers;
 
-use MilesChou\Toggle\SerializerInterface;
+use MilesChou\Toggle\Contracts\SerializerInterface;
 
 class JsonDataProvider extends AbstractDataProvider implements SerializerInterface
 {

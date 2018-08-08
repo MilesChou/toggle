@@ -1,6 +1,8 @@
 <?php
 
-namespace MilesChou\Toggle;
+namespace MilesChou\Toggle\Contracts;
+
+use MilesChou\Toggle\Context;
 
 interface DataProviderInterface
 {
