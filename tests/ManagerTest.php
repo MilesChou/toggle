@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Group;
 use MilesChou\Toggle\Manager;
@@ -132,7 +133,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldReturnTrueWhenAddGroupAndReturnFeature1()
+    public function shouldReturnTrueWhenCreateGroupAndReturnFeature1()
     {
         $this->target
             ->createFeature('f1')
@@ -147,6 +148,33 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             });
 
         $this->assertSame('f1', $this->target->select('foo'));
+
+        $this->assertTrue($this->target->isActive('f1'));
+        $this->assertFalse($this->target->isActive('f2'));
+        $this->assertFalse($this->target->isActive('f3'));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnTrueWhenCreateGroupAndUsingContextAndReturnFeature1()
+    {
+        $context = Context::create();
+        $context->return = 'f1';
+
+        $this->target
+            ->createFeature('f1')
+            ->createFeature('f2')
+            ->createFeature('f3')
+            ->createGroup('foo', [
+                'f1',
+                'f2',
+                'f3',
+            ], function (Context $context) {
+                return $context->return;
+            });
+
+        $this->assertSame('f1', $this->target->select('foo', $context));
 
         $this->assertTrue($this->target->isActive('f1'));
         $this->assertFalse($this->target->isActive('f2'));

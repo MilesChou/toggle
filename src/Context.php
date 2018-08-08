@@ -7,7 +7,7 @@ class Context
     /**
      * @var array
      */
-    private $parameters;
+    private $params;
 
     /**
      * @param array $params
@@ -23,34 +23,46 @@ class Context
      */
     public function __construct(array $params = [])
     {
-        $this->parameters = $params;
+        $this->params = $params;
+    }
+
+    public function __get($name)
+    {
+        return $this->get($name);
+    }
+
+    public function __set($name, $value)
+    {
+        $this->set($name, $value);
+    }
+
+    public function __isset($name)
+    {
+        return $this->exist($name);
+    }
+
+    public function exist($name)
+    {
+        return isset($this->params[$name]);
     }
 
     /**
-     * @param string $key
+     * @param string $name
      * @return array
      */
-    public function getParam($key)
+    public function get($name)
     {
-        return $this->parameters[$key];
+        return $this->exist($name) ? $this->params[$name] : null;
     }
 
     /**
-     * @return array
-     */
-    public function getParams()
-    {
-        return $this->parameters;
-    }
-
-    /**
-     * @param string $key
-     * @param mixed $parameter
+     * @param string $name
+     * @param mixed $value
      * @return static
      */
-    public function setParam($key, $parameter)
+    public function set($name, $value)
     {
-        $this->parameters[$key] = $parameter;
+        $this->params[$name] = $value;
 
         return $this;
     }
