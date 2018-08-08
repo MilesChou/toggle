@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use MilesChou\Toggle\Context;
 use MilesChou\Toggle\DataProvider;
 use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Manager;
@@ -30,7 +31,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('RuntimeException', 'Unknown class');
 
-        $this->target->export('Unknown');
+        $this->target->export(null, 'Unknown');
     }
 
     /**
@@ -40,7 +41,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('RuntimeException', 'Driver must instance of Provider');
 
-        $this->target->export('stdClass');
+        $this->target->export(null, 'stdClass');
     }
 
     /**
@@ -90,6 +91,28 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
             ->createFeature('f3', false);
 
         $actual = $this->target->export();
+
+        $this->assertInstanceOf('MilesChou\Toggle\Contracts\DataProviderInterface', $actual);
+        $this->assertSame($excepted, $actual->getFeatures());
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnCorrectResultWhenExportWithContext()
+    {
+        $excepted = [
+            'f1' => [
+                'r' => false,
+            ],
+        ];
+
+        $this->target
+            ->createFeature('f1', function (Context $context) {
+                return $context->return;
+            });
+
+        $actual = $this->target->export(Context::create(['return' => false]));
 
         $this->assertInstanceOf('MilesChou\Toggle\Contracts\DataProviderInterface', $actual);
         $this->assertSame($excepted, $actual->getFeatures());
