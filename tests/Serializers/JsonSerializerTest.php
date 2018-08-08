@@ -2,18 +2,18 @@
 
 namespace Tests\Serializers;
 
-use MilesChou\Toggle\Serializers\JsonSerializer;
+use MilesChou\Toggle\Serializers\JsonDataProvider;
 
 class JsonSerializerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var JsonSerializer
+     * @var JsonDataProvider
      */
     private $target;
 
     protected function setUp()
     {
-        $this->target = new JsonSerializer();
+        $this->target = new JsonDataProvider();
     }
 
     protected function tearDown()

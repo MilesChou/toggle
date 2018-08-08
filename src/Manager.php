@@ -16,46 +16,46 @@ class Manager
     use GroupTrait;
 
     /**
-     * @param string $providerDriver
+     * @param string $dataProviderDriver
      * @param Context|null $context
-     * @return SerializerInterface
+     * @return DataProviderInterface
      */
-    public function export($providerDriver, Context $context = null)
+    public function export($dataProviderDriver, Context $context = null)
     {
-        if (!class_exists($providerDriver)) {
-            throw new RuntimeException("Unknown class {$providerDriver}");
+        if (!class_exists($dataProviderDriver)) {
+            throw new RuntimeException("Unknown class {$dataProviderDriver}");
         }
 
-        /** @var SerializerInterface $persistentProvider */
-        $persistentProvider = new $providerDriver();
+        /** @var DataProviderInterface $dataProvider */
+        $dataProvider = new $dataProviderDriver();
 
-        if (!$persistentProvider instanceof SerializerInterface) {
+        if (!$dataProvider instanceof DataProviderInterface) {
             throw new RuntimeException('Driver must instance of Provider');
         }
 
         $context = $this->resolveContext($context);
 
-        return $persistentProvider
+        return $dataProvider
             ->setFeatures($this->features, $context)
             ->setGroups($this->groups, $context);
     }
 
     /**
-     * @param SerializerInterface $persistentProvider
+     * @param DataProviderInterface $dataProvider
      * @param bool $clean
      */
-    public function import(SerializerInterface $persistentProvider, $clean = true)
+    public function import(DataProviderInterface $dataProvider, $clean = true)
     {
         if ($clean) {
             $this->cleanFeature();
             $this->cleanGroup();
         }
 
-        foreach ($persistentProvider->getFeatures() as $name => $feature) {
+        foreach ($dataProvider->getFeatures() as $name => $feature) {
             $this->createFeature($name, $feature['r']);
         }
 
-        foreach ($persistentProvider->getGroups() as $name => $group) {
+        foreach ($dataProvider->getGroups() as $name => $group) {
             $this->createGroup($name, $group['l'], $group['r']);
         }
     }

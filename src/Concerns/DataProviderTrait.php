@@ -6,7 +6,7 @@ use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Group;
 
-trait SerializerTrait
+trait DataProviderTrait
 {
     /**
      * @var array
