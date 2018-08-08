@@ -42,12 +42,12 @@ trait FeatureTrait
 
     /**
      * @param string $name
-     * @param callable|bool|null $callable
+     * @param callable|bool|null $processor
      * @return static
      */
-    public function createFeature($name, $callable = null)
+    public function createFeature($name, $processor = null)
     {
-        $this->features[$name] = Feature::create($callable);
+        $this->features[$name] = Feature::create($processor);
 
         return $this;
     }
