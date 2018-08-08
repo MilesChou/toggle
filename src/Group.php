@@ -32,10 +32,10 @@ class Group
     }
 
     /**
-     * @param null|Context $context
+     * @param Context|null $context
      * @return string
      */
-    public function select(Context $context = null)
+    public function select($context = null)
     {
         $feature = $this->process($context);
 

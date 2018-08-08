@@ -17,9 +17,10 @@ class Manager
 
     /**
      * @param string $providerDriver
+     * @param Context|null $context
      * @return ProviderInterface
      */
-    public function export($providerDriver)
+    public function export($providerDriver, Context $context = null)
     {
         if (!class_exists($providerDriver)) {
             throw new RuntimeException("Unknown class {$providerDriver}");
@@ -32,9 +33,11 @@ class Manager
             throw new RuntimeException('Driver must instance of Provider');
         }
 
+        $context = $this->resolveContext($context);
+
         return $persistentProvider
-            ->setFeatures($this->features)
-            ->setGroups($this->groups);
+            ->setFeatures($this->features, $context)
+            ->setGroups($this->groups, $context);
     }
 
     /**
@@ -68,9 +71,7 @@ class Manager
             throw new RuntimeException("Feature '{$featureName}' is not found");
         }
 
-        if (null === $context) {
-            $context = $this->context;
-        }
+        $context = $this->resolveContext($context);
 
         return $this->features[$featureName]->isActive($context);
     }
@@ -86,10 +87,21 @@ class Manager
             throw new RuntimeException("Group '{$groupName}' is not found");
         }
 
+        $context = $this->resolveContext($context);
+
+        return $this->groups[$groupName]->select($context);
+    }
+
+    /**
+     * @param Context|null $context
+     * @return Context|null
+     */
+    protected function resolveContext($context)
+    {
         if (null === $context) {
             $context = $this->context;
         }
 
-        return $this->groups[$groupName]->select($context);
+        return $context;
     }
 }

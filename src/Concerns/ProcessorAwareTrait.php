@@ -104,7 +104,7 @@ trait ProcessorAwareTrait
     }
 
     /**
-     * @param Context $context
+     * @param Context|null $context
      * @return mixed
      * @throws RuntimeException
      */

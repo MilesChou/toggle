@@ -2,6 +2,7 @@
 
 namespace MilesChou\Toggle\Concerns;
 
+use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Group;
 
@@ -19,14 +20,15 @@ trait ProviderTrait
 
     /**
      * @param array $features
+     * @param Context|null $context
      * @return static
      */
-    public function setFeatures(array $features)
+    public function setFeatures(array $features, $context = null)
     {
-        $features = array_map(function ($feature) {
+        $features = array_map(function ($feature) use ($context) {
             if ($feature instanceof Feature) {
                 return [
-                    'result' => $feature->isActive(),
+                    'result' => $feature->isActive($context),
                 ];
             }
 
@@ -40,15 +42,16 @@ trait ProviderTrait
 
     /**
      * @param array $groups
+     * @param Context|null $context
      * @return static
      */
-    public function setGroups(array $groups)
+    public function setGroups(array $groups, $context = null)
     {
-        $groups = array_map(function ($group) {
+        $groups = array_map(function ($group) use ($context) {
             if ($group instanceof Group) {
                 return [
                     'list' => $group->getFeaturesName(),
-                    'result' => $group->select(),
+                    'result' => $group->select($context),
                 ];
             }
 

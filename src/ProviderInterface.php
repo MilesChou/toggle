@@ -16,15 +16,17 @@ interface ProviderInterface
 
     /**
      * @param array $features
+     * @param Context|null $context
      * @return static
      */
-    public function setFeatures(array $features);
+    public function setFeatures(array $features, $context = null);
 
     /**
      * @param array $groups
+     * @param Context|null $context
      * @return static
      */
-    public function setGroups(array $groups);
+    public function setGroups(array $groups, $context = null);
 
     /**
      * @return static

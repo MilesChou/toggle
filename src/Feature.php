@@ -29,7 +29,7 @@ class Feature
      * @param Context|null $context
      * @return bool
      */
-    public function isActive(Context $context = null)
+    public function isActive($context = null)
     {
         return $this->process($context);
     }
