@@ -157,14 +157,11 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionWhenAddGroup()
     {
-        $this->target
-            ->addGroup('g1', Group::create([
-                'f1' => Feature::create(),
-                'f2' => Feature::create(),
-                'f3' => Feature::create(),
-            ], function () {
-                return 'f1';
-            }));
+        $this->target->addGroup('g1', Group::create([
+            'f1' => Feature::create(),
+            'f2' => Feature::create(),
+            'f3' => Feature::create(),
+        ], 'f1'));
 
         $this->assertSame('f1', $this->target->select('g1'));
 
@@ -182,15 +179,13 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             ->createFeature('f1')
             ->createFeature('f2')
             ->createFeature('f3')
-            ->createGroup('foo', [
+            ->createGroup('g1', [
                 'f1',
                 'f2',
                 'f3',
-            ], function () {
-                return 'f1';
-            });
+            ], 'f1');
 
-        $this->assertSame('f1', $this->target->select('foo'));
+        $this->assertSame('f1', $this->target->select('g1'));
 
         $this->assertTrue($this->target->isActive('f1'));
         $this->assertFalse($this->target->isActive('f2'));
@@ -209,7 +204,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             ->createFeature('f1')
             ->createFeature('f2')
             ->createFeature('f3')
-            ->createGroup('foo', [
+            ->createGroup('g1', [
                 'f1',
                 'f2',
                 'f3',
@@ -217,7 +212,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
                 return $context->return;
             });
 
-        $this->assertSame('f1', $this->target->select('foo', $context));
+        $this->assertSame('f1', $this->target->select('g1', $context));
 
         $this->assertTrue($this->target->isActive('f1'));
         $this->assertFalse($this->target->isActive('f2'));
