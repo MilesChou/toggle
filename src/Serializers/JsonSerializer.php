@@ -22,8 +22,8 @@ class JsonSerializer implements SerializerInterface
     public function serialize()
     {
         return json_encode([
-            'features' => $this->features,
-            'groups' => $this->groups,
+            'f' => $this->features,
+            'g' => $this->groups,
         ]);
     }
 
@@ -31,8 +31,8 @@ class JsonSerializer implements SerializerInterface
     {
         $data = json_decode($str, true);
 
-        $this->setFeatures($data['features']);
-        $this->setGroups($data['groups']);
+        $this->setFeatures($data['f']);
+        $this->setGroups($data['g']);
 
         return $this;
     }

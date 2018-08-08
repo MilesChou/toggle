@@ -52,11 +52,11 @@ class Manager
         }
 
         foreach ($persistentProvider->getFeatures() as $name => $feature) {
-            $this->createFeature($name, $feature['result']);
+            $this->createFeature($name, $feature['r']);
         }
 
         foreach ($persistentProvider->getGroups() as $name => $group) {
-            $this->createGroup($name, $group['list'], $group['result']);
+            $this->createGroup($name, $group['l'], $group['r']);
         }
     }
 

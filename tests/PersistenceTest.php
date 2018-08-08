@@ -50,13 +50,13 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     {
         $dataProvider = new JsonSerializer([
             'f1' => [
-                'result' => true,
+                'r' => true,
             ],
             'f2' => [
-                'result' => false,
+                'r' => false,
             ],
             'f3' => [
-                'result' => false,
+                'r' => false,
             ],
         ]);
 
@@ -74,13 +74,13 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     {
         $excepted = [
             'f1' => [
-                'result' => true,
+                'r' => true,
             ],
             'f2' => [
-                'result' => false,
+                'r' => false,
             ],
             'f3' => [
-                'result' => false,
+                'r' => false,
             ],
         ];
 
@@ -101,22 +101,22 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     {
         $dataProvider = new JsonSerializer([
             'f1' => [
-                'result' => true,
+                'r' => true,
             ],
             'f2' => [
-                'result' => false,
+                'r' => false,
             ],
             'f3' => [
-                'result' => false,
+                'r' => false,
             ],
         ], [
             'g1' => [
-                'list' => [
+                'l' => [
                     'f1',
                     'f2',
                     'f3',
                 ],
-                'result' => 'f1',
+                'r' => 'f1',
             ],
         ]);
 
@@ -136,24 +136,24 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     {
         $exceptedFeature = [
             'f1' => [
-                'result' => true,
+                'r' => true,
             ],
             'f2' => [
-                'result' => false,
+                'r' => false,
             ],
             'f3' => [
-                'result' => false,
+                'r' => false,
             ],
         ];
 
         $exceptedGroup = [
             'g1' => [
-                'list' => [
+                'l' => [
                     'f1',
                     'f2',
                     'f3',
                 ],
-                'result' => 'f1',
+                'r' => 'f1',
             ],
         ];
 
@@ -187,22 +187,22 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
 
         $dataProvider = new JsonSerializer([
             'f1' => [
-                'result' => false,
+                'r' => false,
             ],
             'f2' => [
-                'result' => false,
+                'r' => false,
             ],
             'f3' => [
-                'result' => true,
+                'r' => true,
             ],
         ], [
             'g1' => [
-                'list' => [
+                'l' => [
                     'f1',
                     'f2',
                     'f3',
                 ],
-                'result' => 'f3',
+                'r' => 'f3',
             ],
         ]);
 
@@ -235,22 +235,22 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
 
         $dataProvider = new JsonSerializer([
             'f1' => [
-                'result' => false,
+                'r' => false,
             ],
             'f2' => [
-                'result' => false,
+                'r' => false,
             ],
             'f3' => [
-                'result' => true,
+                'r' => true,
             ],
         ], [
             'g1' => [
-                'list' => [
+                'l' => [
                     'f1',
                     'f2',
                     'f3',
                 ],
-                'result' => 'f3',
+                'r' => 'f3',
             ],
         ]);
 

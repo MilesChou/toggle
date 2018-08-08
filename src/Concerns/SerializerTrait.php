@@ -44,7 +44,7 @@ trait SerializerTrait
         $features = array_map(function ($feature) use ($context) {
             if ($feature instanceof Feature) {
                 return [
-                    'result' => $feature->isActive($context),
+                    'r' => $feature->isActive($context),
                 ];
             }
 
@@ -66,8 +66,8 @@ trait SerializerTrait
         $groups = array_map(function ($group) use ($context) {
             if ($group instanceof Group) {
                 return [
-                    'list' => $group->getFeaturesName(),
-                    'result' => $group->select($context),
+                    'l' => $group->getFeaturesName(),
+                    'r' => $group->select($context),
                 ];
             }
 

@@ -28,30 +28,30 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
     {
         $this->target->setFeatures([
             'f1' => [
-                'result' => true,
+                'r' => true,
             ],
             'f2' => [
-                'result' => false,
+                'r' => false,
             ],
             'f3' => [
-                'result' => false,
+                'r' => false,
             ],
         ]);
 
         $this->target->setGroups([
             'g1' => [
-                'list' => [
+                'l' => [
                     'f1',
                     'f2',
                     'f3',
                 ],
-                'result' => 'f1',
+                'r' => 'f1',
             ],
         ]);
 
         $actual = $this->target->serialize();
 
-        $this->assertSame('{"features":{"f1":{"result":true},"f2":{"result":false},"f3":{"result":false}},"groups":{"g1":{"list":["f1","f2","f3"],"result":"f1"}}}', $actual);
+        $this->assertSame('{"f":{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}},"g":{"g1":{"l":["f1","f2","f3"],"r":"f1"}}}', $actual);
     }
 
     /**
@@ -61,28 +61,28 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
     {
         $exceptedFeature = [
             'f1' => [
-                'result' => true,
+                'r' => true,
             ],
             'f2' => [
-                'result' => false,
+                'r' => false,
             ],
             'f3' => [
-                'result' => false,
+                'r' => false,
             ],
         ];
 
         $exceptedGroup = [
             'g1' => [
-                'list' => [
+                'l' => [
                     'f1',
                     'f2',
                     'f3',
                 ],
-                'result' => 'f1',
+                'r' => 'f1',
             ],
         ];
 
-        $actual = $this->target->unserialize('{"features":{"f1":{"result":true},"f2":{"result":false},"f3":{"result":false}},"groups":{"g1":{"list":["f1","f2","f3"],"result":"f1"}}}');
+        $actual = $this->target->unserialize('{"f":{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}},"g":{"g1":{"l":["f1","f2","f3"],"r":"f1"}}}');
 
         $this->assertSame($exceptedFeature, $actual->getFeatures());
         $this->assertSame($exceptedGroup, $actual->getGroups());
