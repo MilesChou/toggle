@@ -2,9 +2,9 @@
 
 namespace Tests;
 
+use MilesChou\Toggle\DataProvider;
 use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Manager;
-use MilesChou\Toggle\Serializers\JsonDataProvider;
 
 class PersistenceTest extends \PHPUnit_Framework_TestCase
 {
@@ -48,7 +48,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnCorrectResultWhenImportFeatureOnly()
     {
-        $dataProvider = new JsonDataProvider([
+        $dataProvider = new DataProvider([
             'f1' => [
                 'r' => true,
             ],
@@ -89,8 +89,9 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
             ->addFeature('f2', Feature::create()->setProcessedResult(false))
             ->addFeature('f3', Feature::create()->setProcessedResult(false));
 
-        $actual = $this->target->export('MilesChou\Toggle\Serializers\JsonDataProvider');
+        $actual = $this->target->export();
 
+        $this->assertInstanceOf('MilesChou\Toggle\Contracts\DataProviderInterface', $actual);
         $this->assertSame($excepted, $actual->getFeatures());
     }
 
@@ -99,7 +100,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnCorrectResultWhenImportFeatureAndGroup()
     {
-        $dataProvider = new JsonDataProvider([
+        $dataProvider = new DataProvider([
             'f1' => [
                 'r' => true,
             ],
@@ -163,8 +164,9 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
             ->addFeature('f3', Feature::create()->setProcessedResult(false))
             ->createGroup('g1', ['f1', 'f2', 'f3'], 'f1');
 
-        $actual = $this->target->export('MilesChou\Toggle\Serializers\JsonDataProvider');
+        $actual = $this->target->export();
 
+        $this->assertInstanceOf('MilesChou\Toggle\Contracts\DataProviderInterface', $actual);
         $this->assertSame($exceptedFeature, $actual->getFeatures());
         $this->assertSame($exceptedGroup, $actual->getGroups());
     }
@@ -185,7 +187,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
             ], 'f1')
             ->select('g1');
 
-        $dataProvider = new JsonDataProvider([
+        $dataProvider = new DataProvider([
             'f1' => [
                 'r' => false,
             ],
@@ -233,7 +235,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
             ], 'f1')
             ->select('g1');
 
-        $dataProvider = new JsonDataProvider([
+        $dataProvider = new DataProvider([
             'f1' => [
                 'r' => false,
             ],

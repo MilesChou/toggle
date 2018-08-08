@@ -21,7 +21,7 @@ class Manager
      * @param Context|null $context
      * @return DataProviderInterface
      */
-    public function export($dataProviderDriver, Context $context = null)
+    public function export($dataProviderDriver = 'MilesChou\Toggle\DataProvider', Context $context = null)
     {
         if (!class_exists($dataProviderDriver)) {
             throw new RuntimeException("Unknown class {$dataProviderDriver}");

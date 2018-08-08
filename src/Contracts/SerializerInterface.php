@@ -5,13 +5,14 @@ namespace MilesChou\Toggle\Contracts;
 interface SerializerInterface
 {
     /**
-     * @return static
+     * @param mixed $data
+     * @return string
      */
-    public function serialize();
+    public function serialize($data);
 
     /**
      * @param string $str
-     * @return static
+     * @return mixed
      */
     public function unserialize($str);
 }

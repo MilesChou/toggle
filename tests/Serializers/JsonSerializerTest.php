@@ -2,18 +2,18 @@
 
 namespace Tests\Serializers;
 
-use MilesChou\Toggle\Serializers\JsonDataProvider;
+use MilesChou\Toggle\Serializers\JsonSerializer;
 
 class JsonSerializerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var JsonDataProvider
+     * @var JsonSerializer
      */
     private $target;
 
     protected function setUp()
     {
-        $this->target = new JsonDataProvider();
+        $this->target = new JsonSerializer();
     }
 
     protected function tearDown()
@@ -26,30 +26,29 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnSerializeResult()
     {
-        $this->target->setFeatures([
-            'f1' => [
-                'r' => true,
-            ],
-            'f2' => [
-                'r' => false,
-            ],
-            'f3' => [
-                'r' => false,
-            ],
-        ]);
-
-        $this->target->setGroups([
-            'g1' => [
-                'l' => [
-                    'f1',
-                    'f2',
-                    'f3',
+        $actual = $this->target->serialize([
+            'f' => [
+                'f1' => [
+                    'r' => true,
                 ],
-                'r' => 'f1',
+                'f2' => [
+                    'r' => false,
+                ],
+                'f3' => [
+                    'r' => false,
+                ],
+            ],
+            'g' => [
+                'g1' => [
+                    'l' => [
+                        'f1',
+                        'f2',
+                        'f3',
+                    ],
+                    'r' => 'f1',
+                ],
             ],
         ]);
-
-        $actual = $this->target->serialize();
 
         $this->assertSame('{"f":{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}},"g":{"g1":{"l":["f1","f2","f3"],"r":"f1"}}}', $actual);
     }
@@ -84,7 +83,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
 
         $actual = $this->target->unserialize('{"f":{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}},"g":{"g1":{"l":["f1","f2","f3"],"r":"f1"}}}');
 
-        $this->assertSame($exceptedFeature, $actual->getFeatures());
-        $this->assertSame($exceptedGroup, $actual->getGroups());
+        $this->assertSame($exceptedFeature, $actual['f']);
+        $this->assertSame($exceptedGroup, $actual['g']);
     }
 }
