@@ -6,6 +6,7 @@ use MilesChou\Toggle\Concerns\ContextTrait;
 use MilesChou\Toggle\Concerns\FacadeTrait;
 use MilesChou\Toggle\Concerns\FeatureTrait;
 use MilesChou\Toggle\Concerns\GroupTrait;
+use RuntimeException;
 
 class Manager
 {
@@ -21,14 +22,14 @@ class Manager
     public function export($providerDriver)
     {
         if (!class_exists($providerDriver)) {
-            throw new \RuntimeException("Unknown class {$providerDriver}");
+            throw new RuntimeException("Unknown class {$providerDriver}");
         }
 
         /** @var ProviderInterface $persistentProvider */
         $persistentProvider = new $providerDriver();
 
         if (!$persistentProvider instanceof ProviderInterface) {
-            throw new \RuntimeException('Driver must instance of Provider');
+            throw new RuntimeException('Driver must instance of Provider');
         }
 
         return $persistentProvider
@@ -64,7 +65,7 @@ class Manager
     public function isActive($featureName, Context $context = null)
     {
         if (!array_key_exists($featureName, $this->features)) {
-            throw new \RuntimeException("Feature '{$featureName}' is not found");
+            throw new RuntimeException("Feature '{$featureName}' is not found");
         }
 
         if (null === $context) {
@@ -82,7 +83,7 @@ class Manager
     public function select($groupName, Context $context = null)
     {
         if (!array_key_exists($groupName, $this->groups)) {
-            throw new \RuntimeException("Group '{$groupName}' is not found");
+            throw new RuntimeException("Group '{$groupName}' is not found");
         }
 
         if (null === $context) {

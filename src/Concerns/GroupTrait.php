@@ -4,6 +4,7 @@ namespace MilesChou\Toggle\Concerns;
 
 use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Group;
+use RuntimeException;
 
 trait GroupTrait
 {
@@ -74,7 +75,7 @@ trait GroupTrait
         $featureInstances = array_map(function ($featureName) {
             if (array_key_exists($featureName, $this->featureGroupMapping)) {
                 $group = $this->featureGroupMapping[$featureName];
-                throw new \RuntimeException("Feature has been set for '{$group}'");
+                throw new RuntimeException("Feature has been set for '{$group}'");
             }
 
             return $this->features[$featureName];
