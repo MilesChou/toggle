@@ -71,6 +71,26 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function shouldReturnTrueWhenCreateFeatureUsingStaticAndReturnTrue()
+    {
+        $this->target->createFeature('foo', true);
+
+        $this->assertTrue($this->target->isActive('foo'));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnTrueWhenCreateFeatureUsingStaticAndReturnFalse()
+    {
+        $this->target->createFeature('foo', false);
+
+        $this->assertFalse($this->target->isActive('foo'));
+    }
+
+    /**
+     * @test
+     */
     public function shouldThrowExceptionWhenCreateFeatureAndRemoveFeature()
     {
         $this->setExpectedException('RuntimeException', 'foo');
