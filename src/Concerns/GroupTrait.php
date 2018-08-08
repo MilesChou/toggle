@@ -27,7 +27,10 @@ trait GroupTrait
     {
         $featureNames = $group->getFeaturesName();
 
-        $this->assertFeatureExist($featureNames);
+        $this->assertAllFeaturesNotExist($featureNames);
+
+        $this->appendFeatures($group->getFeatures());
+
         $this->updateFeatureGroupMapping($featureNames, $name);
 
         $this->groups[$name] = $group;
@@ -49,7 +52,7 @@ trait GroupTrait
      */
     public function createGroup($name, array $features, $processor = null)
     {
-        $this->assertFeatureExist($features);
+        $this->assertAllFeaturesExist($features);
 
         $this->groups[$name] = Group::create($this->normalizeFeatureMap($features), $processor);
 

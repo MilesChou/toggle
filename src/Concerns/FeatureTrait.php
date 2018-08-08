@@ -24,6 +24,17 @@ trait FeatureTrait
         return $this;
     }
 
+    /**
+     * @param array $features
+     * @return static
+     */
+    public function appendFeatures(array $features)
+    {
+        $this->features = array_merge($this->features, $features);
+
+        return $this;
+    }
+
     public function cleanFeature()
     {
         $this->features = [];
@@ -44,9 +55,48 @@ trait FeatureTrait
     /**
      * @return array
      */
+    public function getFeatures()
+    {
+        return $this->features;
+    }
+
+    /**
+     * @return array
+     */
     public function getFeaturesName()
     {
         return array_keys($this->features);
+    }
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function isFeatureExist($name)
+    {
+        return array_key_exists($name, $this->features);
+    }
+
+    /**
+     * @param array $featureNames
+     * @return bool
+     */
+    public function isAllFeaturesExist(array $featureNames)
+    {
+        return array_reduce($featureNames, function ($carry, $name) {
+            return $carry && $this->isFeatureExist($name);
+        }, true);
+    }
+
+    /**
+     * @param array $featureNames
+     * @return bool
+     */
+    public function isAllFeaturesNotExist(array $featureNames)
+    {
+        return array_reduce($featureNames, function ($carry, $name) {
+            return $carry && !$this->isFeatureExist($name);
+        }, true);
     }
 
     /**
@@ -58,15 +108,24 @@ trait FeatureTrait
     }
 
     /**
+     * @param array|string $featureNames
+     * @throws RuntimeException
+     */
+    protected function assertAllFeaturesExist($featureNames)
+    {
+        if (!$this->isAllFeaturesExist($featureNames)) {
+            throw new RuntimeException('Some feature is not exist');
+        }
+    }
+
+    /**
      * @param array $featureNames
      * @throws RuntimeException
      */
-    protected function assertFeatureExist($featureNames)
+    protected function assertAllFeaturesNotExist($featureNames)
     {
-        foreach ($featureNames as $featureName) {
-            if (!array_key_exists($featureName, $this->features)) {
-                throw new RuntimeException("Feature '{$featureName}' is not set");
-            }
+        if (!$this->isAllFeaturesNotExist($featureNames)) {
+            throw new RuntimeException('Some feature is exist');
         }
     }
 }

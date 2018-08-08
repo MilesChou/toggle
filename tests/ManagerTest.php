@@ -101,7 +101,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionWhenCreateGroupWithoutFeature()
     {
-        $this->setExpectedException('RuntimeException', 'Feature \'not-exist\' is not set');
+        $this->setExpectedException('RuntimeException', 'Some feature is not exist');
 
         $this->target->createGroup('g1', ['not-exist']);
     }
@@ -111,9 +111,11 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionWhenAddGroupWithoutFeature()
     {
-        $this->setExpectedException('RuntimeException', 'Feature \'not-exist\' is not set');
+        $this->setExpectedException('RuntimeException', 'Some feature is exist');
 
-        $this->target->addGroup('g1', Group::create(['not-exist' => Feature::create()]));
+        $this->target
+            ->createFeature('exist')
+            ->addGroup('g1', Group::create(['exist' => Feature::create()]));
     }
 
     /**
@@ -128,6 +130,27 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
             ->createGroup('g1', ['f1']);
 
         $this->target->createGroup('bar', ['f1']);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldThrowExceptionWhenAddGroup()
+    {
+        $this->target
+            ->addGroup('g1', Group::create([
+                'f1' => Feature::create(),
+                'f2' => Feature::create(),
+                'f3' => Feature::create(),
+            ], function () {
+                return 'f1';
+            }));
+
+        $this->assertSame('f1', $this->target->select('g1'));
+
+        $this->assertTrue($this->target->isActive('f1'));
+        $this->assertFalse($this->target->isActive('f2'));
+        $this->assertFalse($this->target->isActive('f3'));
     }
 
     /**
