@@ -11,10 +11,11 @@ interface ParameterAwareInterface
     public function existParam($key);
 
     /**
-     * @param string $key
+     * @param string $name
+     * @param mixed|null $default
      * @return mixed
      */
-    public function getParam($key);
+    public function getParam($name, $default = null);
 
     /**
      * @return mixed

@@ -20,11 +20,12 @@ trait ParameterAwareTrait
 
     /**
      * @param string $name
+     * @param mixed|null $default
      * @return mixed
      */
-    public function getParam($name)
+    public function getParam($name, $default = null)
     {
-        return $this->existParam($name) ? $this->params[$name] : null;
+        return $this->existParam($name) ? $this->params[$name] : $default;
     }
 
     /**
