@@ -2,12 +2,12 @@
 
 namespace MilesChou\Toggle;
 
-class Context
+use MilesChou\Toggle\Concerns\ParameterAwareTrait;
+use MilesChou\Toggle\Contracts\ParameterAwareInterface;
+
+class Context implements ParameterAwareInterface
 {
-    /**
-     * @var array
-     */
-    private $params;
+    use ParameterAwareTrait;
 
     /**
      * @param array $params
@@ -28,42 +28,16 @@ class Context
 
     public function __get($name)
     {
-        return $this->get($name);
+        return $this->getParam($name);
     }
 
     public function __set($name, $value)
     {
-        $this->set($name, $value);
+        $this->setParam($name, $value);
     }
 
     public function __isset($name)
     {
-        return $this->exist($name);
-    }
-
-    public function exist($name)
-    {
-        return isset($this->params[$name]);
-    }
-
-    /**
-     * @param string $name
-     * @return array
-     */
-    public function get($name)
-    {
-        return $this->exist($name) ? $this->params[$name] : null;
-    }
-
-    /**
-     * @param string $name
-     * @param mixed $value
-     * @return static
-     */
-    public function set($name, $value)
-    {
-        $this->params[$name] = $value;
-
-        return $this;
+        return $this->existParam($name);
     }
 }

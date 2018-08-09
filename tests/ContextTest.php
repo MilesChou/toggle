@@ -26,11 +26,11 @@ class ContextTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnCorrectResultWhenUsingIssetFunction()
     {
-        $this->target->set('exist', 'whatever');
+        $this->target->setParam('exist', 'whatever');
 
-        $this->assertTrue($this->target->exist('exist'));
+        $this->assertTrue($this->target->existParam('exist'));
         $this->assertTrue(isset($this->target->exist));
-        $this->assertFalse($this->target->exist('notExist'));
+        $this->assertFalse($this->target->existParam('notExist'));
         $this->assertFalse(isset($this->target->notExist));
     }
 }
