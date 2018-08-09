@@ -38,7 +38,7 @@ class GroupTraitTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('InvalidArgumentException', 'Group \'not-exist\' is not found');
 
-        $target = $this->getMockForTrait('MilesChou\Toggle\Concerns\GroupAwareTrait');
+        $target = $this->getMockForTrait('MilesChou\\Toggle\\Concerns\\GroupAwareTrait');
         $target->getGroup('not-exist');
     }
 }

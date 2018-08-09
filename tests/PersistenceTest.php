@@ -98,7 +98,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
 
         $actual = $this->target->export();
 
-        $this->assertInstanceOf('MilesChou\Toggle\Contracts\DataProviderInterface', $actual);
+        $this->assertInstanceOf('MilesChou\\Toggle\\Contracts\\DataProviderInterface', $actual);
         $this->assertSame($excepted, $actual->getFeatures());
     }
 
@@ -121,7 +121,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
 
         $actual = $this->target->export(Context::create(['return' => false]));
 
-        $this->assertInstanceOf('MilesChou\Toggle\Contracts\DataProviderInterface', $actual);
+        $this->assertInstanceOf('MilesChou\\Toggle\\Contracts\\DataProviderInterface', $actual);
         $this->assertSame($excepted, $actual->getFeatures());
     }
 
@@ -204,7 +204,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
 
         $actual = $this->target->export();
 
-        $this->assertInstanceOf('MilesChou\Toggle\Contracts\DataProviderInterface', $actual);
+        $this->assertInstanceOf('MilesChou\\Toggle\\Contracts\\DataProviderInterface', $actual);
         $this->assertSame($exceptedFeature, $actual->getFeatures());
         $this->assertSame($exceptedGroup, $actual->getGroups());
     }
