@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Feature;
 
 class FeatureTest extends \PHPUnit_Framework_TestCase
@@ -90,5 +91,20 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnFalseWhenOff()
     {
         $this->assertFalse($this->target->off()->isActive());
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnStaticResultWhenGivenDifferentContext()
+    {
+        $target = Feature::create(function (Context $context) {
+            $id = $context->getParam('id');
+
+            return 0 === $id % 2;
+        });
+
+        $this->assertFalse($target->isActive(Context::create(['id' => 1])));
+        $this->assertFalse($target->isActive());
     }
 }
