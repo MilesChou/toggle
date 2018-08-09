@@ -92,17 +92,4 @@ class Manager
 
         return $this->groups[$groupName]->select($context);
     }
-
-    /**
-     * @param Context|null $context
-     * @return Context|null
-     */
-    protected function resolveContext($context)
-    {
-        if (null === $context) {
-            $context = $this->context;
-        }
-
-        return $context;
-    }
 }
