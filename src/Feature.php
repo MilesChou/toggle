@@ -14,19 +14,23 @@ class Feature implements FeatureInterface, ParameterAwareInterface
 
     /**
      * @param callable $processor
+     * @param array $params
      * @return static
      */
-    public static function create($processor = null)
+    public static function create($processor = null, array $params = [])
     {
-        return new static($processor);
+        return new static($processor, $params);
     }
 
     /**
      * @param callable|bool|null $processor The callable will return bool
+     * @param array $params
      */
-    public function __construct($processor = null)
+    public function __construct($processor = null, array $params = [])
     {
         $this->init($processor);
+
+        $this->params = $params;
     }
 
     /**

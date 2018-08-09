@@ -53,11 +53,11 @@ class Manager
         }
 
         foreach ($dataProvider->getFeatures() as $name => $feature) {
-            $this->createFeature($name, $feature['r']);
+            $this->createFeature($name, $feature['r'], $feature['p']);
         }
 
         foreach ($dataProvider->getGroups() as $name => $group) {
-            $this->createGroup($name, $group['l'], $group['r']);
+            $this->createGroup($name, $group['l'], $group['r'], $group['p']);
         }
     }
 

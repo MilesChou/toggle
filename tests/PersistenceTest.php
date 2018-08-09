@@ -51,12 +51,15 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     {
         $dataProvider = new DataProvider([
             'f1' => [
+                'p' => [],
                 'r' => true,
             ],
             'f2' => [
+                'p' => [],
                 'r' => false,
             ],
             'f3' => [
+                'p' => [],
                 'r' => false,
             ],
         ]);
@@ -75,12 +78,15 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     {
         $excepted = [
             'f1' => [
+                'p' => [],
                 'r' => true,
             ],
             'f2' => [
+                'p' => [],
                 'r' => false,
             ],
             'f3' => [
+                'p' => [],
                 'r' => false,
             ],
         ];
@@ -103,6 +109,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     {
         $excepted = [
             'f1' => [
+                'p' => [],
                 'r' => false,
             ],
         ];
@@ -125,16 +132,20 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     {
         $dataProvider = new DataProvider([
             'f1' => [
+                'p' => [],
                 'r' => true,
             ],
             'f2' => [
+                'p' => [],
                 'r' => false,
             ],
             'f3' => [
+                'p' => [],
                 'r' => false,
             ],
         ], [
             'g1' => [
+                'p' => [],
                 'l' => [
                     'f1',
                     'f2',
@@ -160,18 +171,22 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     {
         $exceptedFeature = [
             'f1' => [
+                'p' => [],
                 'r' => true,
             ],
             'f2' => [
+                'p' => [],
                 'r' => false,
             ],
             'f3' => [
+                'p' => [],
                 'r' => false,
             ],
         ];
 
         $exceptedGroup = [
             'g1' => [
+                'p' => [],
                 'l' => [
                     'f1',
                     'f2',
@@ -208,16 +223,20 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
 
         $dataProvider = new DataProvider([
             'f1' => [
+                'p' => [],
                 'r' => false,
             ],
             'f2' => [
+                'p' => [],
                 'r' => false,
             ],
             'f3' => [
+                'p' => [],
                 'r' => true,
             ],
         ], [
             'g1' => [
+                'p' => [],
                 'l' => [
                     'f1',
                     'f2',
@@ -252,16 +271,20 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
 
         $dataProvider = new DataProvider([
             'f1' => [
+                'p' => [],
                 'r' => false,
             ],
             'f2' => [
+                'p' => [],
                 'r' => false,
             ],
             'f3' => [
+                'p' => [],
                 'r' => true,
             ],
         ], [
             'g1' => [
+                'p' => [],
                 'l' => [
                     'f1',
                     'f2',

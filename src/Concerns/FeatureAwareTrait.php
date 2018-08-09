@@ -44,11 +44,12 @@ trait FeatureAwareTrait
     /**
      * @param string $name
      * @param callable|bool|null $processor
+     * @param array $params
      * @return static
      */
-    public function createFeature($name, $processor = null)
+    public function createFeature($name, $processor = null, array $params = [])
     {
-        $this->features[$name] = Feature::create($processor);
+        $this->features[$name] = Feature::create($processor, $params);
 
         return $this;
     }

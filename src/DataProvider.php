@@ -55,6 +55,7 @@ class DataProvider implements DataProviderInterface
         $this->features = array_map(function ($feature) use ($context) {
             if ($feature instanceof Feature) {
                 return [
+                    'p' => $feature->getParams(),
                     'r' => $feature->isActive($context),
                 ];
             }
@@ -75,6 +76,7 @@ class DataProvider implements DataProviderInterface
         $this->groups = array_map(function ($group) use ($context) {
             if ($group instanceof Group) {
                 return [
+                    'p' => $group->getParams(),
                     'l' => $group->getFeaturesName(),
                     'r' => $group->select($context),
                 ];

@@ -17,22 +17,26 @@ class Group implements GroupInterface, ParameterAwareInterface
     /**
      * @param Feature[] $features
      * @param callable|null $processor The callable will return bool
+     * @param array $params
      * @return static
      */
-    public static function create(array $features, $processor = null)
+    public static function create(array $features, $processor = null, array $params = [])
     {
-        return new static($features, $processor);
+        return new static($features, $processor, $params);
     }
 
     /**
      * @param Feature[] $features
      * @param callable|string|null $processor
+     * @param array $params
      */
-    public function __construct(array $features, $processor = null)
+    public function __construct(array $features, $processor = null, array $params = [])
     {
         $this->features = $features;
 
         $this->init($processor);
+
+        $this->params = $params;
     }
 
     /**

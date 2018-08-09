@@ -49,13 +49,14 @@ trait GroupAwareTrait
      * @param string $name
      * @param array $features
      * @param callable|string|null $processor
+     * @param array $params
      * @return static
      */
-    public function createGroup($name, array $features, $processor = null)
+    public function createGroup($name, array $features, $processor = null, array $params = [])
     {
         $this->assertAllFeaturesExist($features);
 
-        $this->groups[$name] = Group::create($this->normalizeFeatureMap($features), $processor);
+        $this->groups[$name] = Group::create($this->normalizeFeatureMap($features), $processor, $params);
 
         $this->updateFeatureGroupMapping($features, $name);
 
