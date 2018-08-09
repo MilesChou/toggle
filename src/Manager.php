@@ -3,7 +3,6 @@
 namespace MilesChou\Toggle;
 
 use MilesChou\Toggle\Concerns\ContextAwareTrait;
-use MilesChou\Toggle\Concerns\FacadeTrait;
 use MilesChou\Toggle\Concerns\FeatureAwareTrait;
 use MilesChou\Toggle\Concerns\GroupAwareTrait;
 use MilesChou\Toggle\Contracts\DataProviderInterface;
@@ -12,7 +11,6 @@ use RuntimeException;
 class Manager
 {
     use ContextAwareTrait;
-    use FacadeTrait;
     use FeatureAwareTrait;
     use GroupAwareTrait;
 
