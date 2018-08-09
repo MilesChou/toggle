@@ -65,56 +65,55 @@ class Manager
     }
 
     /**
-     * @param string $featureName
+     * @param string $name
      * @param null|Context $context
      * @return bool
      */
-    public function isActive($featureName, Context $context = null)
+    public function isActive($name, Context $context = null)
     {
-        if (isset($this->featuresPreserveResult[$featureName])) {
-            return $this->featuresPreserveResult[$featureName];
+        if (isset($this->featuresPreserveResult[$name])) {
+            return $this->featuresPreserveResult[$name];
         }
 
-        if (!array_key_exists($featureName, $this->features)) {
-            throw new RuntimeException("Feature '{$featureName}' is not found");
+        if (!array_key_exists($name, $this->features)) {
+            throw new RuntimeException("Feature '{$name}' is not found");
         }
 
         $context = $this->resolveContext($context);
 
-        $result = $this->features[$featureName]->isActive($context);
+        $result = $this->isMappingExist($name)
+            ? $this->select($this->getMappingGroup($name), $context) === $name
+            : $this->feature($name)->isActive($context);
 
         if ($this->preserve) {
-            $this->featuresPreserveResult[$featureName] = $result;
+            $this->featuresPreserveResult[$name] = $result;
         }
 
         return $result;
     }
 
     /**
-     * @param string $groupName
+     * @param string $name
      * @param null|Context $context
      * @return string
      */
-    public function select($groupName, Context $context = null)
+    public function select($name, Context $context = null)
     {
-        if (isset($this->groupsPreserveResult[$groupName])) {
-            return $this->groupsPreserveResult[$groupName];
+        if (isset($this->groupsPreserveResult[$name])) {
+            return $this->groupsPreserveResult[$name];
         }
 
-        if (!array_key_exists($groupName, $this->groups)) {
-            throw new RuntimeException("Group '{$groupName}' is not found");
+        if (!array_key_exists($name, $this->groups)) {
+            throw new RuntimeException("Group '{$name}' is not found");
         }
 
         $context = $this->resolveContext($context);
 
-        $result = $this->groups[$groupName]->select($context);
+        $result = $this->group($name)->select($context);
 
         if ($this->preserve) {
-            $this->groupsPreserveResult[$groupName] = $result;
+            $this->groupsPreserveResult[$name] = $result;
         }
-
-        // FIXME: Not make sense
-        $this->processFeaturesToggle($result);
 
         return $result;
     }
@@ -128,18 +127,5 @@ class Manager
         $this->preserve = $preserve;
 
         return $this;
-    }
-
-    /**
-     * @param string $featureName
-     * @deprecated
-     */
-    private function processFeaturesToggle($featureName)
-    {
-        foreach ($this->features as $name => $feature) {
-            $toggle = $name === $featureName;
-
-            $this->featuresPreserveResult[$name] = $toggle;
-        }
     }
 }

@@ -84,6 +84,20 @@ trait GroupAwareTrait
     }
 
     /**
+     * @param string $featureName
+     * @return string
+     * @throws InvalidArgumentException
+     */
+    public function getMappingGroup($featureName)
+    {
+        if (!$this->isMappingExist($featureName)) {
+            throw new InvalidArgumentException("Feature '{$featureName}' is not in mapping");
+        }
+
+        return $this->featureGroupMapping[$featureName];
+    }
+
+    /**
      * Alias of getGroup()
      *
      * @param string $name
@@ -101,6 +115,15 @@ trait GroupAwareTrait
     public function isGroupExist($name)
     {
         return array_key_exists($name, $this->groups);
+    }
+
+    /**
+     * @param string $featureName
+     * @return bool
+     */
+    public function isMappingExist($featureName)
+    {
+        return array_key_exists($featureName, $this->featureGroupMapping);
     }
 
     /**
