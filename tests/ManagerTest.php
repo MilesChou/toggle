@@ -155,7 +155,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldThrowExceptionWhenAddGroup()
+    public function shouldBeOkayWhenAddGroup()
     {
         $this->target->addGroup('g1', Group::create([
             'f1' => Feature::create(),
