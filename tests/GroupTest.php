@@ -100,4 +100,24 @@ class GroupTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($feature1->isActive());
         $this->assertFalse($feature2->isActive());
     }
+
+    /**
+     * @test
+     */
+    public function shouldReturnFeature1InstanceWhenSelectFeature()
+    {
+        $feature1 = new Feature();
+        $feature2 = new Feature();
+
+        $target = new Group([
+            'feature1' => $feature1,
+            'feature2' => $feature2,
+        ], function () {
+            return 'feature1';
+        });
+
+        $actual = $target->selectFeature();
+
+        $this->assertSame($feature1, $actual);
+    }
 }
