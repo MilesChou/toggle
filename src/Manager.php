@@ -120,6 +120,17 @@ class Manager
     }
 
     /**
+     * @param bool $preserve
+     * @return static
+     */
+    public function setPreserve($preserve)
+    {
+        $this->preserve = $preserve;
+
+        return $this;
+    }
+
+    /**
      * @param string $featureName
      * @deprecated
      */

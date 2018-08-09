@@ -170,6 +170,23 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function shouldReturnDifferentResultWhenIsActiveWithDifferentContextWithoutPreserve()
+    {
+        $this->target->createFeature('f1', function (Context $context) {
+            $id = $context->getParam('id');
+
+            return 0 === $id % 2;
+        });
+
+        $this->target->setPreserve(false);
+
+        $this->assertTrue($this->target->isActive('f1', Context::create(['id' => 2])));
+        $this->assertFalse($this->target->isActive('f1', Context::create(['id' => 3])));
+    }
+
+    /**
+     * @test
+     */
     public function shouldReturnSameResultWhenSelectWithDifferentContext()
     {
         $this->target
