@@ -6,19 +6,19 @@ interface ParameterAwareInterface
 {
     /**
      * @param string $key
-     * @return string
+     * @return mixed
      */
     public function getParam($key);
 
     /**
-     * @param $key
-     * @param $value
+     * @param string $key
+     * @param mixed $value
      * @return static
      */
     public function setParam($key, $value);
 
     /**
-     * @param $key
+     * @param string $key
      * @return bool
      */
     public function existParam($key);
