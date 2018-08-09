@@ -2,12 +2,12 @@
 
 namespace MilesChou\Toggle;
 
-use MilesChou\Toggle\Concerns\FeatureTrait;
+use MilesChou\Toggle\Concerns\FeatureAwareTrait;
 use MilesChou\Toggle\Concerns\ProcessorAwareTrait;
 
 class Group
 {
-    use FeatureTrait;
+    use FeatureAwareTrait;
     use ProcessorAwareTrait;
 
     /**

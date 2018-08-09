@@ -5,7 +5,7 @@ namespace MilesChou\Toggle\Concerns;
 use MilesChou\Toggle\Feature;
 use RuntimeException;
 
-trait FeatureTrait
+trait FeatureAwareTrait
 {
     /**
      * @var Feature[]

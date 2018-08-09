@@ -2,19 +2,19 @@
 
 namespace MilesChou\Toggle;
 
-use MilesChou\Toggle\Concerns\ContextTrait;
+use MilesChou\Toggle\Concerns\ContextAwareTrait;
 use MilesChou\Toggle\Concerns\FacadeTrait;
-use MilesChou\Toggle\Concerns\FeatureTrait;
-use MilesChou\Toggle\Concerns\GroupTrait;
+use MilesChou\Toggle\Concerns\FeatureAwareTrait;
+use MilesChou\Toggle\Concerns\GroupAwareTrait;
 use MilesChou\Toggle\Contracts\DataProviderInterface;
 use RuntimeException;
 
 class Manager
 {
-    use ContextTrait;
+    use ContextAwareTrait;
     use FacadeTrait;
-    use FeatureTrait;
-    use GroupTrait;
+    use FeatureAwareTrait;
+    use GroupAwareTrait;
 
     /**
      * @param string $dataProviderDriver

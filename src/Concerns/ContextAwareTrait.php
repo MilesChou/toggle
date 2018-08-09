@@ -4,7 +4,7 @@ namespace MilesChou\Toggle\Concerns;
 
 use MilesChou\Toggle\Context;
 
-trait ContextTrait
+trait ContextAwareTrait
 {
     /**
      * @var Context

@@ -6,7 +6,7 @@ use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Group;
 use RuntimeException;
 
-trait GroupTrait
+trait GroupAwareTrait
 {
     /**
      * @var Group[]
