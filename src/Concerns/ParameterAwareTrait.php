@@ -47,15 +47,4 @@ trait ParameterAwareTrait
 
         return $this;
     }
-
-    /**
-     * @param array $params
-     * @return static
-     */
-    public function setParams(array $params)
-    {
-        $this->params = $params;
-
-        return $this;
-    }
 }

@@ -18,11 +18,6 @@ interface ParameterAwareInterface
     public function getParam($name, $default = null);
 
     /**
-     * @return mixed
-     */
-    public function getParams();
-
-    /**
      * @param string $key
      * @param mixed $value
      * @return static
