@@ -52,7 +52,7 @@ class DataProvider implements DataProviderInterface
      */
     public function setFeatures(array $features, $context = null)
     {
-        $features = array_map(function ($feature) use ($context) {
+        $this->features = array_map(function ($feature) use ($context) {
             if ($feature instanceof Feature) {
                 return [
                     'r' => $feature->isActive($context),
@@ -61,8 +61,6 @@ class DataProvider implements DataProviderInterface
 
             return $feature;
         }, $features);
-
-        $this->features = array_merge($this->features, $features);
 
         return $this;
     }
@@ -74,7 +72,7 @@ class DataProvider implements DataProviderInterface
      */
     public function setGroups(array $groups, $context = null)
     {
-        $groups = array_map(function ($group) use ($context) {
+        $this->groups = array_map(function ($group) use ($context) {
             if ($group instanceof Group) {
                 return [
                     'l' => $group->getFeaturesName(),
@@ -84,8 +82,6 @@ class DataProvider implements DataProviderInterface
 
             return $group;
         }, $groups);
-
-        $this->groups = array_merge($this->groups, $groups);
 
         return $this;
     }
