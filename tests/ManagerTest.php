@@ -228,26 +228,6 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldReturnTrueWhenCreateGroupAndUseGroupInstanceAndFeatureInstance()
-    {
-        $this->target
-            ->createFeature('f1')
-            ->createFeature('f2')
-            ->createFeature('f3')
-            ->createGroup('g1', ['f1', 'f2', 'f3'], 'f1');
-
-        $actualGroup = $this->target->getGroup('g1');
-
-        $this->assertSame('f1', $actualGroup->select());
-
-        $this->assertTrue($actualGroup->getFeature('f1')->isActive());
-        $this->assertFalse($actualGroup->getFeature('f2')->isActive());
-        $this->assertFalse($actualGroup->getFeature('f3')->isActive());
-    }
-
-    /**
-     * @test
-     */
     public function shouldReturnTrueWhenCreateGroupAndUsingContextAndReturnFeature1()
     {
         $context = Context::create();

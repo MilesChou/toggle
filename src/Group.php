@@ -16,12 +16,20 @@ class Group implements GroupInterface, ParameterAwareInterface
 
     /**
      * @param Feature[] $features
-     * @param callable|null $processor The callable will return bool
+     * @param callable|string|null $processor The callable will return bool
      * @param array $params
      * @return static
      */
     public static function create(array $features, $processor = null, array $params = [])
     {
+        if (is_string($processor)) {
+            $result = $processor;
+
+            $processor = function () use ($result) {
+                return $result;
+            };
+        }
+
         return new static($features, $processor, $params);
     }
 
@@ -45,11 +53,7 @@ class Group implements GroupInterface, ParameterAwareInterface
      */
     public function select($context = null)
     {
-        $feature = $this->process($context);
-
-        $this->processFeaturesToggle($feature);
-
-        return $feature;
+        return $this->process($context);
     }
 
     /**
@@ -68,17 +72,5 @@ class Group implements GroupInterface, ParameterAwareInterface
     protected function isValidProcessedResult($result)
     {
         return is_string($result) && array_key_exists($result, $this->features);
-    }
-
-    /**
-     * @param string $featureName
-     */
-    private function processFeaturesToggle($featureName)
-    {
-        foreach ($this->features as $name => $feature) {
-            $toggle = $name === $featureName;
-
-            $this->features[$name]->setProcessedResult($toggle);
-        }
     }
 }

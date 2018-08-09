@@ -13,12 +13,20 @@ class Feature implements FeatureInterface, ParameterAwareInterface
     use ProcessorAwareTrait;
 
     /**
-     * @param callable $processor
+     * @param callable|bool|null $processor
      * @param array $params
      * @return static
      */
     public static function create($processor = null, array $params = [])
     {
+        if (is_bool($processor)) {
+            $result = $processor;
+
+            $processor = function () use ($result) {
+                return $result;
+            };
+        }
+
         return new static($processor, $params);
     }
 
@@ -40,26 +48,6 @@ class Feature implements FeatureInterface, ParameterAwareInterface
     public function isActive($context = null)
     {
         return $this->process($context);
-    }
-
-    /**
-     * @return static
-     */
-    public function off()
-    {
-        $this->setProcessedResult(false);
-
-        return $this;
-    }
-
-    /**
-     * @return static
-     */
-    public function on()
-    {
-        $this->setProcessedResult(true);
-
-        return $this;
     }
 
     /**

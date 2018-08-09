@@ -37,6 +37,8 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
     public function invalidProcessor()
     {
         return [
+            [true],
+            [false],
             [123],
             [3.14],
             [''],
@@ -52,45 +54,9 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionWhenNewWithInvalidParam($invalidProcessor)
     {
-        $this->setExpectedException('InvalidArgumentException', 'Processor is not valid processor or result');
+        $this->setExpectedException('InvalidArgumentException', 'Processor is not valid');
 
         new Feature($invalidProcessor);
-    }
-
-    /**
-     * @test
-     */
-    public function shouldReturnTrueWhenNewWithDefaultValue()
-    {
-        $target = new Feature(true);
-
-        $this->assertTrue($target->isActive());
-    }
-
-    /**
-     * @test
-     */
-    public function shouldReturnFalseWhenNewWithDefaultValue()
-    {
-        $target = new Feature(false);
-
-        $this->assertFalse($target->isActive());
-    }
-
-    /**
-     * @test
-     */
-    public function shouldReturnTrueWhenOn()
-    {
-        $this->assertTrue($this->target->on()->isActive());
-    }
-
-    /**
-     * @test
-     */
-    public function shouldReturnFalseWhenOff()
-    {
-        $this->assertFalse($this->target->off()->isActive());
     }
 
     /**

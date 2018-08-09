@@ -9,11 +9,6 @@ use RuntimeException;
 trait ProcessorAwareTrait
 {
     /**
-     * @var mixed
-     */
-    private $processedResult;
-
-    /**
      * @var callable
      */
     private $processor;
@@ -24,29 +19,6 @@ trait ProcessorAwareTrait
     public function getProcessor()
     {
         return $this->processor;
-    }
-
-    /**
-     * @return static
-     */
-    public function resetResult()
-    {
-        $this->processedResult = null;
-
-        return $this;
-    }
-
-    /**
-     * @param mixed $result
-     * @return $this
-     */
-    public function setProcessedResult($result)
-    {
-        $this->assertResult($result);
-
-        $this->processedResult = $result;
-
-        return $this;
     }
 
     /**
@@ -81,17 +53,11 @@ trait ProcessorAwareTrait
      */
     protected function init($processor)
     {
-        if ($this->isValidProcessor($processor)) {
-            $this->setProcessor($processor);
-            return;
+        if (!$this->isValidProcessor($processor)) {
+            throw new InvalidArgumentException('Processor is not valid');
         }
 
-        if ($this->isValidProcessedResult($processor)) {
-            $this->setProcessedResult($processor);
-            return;
-        }
-
-        throw new InvalidArgumentException('Processor is not valid processor or result');
+        $this->setProcessor($processor);
     }
 
     /**
@@ -110,10 +76,6 @@ trait ProcessorAwareTrait
      */
     protected function process($context)
     {
-        if (null !== $this->processedResult) {
-            return $this->processedResult;
-        }
-
         if (null === $this->processor) {
             throw new RuntimeException('It\'s must provide a processor to decide feature');
         }

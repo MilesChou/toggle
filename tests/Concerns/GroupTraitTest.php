@@ -24,7 +24,7 @@ class GroupTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionWhenCreateGroupWithInvalidGroup($invalidProcessor)
     {
-        $this->setExpectedException('InvalidArgumentException', 'Processor is not valid processor or result');
+        $this->setExpectedException('InvalidArgumentException', 'Processor is not valid');
 
         $target = new Manager();
 

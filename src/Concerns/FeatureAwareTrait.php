@@ -55,14 +55,6 @@ trait FeatureAwareTrait
      */
     public function createFeature($name, $processor = null, array $params = [])
     {
-        if (is_bool($processor)) {
-            $result = $processor;
-
-            $processor = function () use ($result) {
-                return $result;
-            };
-        }
-
         $this->features[$name] = Feature::create($processor, $params);
 
         return $this;

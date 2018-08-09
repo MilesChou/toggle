@@ -113,6 +113,22 @@ class Manager
             $this->groupsPreserveResult[$groupName] = $result;
         }
 
+        // FIXME: Not make sense
+        $this->processFeaturesToggle($result);
+
         return $result;
+    }
+
+    /**
+     * @param string $featureName
+     * @deprecated
+     */
+    private function processFeaturesToggle($featureName)
+    {
+        foreach ($this->features as $name => $feature) {
+            $toggle = $name === $featureName;
+
+            $this->featuresPreserveResult[$name] = $toggle;
+        }
     }
 }
