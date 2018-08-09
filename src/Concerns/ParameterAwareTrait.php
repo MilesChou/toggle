@@ -7,7 +7,7 @@ trait ParameterAwareTrait
     /**
      * @var array
      */
-    private $params;
+    private $params = [];
 
     /**
      * @param string $name
@@ -25,6 +25,14 @@ trait ParameterAwareTrait
     public function getParam($name)
     {
         return $this->existParam($name) ? $this->params[$name] : null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParams()
+    {
+        return $this->params;
     }
 
     /**

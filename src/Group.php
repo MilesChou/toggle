@@ -3,12 +3,15 @@
 namespace MilesChou\Toggle;
 
 use MilesChou\Toggle\Concerns\FeatureAwareTrait;
+use MilesChou\Toggle\Concerns\ParameterAwareTrait;
 use MilesChou\Toggle\Concerns\ProcessorAwareTrait;
 use MilesChou\Toggle\Contracts\GroupInterface;
+use MilesChou\Toggle\Contracts\ParameterAwareInterface;
 
-class Group implements GroupInterface
+class Group implements GroupInterface, ParameterAwareInterface
 {
     use FeatureAwareTrait;
+    use ParameterAwareTrait;
     use ProcessorAwareTrait;
 
     /**

@@ -2,11 +2,14 @@
 
 namespace MilesChou\Toggle;
 
+use MilesChou\Toggle\Concerns\ParameterAwareTrait;
 use MilesChou\Toggle\Concerns\ProcessorAwareTrait;
 use MilesChou\Toggle\Contracts\FeatureInterface;
+use MilesChou\Toggle\Contracts\ParameterAwareInterface;
 
-class Feature implements FeatureInterface
+class Feature implements FeatureInterface, ParameterAwareInterface
 {
+    use ParameterAwareTrait;
     use ProcessorAwareTrait;
 
     /**
