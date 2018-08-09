@@ -3,8 +3,9 @@
 namespace MilesChou\Toggle;
 
 use MilesChou\Toggle\Concerns\ProcessorAwareTrait;
+use MilesChou\Toggle\Contracts\FeatureInterface;
 
-class Feature
+class Feature implements FeatureInterface
 {
     use ProcessorAwareTrait;
 

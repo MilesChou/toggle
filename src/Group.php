@@ -4,8 +4,9 @@ namespace MilesChou\Toggle;
 
 use MilesChou\Toggle\Concerns\FeatureAwareTrait;
 use MilesChou\Toggle\Concerns\ProcessorAwareTrait;
+use MilesChou\Toggle\Contracts\GroupInterface;
 
-class Group
+class Group implements GroupInterface
 {
     use FeatureAwareTrait;
     use ProcessorAwareTrait;
