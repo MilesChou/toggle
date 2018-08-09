@@ -155,6 +155,43 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function shouldReturnSameResultWhenIsActiveWithDifferentContext()
+    {
+        $this->target->createFeature('f1', function (Context $context) {
+            $id = $context->getParam('id');
+
+            return 0 === $id % 2;
+        });
+
+        $this->assertTrue($this->target->isActive('f1', Context::create(['id' => 2])));
+        $this->assertTrue($this->target->isActive('f1', Context::create(['id' => 3])));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnSameResultWhenSelectWithDifferentContext()
+    {
+        $this->target
+            ->createFeature('f1')
+            ->createFeature('f2')
+            ->createGroup('g1', ['f1', 'f2'], function (Context $context) {
+                $id = $context->getParam('id');
+
+                if (0 === $id % 2) {
+                    return 'f1';
+                } else {
+                    return 'f2';
+                }
+            });
+
+        $this->assertSame('f1', $this->target->select('g1', Context::create(['id' => 2])));
+        $this->assertSame('f1', $this->target->select('g1', Context::create(['id' => 3])));
+    }
+
+    /**
+     * @test
+     */
     public function shouldBeOkayWhenAddGroup()
     {
         $this->target->addGroup('g1', Group::create([

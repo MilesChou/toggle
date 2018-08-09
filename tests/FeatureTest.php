@@ -96,7 +96,7 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldReturnStaticResultWhenGivenDifferentContext()
+    public function shouldReturnDifferentResultWhenGivenDifferentContext()
     {
         $target = Feature::create(function (Context $context) {
             $id = $context->getParam('id');
@@ -105,6 +105,6 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
         });
 
         $this->assertFalse($target->isActive(Context::create(['id' => 1])));
-        $this->assertFalse($target->isActive());
+        $this->assertTrue($target->isActive(Context::create(['id' => 2])));
     }
 }

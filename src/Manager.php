@@ -17,6 +17,11 @@ class Manager
     use GroupAwareTrait;
 
     /**
+     * @var bool
+     */
+    private $preserve = true;
+
+    /**
      * @param string $dataProviderDriver
      * @param Context|null $context
      * @return DataProviderInterface
@@ -68,13 +73,23 @@ class Manager
      */
     public function isActive($featureName, Context $context = null)
     {
+        if (isset($this->featuresPreserveResult[$featureName])) {
+            return $this->featuresPreserveResult[$featureName];
+        }
+
         if (!array_key_exists($featureName, $this->features)) {
             throw new RuntimeException("Feature '{$featureName}' is not found");
         }
 
         $context = $this->resolveContext($context);
 
-        return $this->features[$featureName]->isActive($context);
+        $result = $this->features[$featureName]->isActive($context);
+
+        if ($this->preserve) {
+            $this->featuresPreserveResult[$featureName] = $result;
+        }
+
+        return $result;
     }
 
     /**
@@ -84,12 +99,22 @@ class Manager
      */
     public function select($groupName, Context $context = null)
     {
+        if (isset($this->groupsPreserveResult[$groupName])) {
+            return $this->groupsPreserveResult[$groupName];
+        }
+
         if (!array_key_exists($groupName, $this->groups)) {
             throw new RuntimeException("Group '{$groupName}' is not found");
         }
 
         $context = $this->resolveContext($context);
 
-        return $this->groups[$groupName]->select($context);
+        $result = $this->groups[$groupName]->select($context);
+
+        if ($this->preserve) {
+            $this->groupsPreserveResult[$groupName] = $result;
+        }
+
+        return $result;
     }
 }

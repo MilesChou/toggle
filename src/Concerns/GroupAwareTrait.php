@@ -17,6 +17,11 @@ trait GroupAwareTrait
     /**
      * @var array
      */
+    private $groupsPreserveResult = [];
+
+    /**
+     * @var array
+     */
     private $featureGroupMapping = [];
 
     /**
@@ -42,6 +47,7 @@ trait GroupAwareTrait
     public function cleanGroup()
     {
         $this->groups = [];
+        $this->groupsPreserveResult = [];
         $this->featureGroupMapping = [];
     }
 
@@ -55,6 +61,14 @@ trait GroupAwareTrait
     public function createGroup($name, array $features, $processor = null, array $params = [])
     {
         $this->assertAllFeaturesExist($features);
+
+        if (is_string($processor)) {
+            $result = $processor;
+
+            $processor = function () use ($result) {
+                return $result;
+            };
+        }
 
         $this->groups[$name] = Group::create($this->normalizeFeatureMap($features), $processor, $params);
 

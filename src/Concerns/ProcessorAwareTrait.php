@@ -126,9 +126,7 @@ trait ProcessorAwareTrait
 
         $this->assertResult($result);
 
-        $this->processedResult = $result;
-
-        return $this->processedResult;
+        return $result;
     }
 
     /**

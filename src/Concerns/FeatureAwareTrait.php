@@ -14,6 +14,11 @@ trait FeatureAwareTrait
     private $features = [];
 
     /**
+     * @var array
+     */
+    private $featuresPreserveResult = [];
+
+    /**
      * @param string $name
      * @param Feature $feature
      * @return static
@@ -39,6 +44,7 @@ trait FeatureAwareTrait
     public function cleanFeature()
     {
         $this->features = [];
+        $this->featuresPreserveResult = [];
     }
 
     /**
@@ -49,6 +55,14 @@ trait FeatureAwareTrait
      */
     public function createFeature($name, $processor = null, array $params = [])
     {
+        if (is_bool($processor)) {
+            $result = $processor;
+
+            $processor = function () use ($result) {
+                return $result;
+            };
+        }
+
         $this->features[$name] = Feature::create($processor, $params);
 
         return $this;
