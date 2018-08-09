@@ -18,4 +18,4 @@ $manager->createGroup('class-toggle', [
         : 'Examples\\OldClass';
 });
 
-echo $manager->getGroup('class-toggle')->select() . PHP_EOL;
+echo $manager->group('class-toggle')->select() . PHP_EOL;

@@ -20,4 +20,4 @@ $manager->createGroup('api-version', ['api-v1', 'api-v2'], function () {
         : 'api-v2';
 });
 
-echo $manager->getGroup('api-version')->selectFeatureInstance()->getParam('url') . PHP_EOL;
+echo $manager->group('api-version')->selectFeature()->getParam('url') . PHP_EOL;

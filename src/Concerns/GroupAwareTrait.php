@@ -78,6 +78,17 @@ trait GroupAwareTrait
     }
 
     /**
+     * Alias of getGroup()
+     *
+     * @param string $name
+     * @return Group
+     */
+    public function group($name)
+    {
+        return $this->getGroup($name);
+    }
+
+    /**
      * @param string $name
      * @return bool
      */

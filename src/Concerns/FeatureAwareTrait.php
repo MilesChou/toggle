@@ -55,6 +55,17 @@ trait FeatureAwareTrait
     }
 
     /**
+     * Alias of getFeature()
+     *
+     * @param string $name
+     * @return Feature
+     */
+    public function feature($name)
+    {
+        return $this->getFeature($name);
+    }
+
+    /**
      * @param string $name
      * @return Feature
      * @throws InvalidArgumentException
