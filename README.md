@@ -139,3 +139,5 @@ $str = $dataProvider->serialize();
 
 // store $str in cache / stroage / etc.
 ```
+
+See more [examples](/examples).

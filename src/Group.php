@@ -53,6 +53,15 @@ class Group implements GroupInterface, ParameterAwareInterface
     }
 
     /**
+     * @param Context|null $context
+     * @return Feature
+     */
+    public function selectFeatureInstance($context = null)
+    {
+        return $this->getFeature($this->select($context));
+    }
+
+    /**
      * @param mixed $result
      * @return bool
      */
