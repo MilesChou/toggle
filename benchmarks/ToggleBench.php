@@ -2,48 +2,42 @@
 
 namespace Benchmarks;
 
+use MilesChou\Toggle\Context;
+use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Manager;
+use PhpBench\Benchmark\Metadata\Annotations\Iterations;
 use PhpBench\Benchmark\Metadata\Annotations\Revs;
 
 class ToggleBench
 {
     /**
-     * @Revs(100000)
+     * @Revs(10000)
+     * @Iterations(3)
      */
-    public function benchManagerUsingAdd()
+    public function benchManagerUsingGroup()
     {
         $target = new Manager();
 
-        $target->addFeature('f1')
-            ->addFeature('f2')
-            ->addFeature('f3')
-            ->addGroup('foo', [
-                'f1',
-                'f2',
-                'f3',
-            ], function () {
-                return 'f1';
-            })
+        $target->createFeature('f1')
+            ->createFeature('f2')
+            ->createFeature('f3')
+            ->createGroup('foo', ['f1', 'f2', 'f3'], 'f1')
             ->select('foo');
     }
 
     /**
-     * @Revs(100000)
+     * @Revs(10000)
+     * @Iterations(3)
      */
-    public function benchManagerUsingWith()
+    public function benchFeatureIsActive()
     {
-        $target = new Manager();
+        $target = Feature::create(function (Context $context) {
+            $id = $context->getParam('id');
 
-        $target->withFeature('f1')
-            ->withFeature('f2')
-            ->withFeature('f3')
-            ->withGroup('foo', [
-                'f1',
-                'f2',
-                'f3',
-            ], function () {
-                return 'f1';
-            })
-            ->select('foo');
+            return 0 === $id % 2;
+        });
+
+        $target->isActive(Context::create(['id' => 1]));
+        $target->isActive(Context::create(['id' => 2]));
     }
 }
