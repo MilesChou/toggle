@@ -30,4 +30,15 @@ class GroupTraitTest extends \PHPUnit_Framework_TestCase
 
         $target->createGroup('foo', [], $invalidProcessor);
     }
+
+    /**
+     * @test
+     */
+    public function shouldThrowExceptionWhenGetGroupAndGroupNotFound()
+    {
+        $this->setExpectedException('InvalidArgumentException', 'Group \'not-exist\' is not found');
+
+        $target = $this->getMockForTrait('MilesChou\Toggle\Concerns\GroupAwareTrait');
+        $target->getGroup('not-exist');
+    }
 }

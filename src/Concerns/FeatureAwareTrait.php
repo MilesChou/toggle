@@ -2,6 +2,7 @@
 
 namespace MilesChou\Toggle\Concerns;
 
+use InvalidArgumentException;
 use MilesChou\Toggle\Feature;
 use RuntimeException;
 
@@ -50,6 +51,20 @@ trait FeatureAwareTrait
         $this->features[$name] = Feature::create($processor);
 
         return $this;
+    }
+
+    /**
+     * @param string $name
+     * @return Feature
+     * @throws InvalidArgumentException
+     */
+    public function getFeature($name)
+    {
+        if (!$this->isFeatureExist($name)) {
+            throw new InvalidArgumentException("Feature '{$name}' is not found");
+        }
+
+        return $this->features[$name];
     }
 
     /**

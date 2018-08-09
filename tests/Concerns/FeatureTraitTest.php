@@ -27,4 +27,15 @@ class FeatureTraitTest extends \PHPUnit_Framework_TestCase
         $target = $this->getMockForTrait('MilesChou\Toggle\Concerns\FeatureAwareTrait');
         $target->createFeature('foo', $invalidProcessor);
     }
+
+    /**
+     * @test
+     */
+    public function shouldThrowExceptionWhenGetFeatureAndFeatureNotFound()
+    {
+        $this->setExpectedException('InvalidArgumentException', 'Feature \'not-exist\' is not found');
+
+        $target = $this->getMockForTrait('MilesChou\Toggle\Concerns\FeatureAwareTrait');
+        $target->getFeature('not-exist');
+    }
 }

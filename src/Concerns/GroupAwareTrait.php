@@ -2,6 +2,7 @@
 
 namespace MilesChou\Toggle\Concerns;
 
+use InvalidArgumentException;
 use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Group;
 use RuntimeException;
@@ -59,6 +60,29 @@ trait GroupAwareTrait
         $this->updateFeatureGroupMapping($features, $name);
 
         return $this;
+    }
+
+    /**
+     * @param string $name
+     * @return Group
+     * @throws InvalidArgumentException
+     */
+    public function getGroup($name)
+    {
+        if (!$this->isGroupExist($name)) {
+            throw new InvalidArgumentException("Group '{$name}' is not found");
+        }
+
+        return $this->groups[$name];
+    }
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function isGroupExist($name)
+    {
+        return array_key_exists($name, $this->groups);
     }
 
     /**
