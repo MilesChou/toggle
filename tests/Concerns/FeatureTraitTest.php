@@ -33,7 +33,7 @@ class FeatureTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionWhenGetFeatureAndFeatureNotFound()
     {
-        $this->setExpectedException('InvalidArgumentException', 'Feature \'not-exist\' is not found');
+        $this->setExpectedException('RuntimeException', "Feature 'not-exist' is not found");
 
         $target = $this->getMockForTrait('MilesChou\\Toggle\\Concerns\\FeatureAwareTrait');
         $target->getFeature('not-exist');

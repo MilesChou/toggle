@@ -260,7 +260,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionWhenInitAndExportFeatureAndGroupWithoutClean()
     {
-        $this->setExpectedException('RuntimeException', 'Feature has been set');
+        $this->setExpectedException('RuntimeException', "Feature 'f1' is exist");
 
         $this->target
             ->createFeature('f1')

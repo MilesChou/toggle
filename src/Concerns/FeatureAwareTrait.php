@@ -24,7 +24,13 @@ trait FeatureAwareTrait
      */
     public function addFeature(Feature $feature)
     {
-        $this->features[$feature->getName()] = $feature;
+        $name = $feature->getName();
+
+        if ($this->isFeatureExist($name)) {
+            throw new RuntimeException("Feature '{$name}' is exist");
+        }
+
+        $this->features[$name] = $feature;
 
         return $this;
     }
@@ -78,7 +84,7 @@ trait FeatureAwareTrait
     public function getFeature($name)
     {
         if (!$this->isFeatureExist($name)) {
-            throw new InvalidArgumentException("Feature '{$name}' is not found");
+            throw new RuntimeException("Feature '{$name}' is not found");
         }
 
         return $this->features[$name];
@@ -93,6 +99,19 @@ trait FeatureAwareTrait
     }
 
     /**
+     * @param array $names
+     * @return array
+     */
+    public function getFeaturesByName(array $names)
+    {
+        return array_reduce($names, function ($carry, $name) {
+            $carry[$name] = $this->getFeature($name);
+
+            return $carry;
+        }, []);
+    }
+
+    /**
      * @return array
      */
     public function getFeaturesName()
@@ -101,34 +120,16 @@ trait FeatureAwareTrait
     }
 
     /**
-     * @param string $name
+     * @param Feature|string $name
      * @return bool
      */
     public function isFeatureExist($name)
     {
+        if ($name instanceof Feature) {
+            $name = $name->getName();
+        }
+
         return array_key_exists($name, $this->features);
-    }
-
-    /**
-     * @param array $featureNames
-     * @return bool
-     */
-    public function isAllFeaturesExist(array $featureNames)
-    {
-        return array_reduce($featureNames, function ($carry, $name) {
-            return $carry && $this->isFeatureExist($name);
-        }, true);
-    }
-
-    /**
-     * @param array $featureNames
-     * @return bool
-     */
-    public function isAllFeaturesNotExist(array $featureNames)
-    {
-        return array_reduce($featureNames, function ($carry, $name) {
-            return $carry && !$this->isFeatureExist($name);
-        }, true);
     }
 
     /**
@@ -149,27 +150,5 @@ trait FeatureAwareTrait
         $this->appendFeatures($features);
 
         return $this;
-    }
-
-    /**
-     * @param array|string $featureNames
-     * @throws RuntimeException
-     */
-    protected function assertAllFeaturesExist($featureNames)
-    {
-        if (!$this->isAllFeaturesExist($featureNames)) {
-            throw new RuntimeException('Some feature is not exist');
-        }
-    }
-
-    /**
-     * @param array $featureNames
-     * @throws RuntimeException
-     */
-    protected function assertAllFeaturesNotExist($featureNames)
-    {
-        if (!$this->isAllFeaturesNotExist($featureNames)) {
-            throw new RuntimeException('Some feature is exist');
-        }
     }
 }

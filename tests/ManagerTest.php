@@ -121,7 +121,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionWhenCreateGroupWithoutFeature()
     {
-        $this->setExpectedException('RuntimeException', 'Some feature is not exist');
+        $this->setExpectedException('RuntimeException', 'Feature \'not-exist\' is not found');
 
         $this->target->createGroup('g1', ['not-exist']);
     }
@@ -131,7 +131,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionWhenAddGroupWithoutFeature()
     {
-        $this->setExpectedException('RuntimeException', 'Some feature is exist');
+        $this->setExpectedException('RuntimeException', 'Feature \'exist\' is exist');
 
         $this->target
             ->createFeature('exist')
