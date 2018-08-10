@@ -11,7 +11,6 @@ class FeatureTraitTest extends \PHPUnit_Framework_TestCase
             [3.14],
             [''],
             ['str'],
-            [[]],
             [new \stdClass()],
         ];
     }
@@ -37,5 +36,16 @@ class FeatureTraitTest extends \PHPUnit_Framework_TestCase
 
         $target = $this->getMockForTrait('MilesChou\\Toggle\\Concerns\\FeatureAwareTrait');
         $target->getFeature('not-exist');
+    }
+
+    /**
+     * @test
+     */
+    public function shouldBeOkayWhenCreateWithProcessorInsteadOfParam()
+    {
+        $target = $this->getMockForTrait('MilesChou\\Toggle\\Concerns\\FeatureAwareTrait');
+        $target->createFeature('foo', ['some' => 'thing']);
+
+        $this->assertSame('thing', $target->feature('foo')->getParam('some'));
     }
 }

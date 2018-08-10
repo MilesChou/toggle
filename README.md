@@ -154,8 +154,8 @@ use MilesChou\Toggle\Manager;
 
 $manager = new Manager();
 
-$manager->createFeature('f1', null, ['name' => 'Miles']);
-$manager->createFeature('f2', null, ['name' => 'Chou']);
+$manager->createFeature('f1', ['name' => 'Miles']);
+$manager->createFeature('f2', ['name' => 'Chou']);
 $manager->createGroup('g1', ['f1', 'f2'], 'f2');
 
 // Will return 'Chou'

@@ -22,12 +22,17 @@ class Feature implements FeatureInterface, ParameterAwareInterface
 
     /**
      * @param string $name
-     * @param callable|bool|null $processor
+     * @param callable|array|bool|null $processor
      * @param array $params
      * @return static
      */
     public static function create($name, $processor = null, array $params = [])
     {
+        if (is_array($processor)) {
+            $params = $processor;
+            $processor = null;
+        }
+
         if (is_bool($processor)) {
             $result = $processor;
 
