@@ -44,10 +44,10 @@ class Group implements GroupInterface, ParameterAwareInterface
      */
     public function __construct($name, array $features, $processor = null, array $params = [])
     {
-        $this->name = $name;
-        $this->features = $features;
-        $this->init($processor);
-        $this->params = $params;
+        $this->setName($name);
+        $this->setFeatures($features);
+        $this->setProcessor($processor);
+        $this->setParams($params);
     }
 
     /**

@@ -40,9 +40,9 @@ class Feature implements FeatureInterface, ParameterAwareInterface
      */
     public function __construct($name, $processor = null, array $params = [])
     {
-        $this->name = $name;
-        $this->init($processor);
-        $this->params = $params;
+        $this->setName($name);
+        $this->setProcessor($processor);
+        $this->setParams($params);
     }
 
     /**

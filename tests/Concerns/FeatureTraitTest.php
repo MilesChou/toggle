@@ -22,7 +22,7 @@ class FeatureTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionWithInvalidFeature($invalidProcessor)
     {
-        $this->setExpectedException('InvalidArgumentException', 'Processor is not valid');
+        $this->setExpectedException('InvalidArgumentException', 'Processor must be callable');
 
         $target = $this->getMockForTrait('MilesChou\\Toggle\\Concerns\\FeatureAwareTrait');
         $target->createFeature('foo', $invalidProcessor);

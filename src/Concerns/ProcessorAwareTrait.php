@@ -50,18 +50,6 @@ trait ProcessorAwareTrait
 
     /**
      * @param mixed $processor
-     */
-    protected function init($processor)
-    {
-        if (!$this->isValidProcessor($processor)) {
-            throw new InvalidArgumentException('Processor is not valid');
-        }
-
-        $this->setProcessor($processor);
-    }
-
-    /**
-     * @param mixed $processor
      * @return bool
      */
     protected function isValidProcessor($processor)

@@ -141,6 +141,17 @@ trait FeatureAwareTrait
     }
 
     /**
+     * @param array $features
+     * @return static
+     */
+    public function setFeatures(array $features)
+    {
+        $this->features = $features;
+
+        return $this;
+    }
+
+    /**
      * @param array|string $featureNames
      * @throws RuntimeException
      */
