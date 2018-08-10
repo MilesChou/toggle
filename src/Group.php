@@ -3,6 +3,7 @@
 namespace MilesChou\Toggle;
 
 use MilesChou\Toggle\Concerns\FeatureAwareTrait;
+use MilesChou\Toggle\Concerns\NameAwareTrait;
 use MilesChou\Toggle\Concerns\ParameterAwareTrait;
 use MilesChou\Toggle\Concerns\ProcessorAwareTrait;
 use MilesChou\Toggle\Contracts\GroupInterface;
@@ -11,16 +12,18 @@ use MilesChou\Toggle\Contracts\ParameterAwareInterface;
 class Group implements GroupInterface, ParameterAwareInterface
 {
     use FeatureAwareTrait;
+    use NameAwareTrait;
     use ParameterAwareTrait;
     use ProcessorAwareTrait;
 
     /**
+     * @param string $name
      * @param Feature[] $features
      * @param callable|string|null $processor The callable will return bool
      * @param array $params
      * @return static
      */
-    public static function create(array $features, $processor = null, array $params = [])
+    public static function create($name, array $features, $processor = null, array $params = [])
     {
         if (is_string($processor)) {
             $result = $processor;
@@ -30,20 +33,20 @@ class Group implements GroupInterface, ParameterAwareInterface
             };
         }
 
-        return new static($features, $processor, $params);
+        return new static($name, $features, $processor, $params);
     }
 
     /**
+     * @param string $name
      * @param Feature[] $features
      * @param callable|string|null $processor
      * @param array $params
      */
-    public function __construct(array $features, $processor = null, array $params = [])
+    public function __construct($name, array $features, $processor = null, array $params = [])
     {
+        $this->name = $name;
         $this->features = $features;
-
         $this->init($processor);
-
         $this->params = $params;
     }
 

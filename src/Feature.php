@@ -2,6 +2,7 @@
 
 namespace MilesChou\Toggle;
 
+use MilesChou\Toggle\Concerns\NameAwareTrait;
 use MilesChou\Toggle\Concerns\ParameterAwareTrait;
 use MilesChou\Toggle\Concerns\ProcessorAwareTrait;
 use MilesChou\Toggle\Contracts\FeatureInterface;
@@ -11,13 +12,15 @@ class Feature implements FeatureInterface, ParameterAwareInterface
 {
     use ParameterAwareTrait;
     use ProcessorAwareTrait;
+    use NameAwareTrait;
 
     /**
+     * @param string $name
      * @param callable|bool|null $processor
      * @param array $params
      * @return static
      */
-    public static function create($processor = null, array $params = [])
+    public static function create($name, $processor = null, array $params = [])
     {
         if (is_bool($processor)) {
             $result = $processor;
@@ -27,17 +30,18 @@ class Feature implements FeatureInterface, ParameterAwareInterface
             };
         }
 
-        return new static($processor, $params);
+        return new static($name, $processor, $params);
     }
 
     /**
+     * @param string $name
      * @param callable|bool|null $processor The callable will return bool
      * @param array $params
      */
-    public function __construct($processor = null, array $params = [])
+    public function __construct($name, $processor = null, array $params = [])
     {
+        $this->name = $name;
         $this->init($processor);
-
         $this->params = $params;
     }
 

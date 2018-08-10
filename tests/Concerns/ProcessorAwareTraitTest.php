@@ -13,7 +13,7 @@ class ProcessorAwareTraitTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('RuntimeException', 'It\'s must provide a processor to decide feature');
 
-        $target = new Feature();
+        $target = new Feature('whatever');
         $target->isActive();
     }
 
@@ -24,7 +24,7 @@ class ProcessorAwareTraitTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('InvalidArgumentException', 'Processor must be callable');
 
-        $target = new Feature();
+        $target = new Feature('whatever');
         $target->setProcessor('not a callback');
     }
 }

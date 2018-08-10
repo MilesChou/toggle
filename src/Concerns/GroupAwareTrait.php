@@ -62,7 +62,7 @@ trait GroupAwareTrait
     {
         $this->assertAllFeaturesExist($features);
 
-        $this->groups[$name] = Group::create($this->normalizeFeatureMap($features), $processor, $params);
+        $this->groups[$name] = Group::create($name, $this->normalizeFeatureMap($features), $processor, $params);
 
         $this->updateFeatureGroupMapping($features, $name);
 

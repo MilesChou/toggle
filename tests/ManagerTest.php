@@ -135,7 +135,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->target
             ->createFeature('exist')
-            ->addGroup('g1', Group::create(['exist' => Feature::create()]));
+            ->addGroup('g1', Group::create('g1', ['exist' => Feature::create('exist')]));
     }
 
     /**
@@ -211,10 +211,10 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldBeOkayWhenAddGroup()
     {
-        $this->target->addGroup('g1', Group::create([
-            'f1' => Feature::create(),
-            'f2' => Feature::create(),
-            'f3' => Feature::create(),
+        $this->target->addGroup('g1', Group::create('g1', [
+            'f1' => Feature::create('f1'),
+            'f2' => Feature::create('f2'),
+            'f3' => Feature::create('f3'),
         ], 'f1'));
 
         $this->assertSame('f1', $this->target->select('g1'));

@@ -197,9 +197,9 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
         ];
 
         $this->target
-            ->addFeature('f1', Feature::create(true))
-            ->addFeature('f2', Feature::create(false))
-            ->addFeature('f3', Feature::create(false))
+            ->addFeature('f1', Feature::create('f1', true))
+            ->addFeature('f2', Feature::create('f2', false))
+            ->addFeature('f3', Feature::create('f3', false))
             ->createGroup('g1', ['f1', 'f2', 'f3'], 'f1');
 
         $actual = $this->target->export();

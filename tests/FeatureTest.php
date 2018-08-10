@@ -14,7 +14,7 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->target = new Feature(function () {
+        $this->target = new Feature('whatever', function () {
             return null;
         });
     }
@@ -52,11 +52,11 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
      * @test
      * @dataProvider invalidProcessor
      */
-    public function shouldThrowExceptionWhenNewWithInvalidParam($invalidProcessor)
+    public function shouldThrowExceptionWhenNewWithInvalidProcessor($invalidProcessor)
     {
         $this->setExpectedException('InvalidArgumentException', 'Processor is not valid');
 
-        new Feature($invalidProcessor);
+        new Feature('whatever', $invalidProcessor);
     }
 
     /**
@@ -64,7 +64,7 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnDifferentResultWhenGivenDifferentContext()
     {
-        $target = Feature::create(function (Context $context) {
+        $target = Feature::create('whatever', function (Context $context) {
             $id = $context->getParam('id');
 
             return 0 === $id % 2;

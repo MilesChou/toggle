@@ -14,9 +14,9 @@ class GroupTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->target = new Group([
-            'feature1' => new Feature(),
-            'feature2' => new Feature(),
+        $this->target = new Group('whatever', [
+            'feature1' => new Feature('feature1'),
+            'feature2' => new Feature('feature2'),
         ], function () {
             return null;
         });
@@ -49,7 +49,7 @@ class GroupTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('InvalidArgumentException', 'Processor is not valid');
 
-        new Group([], $invalidProcessor);
+        new Group('whatever', [], $invalidProcessor);
     }
 
     /**
@@ -67,10 +67,10 @@ class GroupTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnFeature1InstanceWhenSelectFeature()
     {
-        $feature1 = new Feature();
-        $feature2 = new Feature();
+        $feature1 = new Feature('feature1');
+        $feature2 = new Feature('feature2');
 
-        $target = new Group([
+        $target = new Group('whatever', [
             'feature1' => $feature1,
             'feature2' => $feature2,
         ], function () {
