@@ -18,6 +18,8 @@ The `Manager` class is the core class. All feature config will set on this objec
 Use the static result:
 
 ```php
+<?php
+
 use MilesChou\Toggle\Manager;
 
 $manager = new Manager();
@@ -30,11 +32,13 @@ $manager->isActive('f1');
 Use the object with static return:
 
 ```php
+<?php
+
 use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Manager;
 
 $manager = new Manager();
-$manager->createFeature('f1', Feature::create()->on());
+$manager->addFeature(Feature::create('f1', true));
 
 // Will return true
 $manager->isActive('f1');
@@ -43,7 +47,8 @@ $manager->isActive('f1');
 Use callable to decide the return dynamically:
 
 ```php
-use MilesChou\Toggle\Feature;
+<?php
+
 use MilesChou\Toggle\Manager;
 
 $manager = new Manager();
@@ -58,8 +63,9 @@ $manager->isActive('f1');
 Use callable with Context:
 
 ```php
+<?php
+
 use MilesChou\Toggle\Context;
-use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Manager;
 
 $manager = new Manager();
@@ -78,40 +84,51 @@ Just like Feature Toggle, but it's difference is `Group` will link to `Featrue`.
 For example, it's illegal because feature in Group instance and feature manager created is duplicated:
 
 ```php
+<?php
+
+use MilesChou\Toggle\Group;
+use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Manager;
 
 $manager = new Manager();
 $manager->createFeature('f1', true);
 
-// Will throw exception
-$manager->addGroup('g1', Group::create(
-    'f1' => Feature::create(),
-));
+// RuntimeException: Feature 'f1' is exist 
+$manager->addGroup(Group::create('g1', [
+    Feature::create('f1'),
+]));
 ```
 
 Another example, it's illegal because the intent to link two Groups:
 
 ```php
-use MilesChou\Toggle\Manager;
+<?php
 
-$manager = new Manager();
-$manager->createFeature('f1');
-$manager->createGroup('g1', ['f1'], 'f1');
-
-// Will throw exception
-$manager->createGroup('g2', ['f1'], 'f1');
-```
-
-Following is a example of return static result:
-
-```php
 use MilesChou\Toggle\Manager;
 
 $manager = new Manager();
 $manager->createFeature('f1');
 $manager->createFeature('f2');
 $manager->createFeature('f3');
-$manager->createFeature('g1', ['f1', 'f2', 'f3'], 'f1');
+
+$manager->createGroup('g1', ['f1', 'f2', 'f3'], 'f1');
+
+// RuntimeException: Feature has been set for 'g1'
+$manager->createGroup('g2', ['f1', 'f2', 'f3'], 'f1');
+```
+
+Following is a example of return static result:
+
+```php
+<?php
+
+use MilesChou\Toggle\Manager;
+
+$manager = new Manager();
+$manager->createFeature('f1');
+$manager->createFeature('f2');
+$manager->createFeature('f3');
+$manager->createGroup('g1', ['f1', 'f2', 'f3'], 'f1');
 
 // Will return 'f1'
 $manager->select('g1');
@@ -125,6 +142,25 @@ $manager->isActive('f3');
 ```
 
 It's describe we have three feature: `f1`, `f2`, `f3`, in `g1` group and choice the `f1` feature.
+
+### Parameters
+
+Both `Feature` and `Group` can store some parameter. For example:
+
+```php
+<?php
+
+use MilesChou\Toggle\Manager;
+
+$manager = new Manager();
+
+$manager->createFeature('f1', null, ['name' => 'Miles']);
+$manager->createFeature('f2', null, ['name' => 'Chou']);
+$manager->createGroup('g1', ['f1', 'f2'], 'f2');
+
+// Will return 'Chou'
+$manager->group('g1')->selectFeature()->getParam('name');
+```
 
 ### Serializer
 

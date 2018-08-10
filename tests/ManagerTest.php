@@ -212,9 +212,9 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     public function shouldBeOkayWhenAddGroup()
     {
         $this->target->addGroup(Group::create('g1', [
-            'f1' => Feature::create('f1'),
-            'f2' => Feature::create('f2'),
-            'f3' => Feature::create('f3'),
+            Feature::create('f1'),
+            Feature::create('f2'),
+            Feature::create('f3'),
         ], 'f1'));
 
         $this->assertSame('f1', $this->target->select('g1'));
@@ -353,5 +353,25 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->target->isActive('f1', Context::create(['return' => 'f2'])));
         $this->assertTrue($this->target->isActive('f2', Context::create(['return' => 'f2'])));
         $this->assertFalse($this->target->isActive('f3', Context::create(['return' => 'f2'])));
+    }
+
+    public function testPlay()
+    {
+
+        $manager = new Manager();
+        $manager->createFeature('f1');
+        $manager->createFeature('f2');
+        $manager->createFeature('f3');
+        $manager->createGroup('g1', ['f1', 'f2', 'f3'], 'f1');
+
+// Will return 'f1'
+        $manager->select('g1');
+
+// Will return true
+        $manager->isActive('f1');
+
+// Will return false
+        $manager->isActive('f2');
+        $manager->isActive('f3');
     }
 }
