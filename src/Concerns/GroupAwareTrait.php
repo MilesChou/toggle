@@ -28,13 +28,15 @@ trait GroupAwareTrait
     private $featureGroupMapping = [];
 
     /**
-     * @param string $feature
-     * @param string $group
+     * @param Feature $feature
+     * @param Group $group
      * @return static
      */
     public function addFeatureGroupMapping($feature, $group)
     {
-        $this->featureGroupMapping[$feature] = $group;
+        $feature->setGroup($group);
+
+        $this->featureGroupMapping[$feature->getName()] = $group->getName();
         return $this;
     }
 
@@ -47,10 +49,9 @@ trait GroupAwareTrait
         $features = $group->getFeatures();
         $name = $group->getName();
 
-        $this->appendFeatures($features);
-        $this->updateFeatureGroupMapping($features, $name);
-
         $this->groups[$name] = $group;
+        $this->appendFeatures($features);
+        $this->updateFeatureGroupMapping($features, $group);
 
         return $this;
     }
@@ -64,18 +65,19 @@ trait GroupAwareTrait
 
     /**
      * @param string $name
-     * @param array $features
+     * @param array $featuresName
      * @param callable|string|null $processor
      * @param array $params
      * @return static
      */
-    public function createGroup($name, array $features, $processor = null, array $params = [])
+    public function createGroup($name, array $featuresName, $processor = null, array $params = [])
     {
-        $featureInstances = $this->getFeaturesByName($features);
+        $features = $this->getFeaturesByName($featuresName);
 
-        $this->updateFeatureGroupMapping($featureInstances, $name);
+        $group = Group::create($name, $features, $processor, $params);
 
-        $this->groups[$name] = Group::create($name, $featureInstances, $processor, $params);
+        $this->groups[$name] = $group;
+        $this->updateFeatureGroupMapping($features, $group);
 
         return $this;
     }
@@ -147,19 +149,19 @@ trait GroupAwareTrait
 
     /**
      * @param Feature[] $features
-     * @param string $groupName
+     * @param Group $group
      */
-    protected function updateFeatureGroupMapping(array $features, $groupName)
+    protected function updateFeatureGroupMapping(array $features, Group $group)
     {
         foreach ($features as $feature) {
             $name = $feature->getName();
 
             if ($this->isMappingExist($name)) {
-                $group = $this->getMappingGroup($name);
-                throw new RuntimeException("Feature has been set for '{$group}'");
+                $groupName = $this->getMappingGroup($name);
+                throw new RuntimeException("Feature has been set for '{$groupName}'");
             }
 
-            $this->addFeatureGroupMapping($name, $groupName);
+            $this->addFeatureGroupMapping($feature, $group);
         }
     }
 }

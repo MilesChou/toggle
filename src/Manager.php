@@ -81,9 +81,7 @@ class Manager
 
         $context = $this->resolveContext($context);
 
-        $result = $this->isMappingExist($name)
-            ? $this->select($this->getMappingGroup($name), $context) === $name
-            : $this->feature($name)->isActive($context);
+        $result = $this->feature($name)->isActive($context);
 
         if ($this->preserve) {
             $this->featuresPreserveResult[$name] = $result;

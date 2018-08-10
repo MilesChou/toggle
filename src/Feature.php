@@ -6,6 +6,7 @@ use MilesChou\Toggle\Concerns\NameAwareTrait;
 use MilesChou\Toggle\Concerns\ParameterAwareTrait;
 use MilesChou\Toggle\Concerns\ProcessorAwareTrait;
 use MilesChou\Toggle\Contracts\FeatureInterface;
+use MilesChou\Toggle\Contracts\GroupInterface;
 use MilesChou\Toggle\Contracts\ParameterAwareInterface;
 
 class Feature implements FeatureInterface, ParameterAwareInterface
@@ -13,6 +14,11 @@ class Feature implements FeatureInterface, ParameterAwareInterface
     use ParameterAwareTrait;
     use ProcessorAwareTrait;
     use NameAwareTrait;
+
+    /**
+     * @var GroupInterface
+     */
+    private $group;
 
     /**
      * @param string $name
@@ -51,7 +57,21 @@ class Feature implements FeatureInterface, ParameterAwareInterface
      */
     public function isActive($context = null)
     {
+        if ($this->group !== null) {
+            return $this->name === $this->group->select($context);
+        }
+
         return $this->process($context);
+    }
+
+    /**
+     * @param GroupInterface $group
+     * @return static
+     */
+    public function setGroup(GroupInterface $group)
+    {
+        $this->group = $group;
+        return $this;
     }
 
     /**

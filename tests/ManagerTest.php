@@ -227,7 +227,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldReturnTrueWhenCreateGroupAndReturnFeature1()
+    public function shouldReturnTrueWhenCreateGroupAndReturnF1()
     {
         $this->target
             ->createFeature('f1')
@@ -245,7 +245,38 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldReturnTrueWhenCreateGroupAndUsingContextAndReturnFeature1()
+    public function shouldReturnCorrectResultWhenGetResultOnEveryFeatureOrGroup()
+    {
+        $this->target
+            ->createFeature('f1')
+            ->createFeature('f2')
+            ->createFeature('f3')
+            ->createGroup('g1', ['f1', 'f2', 'f3'], 'f1');
+
+        $this->assertSame('f1', $this->target->group('g1')->select());
+        $this->assertTrue($this->target->feature('f1')->isActive());
+        $this->assertFalse($this->target->feature('f2')->isActive());
+        $this->assertFalse($this->target->feature('f3')->isActive());
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnSelectedFeatureWhenUsingGroupSelectFeature()
+    {
+        $this->target
+            ->createFeature('f1', null, ['name' => 'I am f1'])
+            ->createFeature('f2', null, ['name' => 'I am f2'])
+            ->createFeature('f3', null, ['name' => 'I am f3'])
+            ->createGroup('g1', ['f1', 'f2', 'f3'], 'f1');
+
+        $this->assertSame('I am f1', $this->target->group('g1')->selectFeature()->getParam('name'));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnTrueWhenCreateGroupAndUsingContextAndReturnF1()
     {
         $context = Context::create();
         $context->return = 'f1';
@@ -264,15 +295,15 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('f1', $this->target->select('g1', $context));
 
-        $this->assertTrue($this->target->isActive('f1'));
-        $this->assertFalse($this->target->isActive('f2'));
-        $this->assertFalse($this->target->isActive('f3'));
+        $this->assertTrue($this->target->isActive('f1', $context));
+        $this->assertFalse($this->target->isActive('f2', $context));
+        $this->assertFalse($this->target->isActive('f3', $context));
     }
 
     /**
      * @test
      */
-    public function shouldReturnTrueWhenCreateGroupAndUsingContextSetterAndReturnFeature1()
+    public function shouldReturnTrueWhenCreateGroupAndUsingContextSetterAndReturnF1()
     {
         $context = Context::create();
         $context->return = 'f1';
@@ -319,8 +350,8 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame('f2', $this->target->select('g1', Context::create(['return' => 'f2'])));
 
-        $this->assertFalse($this->target->isActive('f1'));
-        $this->assertTrue($this->target->isActive('f2'));
-        $this->assertFalse($this->target->isActive('f3'));
+        $this->assertFalse($this->target->isActive('f1', Context::create(['return' => 'f2'])));
+        $this->assertTrue($this->target->isActive('f2', Context::create(['return' => 'f2'])));
+        $this->assertFalse($this->target->isActive('f3', Context::create(['return' => 'f2'])));
     }
 }
