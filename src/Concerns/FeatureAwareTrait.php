@@ -19,13 +19,12 @@ trait FeatureAwareTrait
     private $featuresPreserveResult = [];
 
     /**
-     * @param string $name
      * @param Feature $feature
      * @return static
      */
-    public function addFeature($name, Feature $feature)
+    public function addFeature(Feature $feature)
     {
-        $this->features[$name] = $feature;
+        $this->features[$feature->getName()] = $feature;
 
         return $this;
     }
@@ -36,12 +35,14 @@ trait FeatureAwareTrait
      */
     public function appendFeatures(array $features)
     {
-        $this->features = array_merge($this->features, $features);
+        foreach ($features as $feature) {
+            $this->addFeature($feature);
+        }
 
         return $this;
     }
 
-    public function cleanFeature()
+    public function cleanFeatures()
     {
         $this->features = [];
         $this->featuresPreserveResult = [];
@@ -55,9 +56,7 @@ trait FeatureAwareTrait
      */
     public function createFeature($name, $processor = null, array $params = [])
     {
-        $this->features[$name] = Feature::create($name, $processor, $params);
-
-        return $this;
+        return $this->addFeature(Feature::create($name, $processor, $params));
     }
 
     /**
@@ -137,7 +136,7 @@ trait FeatureAwareTrait
      */
     public function removeFeature($name)
     {
-        unset($this->features[$name]);
+        unset($this->features[$name], $this->featuresPreserveResult[$name]);
     }
 
     /**
@@ -146,7 +145,8 @@ trait FeatureAwareTrait
      */
     public function setFeatures(array $features)
     {
-        $this->features = $features;
+        $this->cleanFeatures();
+        $this->appendFeatures($features);
 
         return $this;
     }

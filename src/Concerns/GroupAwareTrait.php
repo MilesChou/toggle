@@ -25,11 +25,10 @@ trait GroupAwareTrait
     private $featureGroupMapping = [];
 
     /**
-     * @param string $name
      * @param Group $group
      * @return static
      */
-    public function addGroup($name, Group $group)
+    public function addGroup(Group $group)
     {
         $featureNames = $group->getFeaturesName();
 
@@ -37,9 +36,9 @@ trait GroupAwareTrait
 
         $this->appendFeatures($group->getFeatures());
 
-        $this->updateFeatureGroupMapping($featureNames, $name);
+        $this->updateFeatureGroupMapping($featureNames, $group->getName());
 
-        $this->groups[$name] = $group;
+        $this->groups[$group->getName()] = $group;
 
         return $this;
     }

@@ -3,7 +3,6 @@
 namespace MilesChou\Toggle\Concerns;
 
 use InvalidArgumentException;
-use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Contracts\SerializerInterface;
 use RuntimeException;
 

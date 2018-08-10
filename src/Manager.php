@@ -51,7 +51,7 @@ class Manager
     public function import(DataProviderInterface $dataProvider, $clean = true)
     {
         if ($clean) {
-            $this->cleanFeature();
+            $this->cleanFeatures();
             $this->cleanGroup();
         }
 
