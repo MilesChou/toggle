@@ -374,4 +374,37 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
         $manager->isActive('f2');
         $manager->isActive('f3');
     }
+
+    /**
+     * @test
+     */
+    public function shouldReturnBeOkayWhenMethodCallLikeSwitch()
+    {
+        $excepted = 'f2';
+
+        $this->target
+            ->createFeature('f1')
+            ->createFeature('f2')
+            ->createFeature('f3')
+            ->createGroup('g1', [
+                'f1',
+                'f2',
+                'f3',
+            ], 'f2');
+
+        $actual = null;
+
+        $this->target
+            ->when('f1', function () use (&$actual) {
+                $actual = 'f1';
+            })
+            ->when('f2', function () use (&$actual) {
+                $actual = 'f2';
+            })
+            ->when('f3', function () use (&$actual) {
+                $actual = 'f3';
+            });
+
+        $this->assertSame($excepted, $actual);
+    }
 }

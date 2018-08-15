@@ -126,4 +126,22 @@ class Manager
 
         return $this;
     }
+
+    /**
+     * When $feature on, then call $callable
+     *
+     * @param string $feature
+     * @param callable $callable
+     * @param Context|null $context
+     *
+     * @return static
+     */
+    public function when($feature, callable $callable, Context $context = null)
+    {
+        if ($this->isActive($feature, $context)) {
+            $callable();
+        }
+
+        return $this;
+    }
 }

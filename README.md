@@ -177,3 +177,28 @@ $str = $dataProvider->serialize();
 ```
 
 See more [examples](/examples).
+
+### Control Structure
+
+This snippet is like `if` / `switch` structure:
+
+```php
+use MilesChou\Toggle\Manager;
+
+$manager = new Manager();
+$manager->createFeature('f1');
+$manager->createFeature('f2');
+$manager->createFeature('f3');
+$manager->createFeature('g1', ['f1', 'f2', 'f3'], 'f1');
+
+$manager
+    ->when('f1', function () {
+        // Something when f1 is on
+    })
+    ->when('f2', function () {
+        // Something when f2 is on
+    })
+    ->when('f3', function () {
+        // Something when f3 is on
+    });
+```
