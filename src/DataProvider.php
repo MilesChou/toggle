@@ -55,8 +55,8 @@ class DataProvider implements DataProviderInterface
         $this->features = array_map(function ($feature) use ($context) {
             if ($feature instanceof Feature) {
                 return [
-                    'p' => $feature->getParams(),
-                    'r' => $feature->isActive($context),
+                    static::FEATURE_PARAMS => $feature->getParams(),
+                    static::FEATURE_RETURN => $feature->isActive($context),
                 ];
             }
 
@@ -76,9 +76,9 @@ class DataProvider implements DataProviderInterface
         $this->groups = array_map(function ($group) use ($context) {
             if ($group instanceof Group) {
                 return [
-                    'p' => $group->getParams(),
-                    'l' => $group->getFeaturesName(),
-                    'r' => $group->select($context),
+                    static::GROUP_PARAMS => $group->getParams(),
+                    static::GROUP_LIST => $group->getFeaturesName(),
+                    static::GROUP_RETURN => $group->select($context),
                 ];
             }
 
@@ -94,8 +94,8 @@ class DataProvider implements DataProviderInterface
      */
     protected function retrieveRestoreData($data)
     {
-        $this->setFeatures($data['f']);
-        $this->setGroups($data['g']);
+        $this->setFeatures($data[static::FEATURE]);
+        $this->setGroups($data[static::GROUP]);
 
         return $this;
     }
@@ -106,8 +106,8 @@ class DataProvider implements DataProviderInterface
     protected function retrieveStoreData()
     {
         return [
-            'f' => $this->getFeatures(),
-            'g' => $this->getGroups(),
+            static::FEATURE => $this->getFeatures(),
+            static::GROUP => $this->getGroups(),
         ];
     }
 }

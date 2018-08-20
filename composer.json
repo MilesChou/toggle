@@ -14,7 +14,8 @@
     ],
     "require": {
         "php": ">=5.4",
-        "ext-json": "*"
+        "ext-json": "*",
+        "nesbot/carbon": "^1.33"
     },
     "require-dev": {
         "phpbench/phpbench": "^0.10.0",

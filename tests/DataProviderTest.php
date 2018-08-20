@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use MilesChou\Toggle\Contracts\DataProviderInterface;
 use MilesChou\Toggle\DataProvider;
 
 class DataProviderTest extends \PHPUnit_Framework_TestCase
@@ -13,26 +14,26 @@ class DataProviderTest extends \PHPUnit_Framework_TestCase
     {
         $target = new DataProvider([
             'f1' => [
-                'r' => true,
+                DataProviderInterface::FEATURE_RETURN => true,
             ],
             'f2' => [
-                'r' => false,
+                DataProviderInterface::FEATURE_RETURN => false,
             ],
             'f3' => [
-                'r' => false,
+                DataProviderInterface::FEATURE_RETURN => false,
             ],
         ], [
             'g1' => [
-                'l' => [
+                DataProviderInterface::GROUP_LIST => [
                     'f1',
                     'f2',
                     'f3',
                 ],
-                'r' => 'f1',
+                DataProviderInterface::GROUP_RETURN => 'f1',
             ],
         ]);
 
-        $this->assertSame('{"f":{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}},"g":{"g1":{"l":["f1","f2","f3"],"r":"f1"}}}', $target->serialize());
+        $this->assertSame('{"feature":{"f1":{"return":true},"f2":{"return":false},"f3":{"return":false}},"group":{"g1":{"list":["f1","f2","f3"],"return":"f1"}}}', $target->serialize());
     }
 
     /**
@@ -42,30 +43,30 @@ class DataProviderTest extends \PHPUnit_Framework_TestCase
     {
         $exceptedFeature = [
             'f1' => [
-                'r' => true,
+                DataProviderInterface::FEATURE_RETURN => true,
             ],
             'f2' => [
-                'r' => false,
+                DataProviderInterface::FEATURE_RETURN => false,
             ],
             'f3' => [
-                'r' => false,
+                DataProviderInterface::FEATURE_RETURN => false,
             ],
         ];
 
         $exceptedGroup = [
             'g1' => [
-                'l' => [
+                DataProviderInterface::GROUP_LIST => [
                     'f1',
                     'f2',
                     'f3',
                 ],
-                'r' => 'f1',
+                DataProviderInterface::GROUP_RETURN => 'f1',
             ],
         ];
 
         $target = new DataProvider();
 
-        $actual = $target->unserialize('{"f":{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}},"g":{"g1":{"l":["f1","f2","f3"],"r":"f1"}}}');
+        $actual = $target->unserialize('{"feature":{"f1":{"return":true},"f2":{"return":false},"f3":{"return":false}},"group":{"g1":{"list":["f1","f2","f3"],"return":"f1"}}}');
 
         $this->assertInstanceOf('MilesChou\\Toggle\\DataProvider', $actual);
         $this->assertSame($exceptedFeature, $actual->getFeatures());

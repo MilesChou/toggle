@@ -3,6 +3,7 @@
 namespace Tests;
 
 use MilesChou\Toggle\Context;
+use MilesChou\Toggle\Contracts\DataProviderInterface;
 use MilesChou\Toggle\DataProvider;
 use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Manager;
@@ -51,16 +52,16 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     {
         $dataProvider = new DataProvider([
             'f1' => [
-                'p' => [],
-                'r' => true,
+                DataProviderInterface::FEATURE_PARAMS => [],
+                DataProviderInterface::FEATURE_RETURN => true,
             ],
             'f2' => [
-                'p' => [],
-                'r' => false,
+                DataProviderInterface::FEATURE_PARAMS => [],
+                DataProviderInterface::FEATURE_RETURN => false,
             ],
             'f3' => [
-                'p' => [],
-                'r' => false,
+                DataProviderInterface::FEATURE_PARAMS => [],
+                DataProviderInterface::FEATURE_RETURN => false,
             ],
         ]);
 
@@ -78,16 +79,16 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     {
         $excepted = [
             'f1' => [
-                'p' => [],
-                'r' => true,
+                DataProviderInterface::FEATURE_PARAMS => [],
+                DataProviderInterface::FEATURE_RETURN => true,
             ],
             'f2' => [
-                'p' => [],
-                'r' => false,
+                DataProviderInterface::FEATURE_PARAMS => [],
+                DataProviderInterface::FEATURE_RETURN => false,
             ],
             'f3' => [
-                'p' => [],
-                'r' => false,
+                DataProviderInterface::FEATURE_PARAMS => [],
+                DataProviderInterface::FEATURE_RETURN => false,
             ],
         ];
 
@@ -109,8 +110,8 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     {
         $excepted = [
             'f1' => [
-                'p' => [],
-                'r' => false,
+                DataProviderInterface::FEATURE_PARAMS => [],
+                DataProviderInterface::FEATURE_RETURN => false,
             ],
         ];
 
@@ -132,26 +133,26 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     {
         $dataProvider = new DataProvider([
             'f1' => [
-                'p' => [],
-                'r' => true,
+                DataProviderInterface::FEATURE_PARAMS => [],
+                DataProviderInterface::FEATURE_RETURN => true,
             ],
             'f2' => [
-                'p' => [],
-                'r' => false,
+                DataProviderInterface::FEATURE_PARAMS => [],
+                DataProviderInterface::FEATURE_RETURN => false,
             ],
             'f3' => [
-                'p' => [],
-                'r' => false,
+                DataProviderInterface::FEATURE_PARAMS => [],
+                DataProviderInterface::FEATURE_RETURN => false,
             ],
         ], [
             'g1' => [
-                'p' => [],
-                'l' => [
+                DataProviderInterface::GROUP_PARAMS => [],
+                DataProviderInterface::GROUP_LIST => [
                     'f1',
                     'f2',
                     'f3',
                 ],
-                'r' => 'f1',
+                DataProviderInterface::GROUP_RETURN => 'f1',
             ],
         ]);
 
@@ -171,28 +172,28 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     {
         $exceptedFeature = [
             'f1' => [
-                'p' => [],
-                'r' => true,
+                DataProviderInterface::FEATURE_PARAMS => [],
+                DataProviderInterface::FEATURE_RETURN => true,
             ],
             'f2' => [
-                'p' => [],
-                'r' => false,
+                DataProviderInterface::FEATURE_PARAMS => [],
+                DataProviderInterface::FEATURE_RETURN => false,
             ],
             'f3' => [
-                'p' => [],
-                'r' => false,
+                DataProviderInterface::FEATURE_PARAMS => [],
+                DataProviderInterface::FEATURE_RETURN => false,
             ],
         ];
 
         $exceptedGroup = [
             'g1' => [
-                'p' => [],
-                'l' => [
+                DataProviderInterface::GROUP_PARAMS => [],
+                DataProviderInterface::GROUP_LIST => [
                     'f1',
                     'f2',
                     'f3',
                 ],
-                'r' => 'f1',
+                DataProviderInterface::GROUP_RETURN => 'f1',
             ],
         ];
 
@@ -223,26 +224,26 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
 
         $dataProvider = new DataProvider([
             'f1' => [
-                'p' => [],
-                'r' => false,
+                DataProviderInterface::FEATURE_PARAMS => [],
+                DataProviderInterface::FEATURE_RETURN => true,
             ],
             'f2' => [
-                'p' => [],
-                'r' => false,
+                DataProviderInterface::FEATURE_PARAMS => [],
+                DataProviderInterface::FEATURE_RETURN => false,
             ],
             'f3' => [
-                'p' => [],
-                'r' => true,
+                DataProviderInterface::FEATURE_PARAMS => [],
+                DataProviderInterface::FEATURE_RETURN => false,
             ],
         ], [
             'g1' => [
-                'p' => [],
-                'l' => [
+                DataProviderInterface::GROUP_PARAMS => [],
+                DataProviderInterface::GROUP_LIST => [
                     'f1',
                     'f2',
                     'f3',
                 ],
-                'r' => 'f3',
+                DataProviderInterface::GROUP_RETURN => 'f3',
             ],
         ]);
 
@@ -271,26 +272,26 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
 
         $dataProvider = new DataProvider([
             'f1' => [
-                'p' => [],
-                'r' => false,
+                DataProviderInterface::FEATURE_PARAMS => [],
+                DataProviderInterface::FEATURE_RETURN => true,
             ],
             'f2' => [
-                'p' => [],
-                'r' => false,
+                DataProviderInterface::FEATURE_PARAMS => [],
+                DataProviderInterface::FEATURE_RETURN => false,
             ],
             'f3' => [
-                'p' => [],
-                'r' => true,
+                DataProviderInterface::FEATURE_PARAMS => [],
+                DataProviderInterface::FEATURE_RETURN => false,
             ],
         ], [
             'g1' => [
-                'p' => [],
-                'l' => [
+                DataProviderInterface::GROUP_PARAMS => [],
+                DataProviderInterface::GROUP_LIST => [
                     'f1',
                     'f2',
                     'f3',
                 ],
-                'r' => 'f3',
+                DataProviderInterface::GROUP_RETURN => 'f3',
             ],
         ]);
 

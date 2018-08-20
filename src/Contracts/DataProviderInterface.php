@@ -6,6 +6,14 @@ use MilesChou\Toggle\Context;
 
 interface DataProviderInterface
 {
+    const FEATURE = 'feature';
+    const FEATURE_PARAMS = 'params';
+    const FEATURE_RETURN = 'return';
+    const GROUP = 'group';
+    const GROUP_LIST = 'list';
+    const GROUP_PARAMS = 'params';
+    const GROUP_RETURN = 'return';
+
     /**
      * @return array
      */
