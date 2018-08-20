@@ -54,7 +54,7 @@ trait ProcessorAwareTrait
      */
     protected function isValidProcessor($processor)
     {
-        return null === $processor || is_callable($processor);
+        return is_callable($processor);
     }
 
     /**
@@ -64,10 +64,6 @@ trait ProcessorAwareTrait
      */
     protected function process($context)
     {
-        if (null === $this->processor) {
-            throw new RuntimeException('It\'s must provide a processor to decide feature');
-        }
-
         if (null === $context) {
             $context = Context::create();
         }

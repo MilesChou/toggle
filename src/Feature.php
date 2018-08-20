@@ -33,8 +33,8 @@ class Feature implements FeatureInterface, ParameterAwareInterface
             $processor = null;
         }
 
-        if (is_bool($processor)) {
-            $result = $processor;
+        if (null === $processor || is_bool($processor)) {
+            $result = (bool)$processor;
 
             $processor = function () use ($result) {
                 return $result;
@@ -46,10 +46,10 @@ class Feature implements FeatureInterface, ParameterAwareInterface
 
     /**
      * @param string $name
-     * @param callable|bool|null $processor The callable will return bool
+     * @param callable $processor The callable will return bool
      * @param array $params
      */
-    public function __construct($name, $processor = null, array $params = [])
+    public function __construct($name, $processor, array $params = [])
     {
         $this->setName($name);
         $this->setProcessor($processor);

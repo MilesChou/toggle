@@ -15,8 +15,8 @@ class GroupTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->target = new Group('whatever', [
-            'feature1' => new Feature('feature1'),
-            'feature2' => new Feature('feature2'),
+            'feature1' => Feature::create('feature1'),
+            'feature2' => Feature::create('feature2'),
         ], function () {
             return null;
         });
@@ -55,11 +55,16 @@ class GroupTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldThrowExceptionWhenDefaultWithCallableReturnNull()
+    public function shouldReturnNullAndAllFeatureReturnFalseDefault()
     {
-        $this->setExpectedException('InvalidArgumentException');
+        $target = Group::create('default-null', [
+            Feature::create('f1'),
+            Feature::create('f2'),
+        ]);
 
-        $this->assertNull($this->target->select());
+        $this->assertNull($target->select());
+        $this->assertFalse($target->feature('f1')->isActive());
+        $this->assertFalse($target->feature('f2')->isActive());
     }
 
     /**
@@ -67,8 +72,8 @@ class GroupTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnFeature1InstanceWhenSelectFeature()
     {
-        $feature1 = new Feature('feature1');
-        $feature2 = new Feature('feature2');
+        $feature1 = Feature::create('feature1');
+        $feature2 = Feature::create('feature2');
 
         $target = new Group('whatever', [
             'feature1' => $feature1,

@@ -9,22 +9,11 @@ class ProcessorAwareTraitTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldThrowExceptionWhenNotDefineReturnAndNotDefineProcessor()
-    {
-        $this->setExpectedException('RuntimeException', 'It\'s must provide a processor to decide feature');
-
-        $target = new Feature('whatever');
-        $target->isActive();
-    }
-
-    /**
-     * @test
-     */
     public function shouldThrowExceptionWhenSetNotCallbackProcessor()
     {
         $this->setExpectedException('InvalidArgumentException', 'Processor must be callable');
 
-        $target = new Feature('whatever');
+        $target = Feature::create('whatever');
         $target->setProcessor('not a callback');
     }
 }

@@ -62,6 +62,16 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function shouldReturnFalseDefault()
+    {
+        $target = Feature::create('default-off');
+
+        $this->assertFalse($target->isActive());
+    }
+
+    /**
+     * @test
+     */
     public function shouldReturnDifferentResultWhenGivenDifferentContext()
     {
         $target = Feature::create('whatever', function (Context $context) {

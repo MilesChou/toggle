@@ -25,7 +25,7 @@ class Group implements GroupInterface, ParameterAwareInterface
      */
     public static function create($name, array $features, $processor = null, array $params = [])
     {
-        if (is_string($processor)) {
+        if (null === $processor || is_string($processor)) {
             $result = $processor;
 
             $processor = function () use ($result) {
@@ -39,10 +39,10 @@ class Group implements GroupInterface, ParameterAwareInterface
     /**
      * @param string $name
      * @param Feature[] $features
-     * @param callable|string|null $processor
+     * @param callable $processor
      * @param array $params
      */
-    public function __construct($name, array $features, $processor = null, array $params = [])
+    public function __construct($name, array $features, $processor, array $params = [])
     {
         $this->setName($name);
         $this->setFeatures($features);
@@ -74,6 +74,10 @@ class Group implements GroupInterface, ParameterAwareInterface
      */
     protected function isValidProcessedResult($result)
     {
+        if (null === $result) {
+            return true;
+        }
+
         return is_string($result) && array_key_exists($result, $this->features);
     }
 }
