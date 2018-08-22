@@ -3,20 +3,20 @@
 namespace MilesChou\Toggle\Serializers;
 
 use MilesChou\Toggle\Contracts\SerializerInterface;
+use Symfony\Component\Yaml\Yaml;
 
 /**
- * @uses json_encode()
- * @uses json_decode()
+ * @uses Yaml
  */
-class JsonSerializer implements SerializerInterface
+class YamlSerializer implements SerializerInterface
 {
     public function serialize($data)
     {
-        return json_encode($data);
+        return Yaml::dump($data, 4, 2);
     }
 
     public function deserialize($str)
     {
-        return json_decode($str, true);
+        return Yaml::parse($str);
     }
 }

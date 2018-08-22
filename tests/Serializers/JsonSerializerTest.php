@@ -56,7 +56,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldUnserializeOk()
+    public function shouldReturnDeserializeResult()
     {
         $exceptedFeature = [
             'f1' => [
