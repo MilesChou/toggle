@@ -15,34 +15,16 @@ class Factory
     {
         $instance = new Manager();
 
+        $config = $this->normalizeConfig($config);
+
         foreach ($config['feature'] as $name => $feature) {
-            if (isset($feature['processor']['class'])) {
-                $feature['processor'] = Process::retrieve($feature['processor']);
-            }
-
-            if (!isset($feature['processor'])) {
-                $feature['processor'] = null;
-            }
-
-            if (!isset($feature['params'])) {
-                $feature['params'] = [];
-            }
+            $feature = $this->normalizeConfigItem($feature);
 
             $instance->createFeature($name, $feature['processor'], $feature['params']);
         }
 
         foreach ($config['group'] as $name => $group) {
-            if (isset($group['processor']['class'])) {
-                $group['processor'] = Process::retrieve($group['processor']);
-            }
-
-            if (!isset($group['processor'])) {
-                $group['processor'] = null;
-            }
-
-            if (!isset($group['params'])) {
-                $group['params'] = [];
-            }
+            $group = $this->normalizeConfigItem($group);
 
             $instance->createGroup($name, $group['list'], $group['processor'], $group['params']);
         }
@@ -60,5 +42,54 @@ class Factory
         $config = (new Config($file))->all();
 
         return $this->createFromArray($config);
+    }
+
+    /**
+     * @param array $config
+     * @return array
+     */
+    private function normalizeConfig($config)
+    {
+        if (!isset($config['feature'])) {
+            $config['feature'] = [];
+        }
+
+        if (!isset($config['group'])) {
+            $config['group'] = [];
+        }
+
+        return $config;
+    }
+
+    /**
+     * @param array $config
+     * @return array
+     */
+    private function normalizeConfigItem($config)
+    {
+        if (!isset($config['processor'])) {
+            $config['processor'] = null;
+        }
+
+        if (!isset($config['params'])) {
+            $config['params'] = [];
+        }
+
+        $config['processor'] = $this->resolveProcessor($config['processor']);
+
+        return $config;
+    }
+
+    /**
+     * @param array $config
+     * @return
+     */
+    private function resolveProcessor($config)
+    {
+        if (isset($config['class'])) {
+            return Process::retrieve($config);
+        }
+
+        return $config;
     }
 }
