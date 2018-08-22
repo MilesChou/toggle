@@ -202,3 +202,78 @@ $manager
         // Something when f3 is on
     });
 ```
+
+### Built-in Processor
+
+#### Timer
+
+Timer can auto toggle when time is up. For example:
+
+```php
+<?php
+
+use MilesChou\Toggle\Manager;
+
+$manager = new Manager();
+
+$manager->createFeature('old-feature');
+$manager->createFeature('new-feature');
+
+$manager->createGroup('auto-toggle', [
+    'old-feature',
+    'new-feature',
+], new \MilesChou\Toggle\Processes\Timer([
+    'default' => 'old-feature',
+    'timer' => [
+        '2018-08-01' => 'new-feature',
+    ]
+]));
+
+// Default is 'old-feature' before '2018-08-01 00:00:00'
+// Change to 'new-feature' after '2018-08-01 00:00:00'
+$manager->group('auto-toggle')->select();
+```
+
+### Config Factory
+
+Toggle provide instance builder with config file. If you want use config file to build instance, you should require `hassankhan/config`:
+
+```
+composer require hassankhan/config
+```
+
+For example, we have the config in following:
+
+```yaml
+# features.yaml
+feature:
+  f1:
+  f2:
+  f3:
+group:
+  g1:
+    list:
+    - f1
+    - f2
+    - f3
+    processor:
+      class: MilesChou\Toggle\Processes\Timer
+      config:
+        default: f1
+        timer:
+          '2018-08-01': f2
+```
+
+And example code:
+
+```php
+$actual = (new Factory())->createFromFile('/path/to/features.yaml');
+
+// Default is 'f1' before '2018-08-01 00:00:00'
+// Change to 'f2' after '2018-08-01 00:00:00'
+$actual->select('g1');
+```
+
+> It is using `Timer` processor
+
+Config using `hassankhan/config` package, so we can using YAML / XML / php / etc. format to describe config.

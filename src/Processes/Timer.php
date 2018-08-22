@@ -87,11 +87,11 @@ class Timer extends Process
                 $time = Carbon::parse($time)->timestamp;
             }
 
-            if ($this->then && Carbon::createFromTimestamp($time)->isPast()) {
+            if ($this->then && !Carbon::createFromTimestamp($time)->isFuture()) {
                 return $return;
             }
 
-            if (!$this->then && Carbon::createFromTimestamp($time)->isFuture()) {
+            if (!$this->then && !Carbon::createFromTimestamp($time)->isPast()) {
                 return $return;
             }
         }
