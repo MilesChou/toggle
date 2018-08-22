@@ -83,6 +83,10 @@ class Timer extends Process
     protected function handle($context)
     {
         foreach ($this->timer as $time => $return) {
+            if (!is_numeric($time)) {
+                $time = Carbon::parse($time)->timestamp;
+            }
+
             if ($this->then && Carbon::createFromTimestamp($time)->isPast()) {
                 return $return;
             }

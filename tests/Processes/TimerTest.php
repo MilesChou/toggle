@@ -37,6 +37,32 @@ class TimerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function shouldBeOkayWhenUseDatetimeFormat()
+    {
+        $target = Timer::create([
+            'timer' => [
+                '2018-01-01' => 'f1',
+                '2018-03-01' => 'f3',
+                '2018-02-01' => 'f2',
+            ],
+        ]);
+
+        Carbon::setTestNow(Carbon::parse('2017-12-31'));
+        $this->assertNull($target());
+
+        Carbon::setTestNow(Carbon::parse('2018-01-20'));
+        $this->assertSame('f1', $target());
+
+        Carbon::setTestNow(Carbon::parse('2018-02-10'));
+        $this->assertSame('f2', $target());
+
+        Carbon::setTestNow(Carbon::parse('2018-08-01'));
+        $this->assertSame('f3', $target());
+    }
+
+    /**
+     * @test
+     */
     public function shouldReturnDefaultWhenTimeIsNotUp()
     {
         $target = Timer::create([
