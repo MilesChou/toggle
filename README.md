@@ -207,7 +207,13 @@ $manager
 
 #### Timer
 
-Timer can auto toggle when time is up. For example:
+Timer can auto toggle when time is up. If you want use `Timer`, you should require `nesbot/carbon`:
+                                       
+```
+composer require nesbot/carbon
+```
+
+For example:
 
 ```php
 <?php
