@@ -5,7 +5,7 @@ feature:
 group:
   g1:
     list:
-      - f1
-      - f2
-      - f3
-    return: f1
+    - f1
+    - f2
+    - f3
+    processor: f1

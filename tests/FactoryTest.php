@@ -2,24 +2,42 @@
 
 namespace Tests;
 
-use MilesChou\Toggle\Context;
-use MilesChou\Toggle\Contracts\DataProviderInterface;
-use MilesChou\Toggle\DataProvider;
+use Carbon\Carbon;
 use MilesChou\Toggle\Factory;
-use MilesChou\Toggle\Feature;
-use MilesChou\Toggle\Manager;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
      */
-    public function shouldReturnCorrectResultWhenCreateFromConfig()
+    public function shouldReturnCorrectResultWhenCreateFromConfigBasic()
     {
         $actual = Factory::createFromFile(__DIR__ . '/Fixtures/basic.yaml');
 
         $this->assertInstanceOf('MilesChou\\Toggle\\Manager', $actual);
 
         $this->assertSame('f1', $actual->select('g1'));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnCorrectResultWhenCreateFromConfigProcess()
+    {
+        $actual = Factory::createFromFile(__DIR__ . '/Fixtures/timer_process.yaml', false);
+
+        $this->assertInstanceOf('MilesChou\\Toggle\\Manager', $actual);
+
+        Carbon::setTestNow(Carbon::createFromTimestamp(10000));
+        $this->assertNull($actual->select('g1'));
+
+        Carbon::setTestNow(Carbon::createFromTimestamp(20000));
+        $this->assertSame('f1', $actual->select('g1'));
+
+        Carbon::setTestNow(Carbon::createFromTimestamp(30000));
+        $this->assertSame('f2', $actual->select('g1'));
+
+        Carbon::setTestNow(Carbon::createFromTimestamp(40000));
+        $this->assertSame('f3', $actual->select('g1'));
     }
 }

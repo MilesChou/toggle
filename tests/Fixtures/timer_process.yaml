@@ -1,0 +1,17 @@
+feature:
+  f1:
+  f2:
+  f3:
+group:
+  g1:
+    list:
+    - f1
+    - f2
+    - f3
+    processor:
+      class: MilesChou\Toggle\Processes\Timer
+      config:
+        timer:
+          11111: f1
+          33333: f3
+          22222: f2
