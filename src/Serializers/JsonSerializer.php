@@ -11,7 +11,7 @@ class JsonSerializer implements SerializerInterface
         return json_encode($data);
     }
 
-    public function unserialize($str)
+    public function deserialize($str)
     {
         return json_decode($str, true);
     }

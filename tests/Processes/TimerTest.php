@@ -100,7 +100,7 @@ class TimerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldRestoreFromJsonWhenUnserialize()
     {
-        $actual = Process::unserialize('{"class":"MilesChou\\\\Toggle\\\\Processes\\\\Timer","config":{"default":null,"timer":{"22222":"f2","11111":"f1"},"then":true}}');
+        $actual = Process::deserialize('{"class":"MilesChou\\\\Toggle\\\\Processes\\\\Timer","config":{"default":null,"timer":{"22222":"f2","11111":"f1"},"then":true}}');
 
         Carbon::setTestNow(Carbon::createFromTimestamp(10000));
         $this->assertNull($actual());

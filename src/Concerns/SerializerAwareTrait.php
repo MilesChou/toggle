@@ -19,6 +19,17 @@ trait SerializerAwareTrait
     private $serializerDriver = 'MilesChou\\Toggle\\Serializers\\JsonSerializer';
 
     /**
+     * @param string $str
+     * @return static
+     */
+    public function deserialize($str)
+    {
+        $data = $this->resolveSerializer($this->serializerDriver)->deserialize($str);
+
+        return $this->retrieveRestoreData($data);
+    }
+
+    /**
      * @param mixed $serializerDriver
      * @return static
      */
@@ -41,17 +52,6 @@ trait SerializerAwareTrait
         $data = $this->retrieveStoreData();
 
         return $this->resolveSerializer($this->serializerDriver)->serialize($data);
-    }
-
-    /**
-     * @param string $str
-     * @return static
-     */
-    public function unserialize($str)
-    {
-        $data = $this->resolveSerializer($this->serializerDriver)->unserialize($str);
-
-        return $this->retrieveRestoreData($data);
     }
 
     /**

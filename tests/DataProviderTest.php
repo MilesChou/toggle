@@ -39,7 +39,7 @@ class DataProviderTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldReturnCorrectResultWhenUnerializeDataToDataProvider()
+    public function shouldReturnCorrectResultWhenDeserializeDataToDataProvider()
     {
         $exceptedFeature = [
             'f1' => [
@@ -66,7 +66,7 @@ class DataProviderTest extends \PHPUnit_Framework_TestCase
 
         $target = new DataProvider();
 
-        $actual = $target->unserialize('{"feature":{"f1":{"return":true},"f2":{"return":false},"f3":{"return":false}},"group":{"g1":{"list":["f1","f2","f3"],"return":"f1"}}}');
+        $actual = $target->deserialize('{"feature":{"f1":{"return":true},"f2":{"return":false},"f3":{"return":false}},"group":{"g1":{"list":["f1","f2","f3"],"return":"f1"}}}');
 
         $this->assertInstanceOf('MilesChou\\Toggle\\DataProvider', $actual);
         $this->assertSame($exceptedFeature, $actual->getFeatures());
