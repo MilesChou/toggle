@@ -265,9 +265,9 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnSelectedFeatureWhenUsingGroupSelectFeature()
     {
         $this->target
-            ->createFeature('f1', ['name' => 'I am f1'])
-            ->createFeature('f2', ['name' => 'I am f2'])
-            ->createFeature('f3', ['name' => 'I am f3'])
+            ->createFeature('f1', null, ['name' => 'I am f1'])
+            ->createFeature('f2', null, ['name' => 'I am f2'])
+            ->createFeature('f3', null, ['name' => 'I am f3'])
             ->createGroup('g1', ['f1', 'f2', 'f3'], 'f1');
 
         $this->assertSame('I am f1', $this->target->group('g1')->selectFeature()->getParam('name'));

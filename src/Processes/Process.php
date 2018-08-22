@@ -2,6 +2,7 @@
 
 namespace MilesChou\Toggle\Processes;
 
+use InvalidArgumentException;
 use MilesChou\Toggle\Context;
 
 abstract class Process
@@ -26,6 +27,10 @@ abstract class Process
      */
     public static function retrieve(array $config)
     {
+        if (!isset($config['class'])) {
+            throw new InvalidArgumentException("Retrieve process must have 'class' key");
+        }
+
         $class = $config['class'];
 
         /** @var static $instance */

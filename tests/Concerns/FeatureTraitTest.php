@@ -44,7 +44,7 @@ class FeatureTraitTest extends \PHPUnit_Framework_TestCase
     public function shouldBeOkayWhenCreateWithProcessorInsteadOfParam()
     {
         $target = $this->getMockForTrait('MilesChou\\Toggle\\Concerns\\FeatureAwareTrait');
-        $target->createFeature('foo', ['some' => 'thing']);
+        $target->createFeature('foo', null, ['some' => 'thing']);
 
         $this->assertSame('thing', $target->feature('foo')->getParam('some'));
     }

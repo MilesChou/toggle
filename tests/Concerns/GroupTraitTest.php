@@ -13,7 +13,6 @@ class GroupTraitTest extends \PHPUnit_Framework_TestCase
             [false],
             [123],
             [3.14],
-            [[]],
             [new \stdClass()],
         ];
     }
@@ -28,7 +27,7 @@ class GroupTraitTest extends \PHPUnit_Framework_TestCase
 
         $target = new Manager();
 
-        $target->createGroup('foo', [], $invalidProcessor);
+        $target->createGroup('whatever', [], $invalidProcessor);
     }
 
     /**

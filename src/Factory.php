@@ -21,7 +21,7 @@ class Factory
             }
 
             if (!isset($feature['processor'])) {
-                $feature['processor'] = [];
+                $feature['processor'] = null;
             }
 
             if (!isset($feature['params'])) {
@@ -37,7 +37,7 @@ class Factory
             }
 
             if (!isset($group['processor'])) {
-                $group['processor'] = [];
+                $group['processor'] = null;
             }
 
             if (!isset($group['params'])) {

@@ -8,6 +8,7 @@ use MilesChou\Toggle\Concerns\ProcessorAwareTrait;
 use MilesChou\Toggle\Contracts\FeatureInterface;
 use MilesChou\Toggle\Contracts\GroupInterface;
 use MilesChou\Toggle\Contracts\ParameterAwareInterface;
+use MilesChou\Toggle\Processes\Process;
 
 class Feature implements FeatureInterface, ParameterAwareInterface
 {
@@ -29,8 +30,7 @@ class Feature implements FeatureInterface, ParameterAwareInterface
     public static function create($name, $processor = null, array $params = [])
     {
         if (is_array($processor)) {
-            $params = $processor;
-            $processor = null;
+            $processor = Process::retrieve($processor);
         }
 
         if (null === $processor || is_bool($processor)) {
