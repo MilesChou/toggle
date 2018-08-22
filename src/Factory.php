@@ -9,13 +9,11 @@ class Factory
 {
     /**
      * @param array $config
-     * @param bool $preserve
      * @return Manager
      */
-    public static function createFromArray($config, $preserve = true)
+    public static function createFromArray($config)
     {
         $instance = new Manager();
-        $instance->setPreserve($preserve);
 
         foreach ($config['feature'] as $name => $feature) {
             if (isset($feature['processor']['class'])) {
@@ -54,14 +52,13 @@ class Factory
 
     /**
      * @param string $file
-     * @param bool $preserve
      * @return Manager
      * @throws \Noodlehaus\Exception\EmptyDirectoryException
      */
-    public static function createFromFile($file, $preserve = true)
+    public static function createFromFile($file)
     {
         $config = (new Config($file))->all();
 
-        return self::createFromArray($config, $preserve);
+        return self::createFromArray($config);
     }
 }

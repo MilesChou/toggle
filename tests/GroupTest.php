@@ -7,26 +7,6 @@ use MilesChou\Toggle\Group;
 
 class GroupTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var Group
-     */
-    private $target;
-
-    protected function setUp()
-    {
-        $this->target = new Group('whatever', [
-            'feature1' => Feature::create('feature1'),
-            'feature2' => Feature::create('feature2'),
-        ], function () {
-            return null;
-        });
-    }
-
-    protected function tearDown()
-    {
-        $this->target = null;
-    }
-
     public function invalidProcessor()
     {
         return [

@@ -12,6 +12,8 @@ class DataProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnCorrectResultWhenSerializeDataProvider()
     {
+        $expected = '{"feature":{"f1":{"return":true},"f2":{"return":false},"f3":{"return":false}},"group":{"g1":{"list":["f1","f2","f3"],"return":"f1"}}}';
+
         $target = new DataProvider([
             'f1' => [
                 DataProviderInterface::FEATURE_RETURN => true,
@@ -33,7 +35,7 @@ class DataProviderTest extends \PHPUnit_Framework_TestCase
             ],
         ]);
 
-        $this->assertSame('{"feature":{"f1":{"return":true},"f2":{"return":false},"f3":{"return":false}},"group":{"g1":{"list":["f1","f2","f3"],"return":"f1"}}}', $target->serialize());
+        $this->assertSame($expected, $target->serialize());
     }
 
     /**
@@ -41,7 +43,7 @@ class DataProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnCorrectResultWhenDeserializeDataToDataProvider()
     {
-        $exceptedFeature = [
+        $expectedFeature = [
             'f1' => [
                 DataProviderInterface::FEATURE_RETURN => true,
             ],
@@ -53,7 +55,7 @@ class DataProviderTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
-        $exceptedGroup = [
+        $expectedGroup = [
             'g1' => [
                 DataProviderInterface::GROUP_LIST => [
                     'f1',
@@ -64,12 +66,14 @@ class DataProviderTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
+        $input = '{"feature":{"f1":{"return":true},"f2":{"return":false},"f3":{"return":false}},"group":{"g1":{"list":["f1","f2","f3"],"return":"f1"}}}';
+
         $target = new DataProvider();
 
-        $actual = $target->deserialize('{"feature":{"f1":{"return":true},"f2":{"return":false},"f3":{"return":false}},"group":{"g1":{"list":["f1","f2","f3"],"return":"f1"}}}');
+        $actual = $target->deserialize($input);
 
         $this->assertInstanceOf('MilesChou\\Toggle\\DataProvider', $actual);
-        $this->assertSame($exceptedFeature, $actual->getFeatures());
-        $this->assertSame($exceptedGroup, $actual->getGroups());
+        $this->assertSame($expectedFeature, $actual->getFeatures());
+        $this->assertSame($expectedGroup, $actual->getGroups());
     }
 }

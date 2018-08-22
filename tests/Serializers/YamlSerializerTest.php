@@ -26,7 +26,7 @@ class YamlSerializerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnSerializeResult()
     {
-        $excepted = <<< EXCEPTED_DATA
+        $expected = <<< EXCEPTED_DATA
 feature:
   f1:
     return: true
@@ -61,7 +61,7 @@ EXCEPTED_DATA;
             ],
         ]);
 
-        $this->assertSame($excepted, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -84,7 +84,7 @@ group:
 
 INPUT_DATA;
 
-        $exceptedFeature = [
+        $expectedFeature = [
             'f1' => [
                 'return' => true,
             ],
@@ -93,7 +93,7 @@ INPUT_DATA;
             ],
         ];
 
-        $exceptedGroup = [
+        $expectedGroup = [
             'g1' => [
                 'list' => [
                     'f1',
@@ -105,7 +105,7 @@ INPUT_DATA;
 
         $actual = $this->target->deserialize($input);
 
-        $this->assertSame($exceptedFeature, $actual['feature']);
-        $this->assertSame($exceptedGroup, $actual['group']);
+        $this->assertSame($expectedFeature, $actual['feature']);
+        $this->assertSame($expectedGroup, $actual['group']);
     }
 }

@@ -380,7 +380,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnBeOkayWhenMethodCallLikeSwitch()
     {
-        $excepted = 'f2';
+        $expected = 'f2';
 
         $this->target
             ->createFeature('f1')
@@ -405,6 +405,6 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
                 $actual = 'f3';
             });
 
-        $this->assertSame($excepted, $actual);
+        $this->assertSame($expected, $actual);
     }
 }

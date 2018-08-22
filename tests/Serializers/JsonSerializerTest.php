@@ -50,7 +50,10 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
             ],
         ]);
 
-        $this->assertSame('{"f":{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}},"g":{"g1":{"l":["f1","f2","f3"],"r":"f1"}}}', $actual);
+        $this->assertSame(
+            '{"f":{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}},"g":{"g1":{"l":["f1","f2","f3"],"r":"f1"}}}',
+            $actual
+        );
     }
 
     /**
@@ -58,7 +61,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnDeserializeResult()
     {
-        $exceptedFeature = [
+        $expectedFeature = [
             'f1' => [
                 'r' => true,
             ],
@@ -70,7 +73,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
-        $exceptedGroup = [
+        $expectedGroup = [
             'g1' => [
                 'l' => [
                     'f1',
@@ -83,7 +86,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
 
         $actual = $this->target->deserialize('{"f":{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}},"g":{"g1":{"l":["f1","f2","f3"],"r":"f1"}}}');
 
-        $this->assertSame($exceptedFeature, $actual['f']);
-        $this->assertSame($exceptedGroup, $actual['g']);
+        $this->assertSame($expectedFeature, $actual['f']);
+        $this->assertSame($expectedGroup, $actual['g']);
     }
 }

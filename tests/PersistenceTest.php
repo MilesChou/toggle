@@ -77,7 +77,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnCorrectResultWhenExportFeatureOnly()
     {
-        $excepted = [
+        $expected = [
             'f1' => [
                 DataProviderInterface::FEATURE_PARAMS => [],
                 DataProviderInterface::FEATURE_RETURN => true,
@@ -100,7 +100,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
         $actual = $this->target->export();
 
         $this->assertInstanceOf('MilesChou\\Toggle\\Contracts\\DataProviderInterface', $actual);
-        $this->assertSame($excepted, $actual->getFeatures());
+        $this->assertSame($expected, $actual->getFeatures());
     }
 
     /**
@@ -108,7 +108,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnCorrectResultWhenExportWithContext()
     {
-        $excepted = [
+        $expected = [
             'f1' => [
                 DataProviderInterface::FEATURE_PARAMS => [],
                 DataProviderInterface::FEATURE_RETURN => false,
@@ -123,7 +123,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
         $actual = $this->target->export(Context::create(['return' => false]));
 
         $this->assertInstanceOf('MilesChou\\Toggle\\Contracts\\DataProviderInterface', $actual);
-        $this->assertSame($excepted, $actual->getFeatures());
+        $this->assertSame($expected, $actual->getFeatures());
     }
 
     /**
@@ -170,7 +170,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnCorrectResultWhenExportFeatureAndGroup()
     {
-        $exceptedFeature = [
+        $expectedFeature = [
             'f1' => [
                 DataProviderInterface::FEATURE_PARAMS => [],
                 DataProviderInterface::FEATURE_RETURN => true,
@@ -185,7 +185,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
-        $exceptedGroup = [
+        $expectedGroup = [
             'g1' => [
                 DataProviderInterface::GROUP_PARAMS => [],
                 DataProviderInterface::GROUP_LIST => [
@@ -206,8 +206,8 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
         $actual = $this->target->export();
 
         $this->assertInstanceOf('MilesChou\\Toggle\\Contracts\\DataProviderInterface', $actual);
-        $this->assertSame($exceptedFeature, $actual->getFeatures());
-        $this->assertSame($exceptedGroup, $actual->getGroups());
+        $this->assertSame($expectedFeature, $actual->getFeatures());
+        $this->assertSame($expectedGroup, $actual->getGroups());
     }
 
     /**
