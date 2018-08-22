@@ -11,7 +11,7 @@ class Factory
      * @param array $config
      * @return Manager
      */
-    public static function createFromArray($config)
+    public function createFromArray($config)
     {
         $instance = new Manager();
 
@@ -55,10 +55,10 @@ class Factory
      * @return Manager
      * @throws \Noodlehaus\Exception\EmptyDirectoryException
      */
-    public static function createFromFile($file)
+    public function createFromFile($file)
     {
         $config = (new Config($file))->all();
 
-        return self::createFromArray($config);
+        return $this->createFromArray($config);
     }
 }

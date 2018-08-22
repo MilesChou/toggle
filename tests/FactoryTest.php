@@ -12,7 +12,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnCorrectResultWhenCreateFromConfigBasic()
     {
-        $actual = Factory::createFromFile(__DIR__ . '/Fixtures/basic.yaml');
+        $actual = (new Factory())->createFromFile(__DIR__ . '/Fixtures/basic.yaml');
 
         $this->assertInstanceOf('MilesChou\\Toggle\\Manager', $actual);
 
@@ -24,7 +24,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnCorrectResultWhenCreateFromConfigProcess()
     {
-        $actual = Factory::createFromFile(__DIR__ . '/Fixtures/timer_process.yaml');
+        $actual = (new Factory())->createFromFile(__DIR__ . '/Fixtures/timer_process.yaml');
         $actual->setPreserve(false);
 
         $this->assertInstanceOf('MilesChou\\Toggle\\Manager', $actual);
