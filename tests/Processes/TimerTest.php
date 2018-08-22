@@ -83,8 +83,20 @@ class TimerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldReturnJsonWhenSerialize()
+    public function shouldReturnJsonWhenToArray()
     {
+        $expected = [
+            'class' => 'MilesChou\\Toggle\\Processes\\Timer',
+            'config' => [
+                'default' => null,
+                'timer' => [
+                    22222 => 'f2',
+                    11111 => 'f1',
+                ],
+                'then' => true,
+            ],
+        ];
+
         $target = Timer::create([
             'timer' => [
                 11111 => 'f1',
@@ -92,15 +104,25 @@ class TimerTest extends \PHPUnit_Framework_TestCase
             ],
         ]);
 
-        $this->assertSame('{"class":"MilesChou\\\\Toggle\\\\Processes\\\\Timer","config":{"default":null,"timer":{"22222":"f2","11111":"f1"},"then":true}}', $target->serialize());
+        $this->assertSame($expected, $target->toArray());
     }
 
     /**
      * @test
      */
-    public function shouldRestoreFromJsonWhenUnserialize()
+    public function shouldRestoreFromJsonWhenRetrieve()
     {
-        $actual = Process::deserialize('{"class":"MilesChou\\\\Toggle\\\\Processes\\\\Timer","config":{"default":null,"timer":{"22222":"f2","11111":"f1"},"then":true}}');
+        $actual = Process::retrieve([
+            'class' => 'MilesChou\\Toggle\\Processes\\Timer',
+            'config' => [
+                'default' => null,
+                'timer' => [
+                    22222 => 'f2',
+                    11111 => 'f1',
+                ],
+                'then' => true,
+            ],
+        ]);
 
         Carbon::setTestNow(Carbon::createFromTimestamp(10000));
         $this->assertNull($actual());

@@ -41,11 +41,6 @@ class Timer extends Process
         }
     }
 
-    public function serialize()
-    {
-        return json_encode($this->toArray());
-    }
-
     /**
      * @param array $config
      */

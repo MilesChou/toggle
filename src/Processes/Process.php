@@ -21,17 +21,6 @@ abstract class Process
     }
 
     /**
-     * @param string $json
-     * @return static
-     */
-    public static function deserialize($json)
-    {
-        $config = json_decode($json, true);
-
-        return static::retrieve($config);
-    }
-
-    /**
      * @param array $config
      * @return static
      */
@@ -50,11 +39,6 @@ abstract class Process
      * @param array $config
      */
     abstract public function setConfig(array $config);
-
-    /**
-     * @return string
-     */
-    abstract public function serialize();
 
     /**
      * @return array
