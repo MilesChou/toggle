@@ -41,4 +41,16 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         Carbon::setTestNow(Carbon::createFromTimestamp(40000));
         $this->assertSame('f3', $actual->select('g1'));
     }
+
+    /**
+     * @test
+     */
+    public function shouldReturnCorrectResultWhenCreateFromConfigProcessWithBucketProcess()
+    {
+        $actual = (new Factory())->createFromFile(__DIR__ . '/Fixtures/bucket_process.yaml');
+
+        $this->assertInstanceOf('MilesChou\\Toggle\\Manager', $actual);
+
+        $this->assertSame('f1', $actual->select('g1'));
+    }
 }

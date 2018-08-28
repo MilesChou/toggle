@@ -1,0 +1,14 @@
+feature:
+  f1:
+  f2:
+  f3:
+group:
+  g1:
+    list:
+    - f1
+    - f2
+    - f3
+    processor:
+      class: MilesChou\Toggle\Processors\Bucket
+      config:
+        f1: 10
