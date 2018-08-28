@@ -8,11 +8,6 @@ use MilesChou\Toggle\Context;
 abstract class Process
 {
     /**
-     * @var array
-     */
-    protected $config;
-
-    /**
      * @param Context|null $context
      * @return mixed
      */
