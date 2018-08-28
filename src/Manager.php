@@ -20,6 +20,11 @@ class Manager
     private $preserve = true;
 
     /**
+     * @var bool
+     */
+    private $strict = false;
+
+    /**
      * @param string $dataProviderDriver
      * @param Context|null $context
      * @return DataProviderInterface
@@ -76,7 +81,11 @@ class Manager
         }
 
         if (!array_key_exists($name, $this->features)) {
-            throw new RuntimeException("Feature '{$name}' is not found");
+            if ($this->strict) {
+                throw new RuntimeException("Feature '{$name}' is not found");
+            }
+
+            return false;
         }
 
         $context = $this->resolveContext($context);
@@ -102,7 +111,11 @@ class Manager
         }
 
         if (!array_key_exists($name, $this->groups)) {
-            throw new RuntimeException("Group '{$name}' is not found");
+            if ($this->strict) {
+                throw new RuntimeException("Group '{$name}' is not found");
+            }
+
+            return null;
         }
 
         $context = $this->resolveContext($context);
@@ -141,6 +154,17 @@ class Manager
         if ($this->isActive($feature, $context)) {
             $callable();
         }
+
+        return $this;
+    }
+
+    /**
+     * @param bool $strict
+     * @return static
+     */
+    public function setStrict($strict)
+    {
+        $this->strict = $strict;
 
         return $this;
     }

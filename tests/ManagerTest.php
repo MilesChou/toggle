@@ -27,9 +27,11 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldThrowExceptionWhenCallIsActiveWithNoData()
+    public function shouldThrowExceptionWhenCallIsActiveWithNoDataAndStrictMode()
     {
         $this->setExpectedException('RuntimeException');
+
+        $this->target->setStrict(true);
 
         $this->target->isActive('not-exist');
     }
@@ -37,11 +39,29 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldThrowExceptionWhenCallSelectWithNoData()
+    public function shouldThrowExceptionWhenCallSelectWithNoDataAndStrictMode()
     {
         $this->setExpectedException('RuntimeException');
 
+        $this->target->setStrict(true);
+
         $this->target->select('not-exist');
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnFalseDefaultWhenCallIsActive()
+    {
+        $this->assertFalse($this->target->isActive('not-exist'));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnNullDefaultWhenCallSelect()
+    {
+        $this->assertNull($this->target->select('not-exist'));
     }
 
     /**
@@ -95,6 +115,8 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('RuntimeException', 'foo');
 
+        $this->target->setStrict(true);
+
         $this->target->createFeature('foo')
             ->removeFeature('foo');
 
@@ -107,6 +129,8 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     public function shouldThrowExceptionWhenCreateGroupAndRemove()
     {
         $this->setExpectedException('RuntimeException', 'g1');
+
+        $this->target->setStrict(true);
 
         $this->target
             ->createFeature('f1')
