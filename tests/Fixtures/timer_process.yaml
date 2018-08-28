@@ -9,7 +9,7 @@ group:
     - f2
     - f3
     processor:
-      class: MilesChou\Toggle\Processes\Timer
+      class: MilesChou\Toggle\Processors\Timer
       config:
         timer:
           11111: f1

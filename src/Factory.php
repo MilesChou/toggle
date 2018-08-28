@@ -2,7 +2,7 @@
 
 namespace MilesChou\Toggle;
 
-use MilesChou\Toggle\Processes\Process;
+use MilesChou\Toggle\Processors\Processor;
 use Noodlehaus\Config;
 
 class Factory
@@ -87,7 +87,7 @@ class Factory
     private function resolveProcessor($config)
     {
         if (isset($config['class'])) {
-            return Process::retrieve($config);
+            return Processor::retrieve($config);
         }
 
         return $config;

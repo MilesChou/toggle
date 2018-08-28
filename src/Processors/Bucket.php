@@ -1,10 +1,10 @@
 <?php
 
-namespace MilesChou\Toggle\Processes;
+namespace MilesChou\Toggle\Processors;
 
 use InvalidArgumentException;
 
-class Bucket extends Process
+class Bucket extends Processor
 {
     /**
      * @var array
@@ -66,7 +66,7 @@ class Bucket extends Process
     public function toArray()
     {
         return [
-            'class' => 'MilesChou\\Toggle\\Processes\\Bucket',
+            'class' => 'MilesChou\\Toggle\\Processors\\Bucket',
             'config' => $this->buckets,
         ];
     }

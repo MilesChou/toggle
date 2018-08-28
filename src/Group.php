@@ -8,7 +8,7 @@ use MilesChou\Toggle\Concerns\ParameterAwareTrait;
 use MilesChou\Toggle\Concerns\ProcessorAwareTrait;
 use MilesChou\Toggle\Contracts\GroupInterface;
 use MilesChou\Toggle\Contracts\ParameterAwareInterface;
-use MilesChou\Toggle\Processes\Process;
+use MilesChou\Toggle\Processors\Processor;
 
 class Group implements GroupInterface, ParameterAwareInterface
 {
@@ -27,7 +27,7 @@ class Group implements GroupInterface, ParameterAwareInterface
     public static function create($name, array $features, $processor = null, array $params = [])
     {
         if (is_array($processor)) {
-            $processor = Process::retrieve($processor);
+            $processor = Processor::retrieve($processor);
         }
 
         if (null === $processor || is_string($processor)) {

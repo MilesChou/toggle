@@ -12,7 +12,7 @@ $manager->createFeature('new-feature');
 $manager->createGroup('auto-toggle', [
     'old-feature',
     'new-feature',
-], new \MilesChou\Toggle\Processes\Timer([
+], new \MilesChou\Toggle\Processors\Timer([
     'default' => 'old-feature',
     'timer' => [
         '2018-08-01' => 'new-feature',

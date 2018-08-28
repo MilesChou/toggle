@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Processes;
+namespace Tests\Processors;
 
-use MilesChou\Toggle\Processes\Bucket;
+use MilesChou\Toggle\Processors\Bucket;
 
 class BucketTest extends \PHPUnit_Framework_TestCase
 {

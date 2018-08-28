@@ -1,11 +1,11 @@
 <?php
 
-namespace MilesChou\Toggle\Processes;
+namespace MilesChou\Toggle\Processors;
 
 use Carbon\Carbon;
 use InvalidArgumentException;
 
-class Timer extends Process
+class Timer extends Processor
 {
     /**
      * @var mixed
@@ -71,7 +71,7 @@ class Timer extends Process
     public function toArray()
     {
         return [
-            'class' => 'MilesChou\\Toggle\\Processes\\Timer',
+            'class' => 'MilesChou\\Toggle\\Processors\\Timer',
             'config' => [
                 'default' => $this->default,
                 'timer' => $this->timer,

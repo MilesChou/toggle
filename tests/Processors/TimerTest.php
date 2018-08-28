@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Processes;
+namespace Tests\Processors;
 
 use Carbon\Carbon;
-use MilesChou\Toggle\Processes\Process;
-use MilesChou\Toggle\Processes\Timer;
+use MilesChou\Toggle\Processors\Processor;
+use MilesChou\Toggle\Processors\Timer;
 
 class TimerTest extends \PHPUnit_Framework_TestCase
 {
@@ -112,7 +112,7 @@ class TimerTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnJsonWhenToArray()
     {
         $expected = [
-            'class' => 'MilesChou\\Toggle\\Processes\\Timer',
+            'class' => 'MilesChou\\Toggle\\Processors\\Timer',
             'config' => [
                 'default' => null,
                 'timer' => [
@@ -138,8 +138,8 @@ class TimerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldRestoreFromJsonWhenRetrieve()
     {
-        $actual = Process::retrieve([
-            'class' => 'MilesChou\\Toggle\\Processes\\Timer',
+        $actual = Processor::retrieve([
+            'class' => 'MilesChou\\Toggle\\Processors\\Timer',
             'config' => [
                 'default' => null,
                 'timer' => [

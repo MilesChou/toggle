@@ -1,11 +1,11 @@
 <?php
 
-namespace MilesChou\Toggle\Processes;
+namespace MilesChou\Toggle\Processors;
 
 use InvalidArgumentException;
 use MilesChou\Toggle\Context;
 
-abstract class Process
+abstract class Processor
 {
     /**
      * @param Context|null $context
