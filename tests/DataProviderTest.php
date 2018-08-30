@@ -16,22 +16,22 @@ class DataProviderTest extends \PHPUnit_Framework_TestCase
 
         $target = new DataProvider([
             'f1' => [
-                DataProviderInterface::FEATURE_RETURN => true,
+                'return' => true,
             ],
             'f2' => [
-                DataProviderInterface::FEATURE_RETURN => false,
+                'return' => false,
             ],
             'f3' => [
-                DataProviderInterface::FEATURE_RETURN => false,
+                'return' => false,
             ],
         ], [
             'g1' => [
-                DataProviderInterface::GROUP_LIST => [
+                'list' => [
                     'f1',
                     'f2',
                     'f3',
                 ],
-                DataProviderInterface::GROUP_RETURN => 'f1',
+                'return' => 'f1',
             ],
         ]);
 
@@ -45,24 +45,24 @@ class DataProviderTest extends \PHPUnit_Framework_TestCase
     {
         $expectedFeature = [
             'f1' => [
-                DataProviderInterface::FEATURE_RETURN => true,
+                'return' => true,
             ],
             'f2' => [
-                DataProviderInterface::FEATURE_RETURN => false,
+                'return' => false,
             ],
             'f3' => [
-                DataProviderInterface::FEATURE_RETURN => false,
+                'return' => false,
             ],
         ];
 
         $expectedGroup = [
             'g1' => [
-                DataProviderInterface::GROUP_LIST => [
+                'list' => [
                     'f1',
                     'f2',
                     'f3',
                 ],
-                DataProviderInterface::GROUP_RETURN => 'f1',
+                'return' => 'f1',
             ],
         ];
 

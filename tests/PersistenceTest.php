@@ -52,16 +52,16 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     {
         $dataProvider = new DataProvider([
             'f1' => [
-                DataProviderInterface::FEATURE_PARAMS => [],
-                DataProviderInterface::FEATURE_RETURN => true,
+                'params' => [],
+                'return' => true,
             ],
             'f2' => [
-                DataProviderInterface::FEATURE_PARAMS => [],
-                DataProviderInterface::FEATURE_RETURN => false,
+                'params' => [],
+                'return' => false,
             ],
             'f3' => [
-                DataProviderInterface::FEATURE_PARAMS => [],
-                DataProviderInterface::FEATURE_RETURN => false,
+                'params' => [],
+                'return' => false,
             ],
         ]);
 
@@ -79,16 +79,16 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     {
         $expected = [
             'f1' => [
-                DataProviderInterface::FEATURE_PARAMS => [],
-                DataProviderInterface::FEATURE_RETURN => true,
+                'params' => [],
+                'return' => true,
             ],
             'f2' => [
-                DataProviderInterface::FEATURE_PARAMS => [],
-                DataProviderInterface::FEATURE_RETURN => false,
+                'params' => [],
+                'return' => false,
             ],
             'f3' => [
-                DataProviderInterface::FEATURE_PARAMS => [],
-                DataProviderInterface::FEATURE_RETURN => false,
+                'params' => [],
+                'return' => false,
             ],
         ];
 
@@ -110,8 +110,8 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     {
         $expected = [
             'f1' => [
-                DataProviderInterface::FEATURE_PARAMS => [],
-                DataProviderInterface::FEATURE_RETURN => false,
+                'params' => [],
+                'return' => false,
             ],
         ];
 
@@ -133,26 +133,26 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     {
         $dataProvider = new DataProvider([
             'f1' => [
-                DataProviderInterface::FEATURE_PARAMS => [],
-                DataProviderInterface::FEATURE_RETURN => true,
+                'params' => [],
+                'return' => true,
             ],
             'f2' => [
-                DataProviderInterface::FEATURE_PARAMS => [],
-                DataProviderInterface::FEATURE_RETURN => false,
+                'params' => [],
+                'return' => false,
             ],
             'f3' => [
-                DataProviderInterface::FEATURE_PARAMS => [],
-                DataProviderInterface::FEATURE_RETURN => false,
+                'params' => [],
+                'return' => false,
             ],
         ], [
             'g1' => [
-                DataProviderInterface::GROUP_PARAMS => [],
-                DataProviderInterface::GROUP_LIST => [
+                'params' => [],
+                'list' => [
                     'f1',
                     'f2',
                     'f3',
                 ],
-                DataProviderInterface::GROUP_RETURN => 'f1',
+                'return' => 'f1',
             ],
         ]);
 
@@ -172,28 +172,28 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     {
         $expectedFeature = [
             'f1' => [
-                DataProviderInterface::FEATURE_PARAMS => [],
-                DataProviderInterface::FEATURE_RETURN => true,
+                'params' => [],
+                'return' => true,
             ],
             'f2' => [
-                DataProviderInterface::FEATURE_PARAMS => [],
-                DataProviderInterface::FEATURE_RETURN => false,
+                'params' => [],
+                'return' => false,
             ],
             'f3' => [
-                DataProviderInterface::FEATURE_PARAMS => [],
-                DataProviderInterface::FEATURE_RETURN => false,
+                'params' => [],
+                'return' => false,
             ],
         ];
 
         $expectedGroup = [
             'g1' => [
-                DataProviderInterface::GROUP_PARAMS => [],
-                DataProviderInterface::GROUP_LIST => [
+                'params' => [],
+                'list' => [
                     'f1',
                     'f2',
                     'f3',
                 ],
-                DataProviderInterface::GROUP_RETURN => 'f1',
+                'return' => 'f1',
             ],
         ];
 
@@ -224,26 +224,26 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
 
         $dataProvider = new DataProvider([
             'f1' => [
-                DataProviderInterface::FEATURE_PARAMS => [],
-                DataProviderInterface::FEATURE_RETURN => true,
+                'params' => [],
+                'return' => true,
             ],
             'f2' => [
-                DataProviderInterface::FEATURE_PARAMS => [],
-                DataProviderInterface::FEATURE_RETURN => false,
+                'params' => [],
+                'return' => false,
             ],
             'f3' => [
-                DataProviderInterface::FEATURE_PARAMS => [],
-                DataProviderInterface::FEATURE_RETURN => false,
+                'params' => [],
+                'return' => false,
             ],
         ], [
             'g1' => [
-                DataProviderInterface::GROUP_PARAMS => [],
-                DataProviderInterface::GROUP_LIST => [
+                'params' => [],
+                'list' => [
                     'f1',
                     'f2',
                     'f3',
                 ],
-                DataProviderInterface::GROUP_RETURN => 'f3',
+                'return' => 'f3',
             ],
         ]);
 
@@ -272,26 +272,26 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
 
         $dataProvider = new DataProvider([
             'f1' => [
-                DataProviderInterface::FEATURE_PARAMS => [],
-                DataProviderInterface::FEATURE_RETURN => true,
+                'params' => [],
+                'return' => true,
             ],
             'f2' => [
-                DataProviderInterface::FEATURE_PARAMS => [],
-                DataProviderInterface::FEATURE_RETURN => false,
+                'params' => [],
+                'return' => false,
             ],
             'f3' => [
-                DataProviderInterface::FEATURE_PARAMS => [],
-                DataProviderInterface::FEATURE_RETURN => false,
+                'params' => [],
+                'return' => false,
             ],
         ], [
             'g1' => [
-                DataProviderInterface::GROUP_PARAMS => [],
-                DataProviderInterface::GROUP_LIST => [
+                'params' => [],
+                'list' => [
                     'f1',
                     'f2',
                     'f3',
                 ],
-                DataProviderInterface::GROUP_RETURN => 'f3',
+                'return' => 'f3',
             ],
         ]);
 
