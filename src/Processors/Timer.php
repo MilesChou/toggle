@@ -42,9 +42,9 @@ class Timer extends Processor
     }
 
     /**
-     * @param array $config
+     * {@inheritdoc}
      */
-    public function setConfig(array $config)
+    public function setConfig($config)
     {
         $this->assertConfig($config);
 
@@ -66,7 +66,7 @@ class Timer extends Processor
     }
 
     /**
-     * @return array
+     * {@inheritdoc}
      */
     public function toArray()
     {
@@ -80,6 +80,9 @@ class Timer extends Processor
         ];
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function handle($context)
     {
         foreach ($this->timer as $time => $return) {

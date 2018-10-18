@@ -36,9 +36,9 @@ abstract class Processor
     }
 
     /**
-     * @param array $config
+     * @param mixed $config
      */
-    abstract public function setConfig(array $config);
+    abstract public function setConfig($config);
 
     /**
      * @return array
