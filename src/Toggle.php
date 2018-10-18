@@ -8,7 +8,7 @@ use MilesChou\Toggle\Concerns\GroupAwareTrait;
 use MilesChou\Toggle\Contracts\DataProviderInterface;
 use RuntimeException;
 
-class Manager
+class Toggle
 {
     use ContextAwareTrait;
     use FeatureAwareTrait;

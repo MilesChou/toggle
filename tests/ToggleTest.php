@@ -5,18 +5,18 @@ namespace Tests;
 use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Group;
-use MilesChou\Toggle\Manager;
+use MilesChou\Toggle\Toggle;
 
-class ManagerTest extends \PHPUnit_Framework_TestCase
+class ToggleTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Manager
+     * @var Toggle
      */
     private $target;
 
     protected function setUp()
     {
-        $this->target = new Manager();
+        $this->target = new Toggle();
     }
 
     protected function tearDown()
@@ -382,7 +382,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     public function testPlay()
     {
 
-        $manager = new Manager();
+        $manager = new Toggle();
         $manager->createFeature('f1');
         $manager->createFeature('f2');
         $manager->createFeature('f3');

@@ -11,7 +11,7 @@ Coming soon...
 
 ## Usage
 
-The `Manager` class is the core class. All feature config will set on this object.
+The `Toggle` class is the core class. All feature config will set on this object.
 
 ### Feature Toggle
 
@@ -20,9 +20,9 @@ Use the static result:
 ```php
 <?php
 
-use MilesChou\Toggle\Manager;
+use MilesChou\Toggle\Toggle;
 
-$manager = new Manager();
+$manager = new Toggle();
 $manager->createFeature('f1', true);
 
 // Will return true
@@ -35,9 +35,9 @@ Use the object with static return:
 <?php
 
 use MilesChou\Toggle\Feature;
-use MilesChou\Toggle\Manager;
+use MilesChou\Toggle\Toggle;
 
-$manager = new Manager();
+$manager = new Toggle();
 $manager->addFeature(Feature::create('f1', true));
 
 // Will return true
@@ -49,9 +49,9 @@ Use callable to decide the return dynamically:
 ```php
 <?php
 
-use MilesChou\Toggle\Manager;
+use MilesChou\Toggle\Toggle;
 
-$manager = new Manager();
+$manager = new Toggle();
 $manager->createFeature('f1', function() {
     return true;
 });
@@ -66,9 +66,9 @@ Use callable with Context:
 <?php
 
 use MilesChou\Toggle\Context;
-use MilesChou\Toggle\Manager;
+use MilesChou\Toggle\Toggle;
 
-$manager = new Manager();
+$manager = new Toggle();
 $manager->createFeature('f1', function(Context $context) {
     return $context->return;
 });
@@ -88,9 +88,9 @@ For example, it's illegal because feature in Group instance and feature manager 
 
 use MilesChou\Toggle\Group;
 use MilesChou\Toggle\Feature;
-use MilesChou\Toggle\Manager;
+use MilesChou\Toggle\Toggle;
 
-$manager = new Manager();
+$manager = new Toggle();
 $manager->createFeature('f1', true);
 
 // RuntimeException: Feature 'f1' is exist 
@@ -104,9 +104,9 @@ Another example, it's illegal because the intent to link two Groups:
 ```php
 <?php
 
-use MilesChou\Toggle\Manager;
+use MilesChou\Toggle\Toggle;
 
-$manager = new Manager();
+$manager = new Toggle();
 $manager->createFeature('f1');
 $manager->createFeature('f2');
 $manager->createFeature('f3');
@@ -122,9 +122,9 @@ Following is a example of return static result:
 ```php
 <?php
 
-use MilesChou\Toggle\Manager;
+use MilesChou\Toggle\Toggle;
 
-$manager = new Manager();
+$manager = new Toggle();
 $manager->createFeature('f1');
 $manager->createFeature('f2');
 $manager->createFeature('f3');
@@ -150,9 +150,9 @@ Both `Feature` and `Group` can store some parameter. For example:
 ```php
 <?php
 
-use MilesChou\Toggle\Manager;
+use MilesChou\Toggle\Toggle;
 
-$manager = new Manager();
+$manager = new Toggle();
 
 $manager->createFeature('f1', ['name' => 'Miles']);
 $manager->createFeature('f2', ['name' => 'Chou']);
@@ -183,9 +183,9 @@ See more [examples](/examples).
 This snippet is like `if` / `switch` structure:
 
 ```php
-use MilesChou\Toggle\Manager;
+use MilesChou\Toggle\Toggle;
 
-$manager = new Manager();
+$manager = new Toggle();
 $manager->createFeature('f1');
 $manager->createFeature('f2');
 $manager->createFeature('f3');
@@ -218,9 +218,9 @@ For example:
 ```php
 <?php
 
-use MilesChou\Toggle\Manager;
+use MilesChou\Toggle\Toggle;
 
-$manager = new Manager();
+$manager = new Toggle();
 
 $manager->createFeature('old-feature');
 $manager->createFeature('new-feature');
@@ -228,7 +228,7 @@ $manager->createFeature('new-feature');
 $manager->createGroup('auto-toggle', [
     'old-feature',
     'new-feature',
-], new \MilesChou\Toggle\Processes\Timer([
+], new \MilesChou\Toggle\Processors\Timer([
     'default' => 'old-feature',
     'timer' => [
         '2018-08-01' => 'new-feature',
@@ -263,7 +263,7 @@ group:
     - f2
     - f3
     processor:
-      class: MilesChou\Toggle\Processes\Timer
+      class: MilesChou\Toggle\Processors\Timer
       config:
         default: f1
         timer:

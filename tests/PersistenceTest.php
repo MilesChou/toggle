@@ -6,18 +6,18 @@ use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Contracts\DataProviderInterface;
 use MilesChou\Toggle\DataProvider;
 use MilesChou\Toggle\Feature;
-use MilesChou\Toggle\Manager;
+use MilesChou\Toggle\Toggle;
 
 class PersistenceTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Manager
+     * @var Toggle
      */
     private $target;
 
     protected function setUp()
     {
-        $this->target = new Manager();
+        $this->target = new Toggle();
     }
 
     protected function tearDown()

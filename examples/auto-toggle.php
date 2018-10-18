@@ -1,10 +1,10 @@
 <?php
 
-use MilesChou\Toggle\Manager;
+use MilesChou\Toggle\Toggle;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$manager = new Manager();
+$manager = new Toggle();
 
 $manager->createFeature('old-feature');
 $manager->createFeature('new-feature');

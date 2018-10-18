@@ -9,11 +9,11 @@ class Factory
 {
     /**
      * @param array $config
-     * @return Manager
+     * @return Toggle
      */
     public function createFromArray($config)
     {
-        $instance = new Manager();
+        $instance = new Toggle();
 
         $config = $this->normalizeConfig($config);
 
@@ -34,7 +34,7 @@ class Factory
 
     /**
      * @param string $file
-     * @return Manager
+     * @return Toggle
      * @throws \Noodlehaus\Exception\EmptyDirectoryException
      */
     public function createFromFile($file)

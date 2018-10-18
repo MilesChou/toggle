@@ -4,7 +4,7 @@ namespace Benchmarks;
 
 use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Feature;
-use MilesChou\Toggle\Manager;
+use MilesChou\Toggle\Toggle;
 use PhpBench\Benchmark\Metadata\Annotations\Iterations;
 use PhpBench\Benchmark\Metadata\Annotations\Revs;
 
@@ -16,7 +16,7 @@ class ToggleBench
      */
     public function benchManagerUsingGroup()
     {
-        $target = new Manager();
+        $target = new Toggle();
 
         $target->createFeature('f1')
             ->createFeature('f2')
