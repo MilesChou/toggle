@@ -9,6 +9,6 @@ group:
     - f2
     - f3
     processor:
-      class: MilesChou\Toggle\Processors\Bucket
+      class: MilesChou\Toggle\Processors\AB
       config:
         f1: 10

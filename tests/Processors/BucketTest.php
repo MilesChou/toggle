@@ -2,6 +2,7 @@
 
 namespace Tests\Processors;
 
+use MilesChou\Toggle\Processors\AB;
 use MilesChou\Toggle\Processors\Bucket;
 
 class BucketTest extends \PHPUnit_Framework_TestCase
@@ -9,31 +10,24 @@ class BucketTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldReturnF1WithOnlyF1()
+    public function shouldReturnFalseWithBucketIs0()
     {
         $target = Bucket::create([
-            'f1' => 10,
+            'bucket' => 0,
         ]);
 
-        $this->assertSame('f1', $target());
+        $this->assertFalse($target());
     }
 
     /**
      * @test
      */
-    public function shouldReturnF1OrF2()
+    public function shouldReturnTrueWithBucketIs100()
     {
-        $excepted = [
-            'f1' => 10,
-            'f2' => 1,
-            'f3' => 3,
-        ];
+        $target = Bucket::create([
+            'bucket' => 100,
+        ]);
 
-        $target = Bucket::create($excepted);
-
-        $actual = $target->getPoker();
-
-        $this->assertCount(14, $actual);
-        $this->assertSame($excepted, array_count_values($actual));
+        $this->assertTrue($target());
     }
 }

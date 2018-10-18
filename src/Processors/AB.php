@@ -4,12 +4,17 @@ namespace MilesChou\Toggle\Processors;
 
 use InvalidArgumentException;
 
-class Bucket extends Processor
+class AB extends Processor
 {
     /**
-     * @var int
+     * @var array
      */
-    private $bucket = 0;
+    private $buckets = [];
+
+    /**
+     * @var array
+     */
+    private $poker = [];
 
     /**
      * @param array $config
@@ -31,13 +36,28 @@ class Bucket extends Processor
     }
 
     /**
+     * @return array
+     */
+    public function getPoker()
+    {
+        return $this->poker;
+    }
+
+    /**
      * @param array $config
      */
     public function setConfig(array $config)
     {
         $this->assertConfig($config);
 
-        $this->bucket = $config['bucket'];
+        $this->buckets = $config;
+
+        $this->poker = [];
+
+        foreach ($this->buckets as $feature => $bucket) {
+            $featurePoker = array_fill(0, $bucket, $feature);
+            $this->poker = array_merge($this->poker, $featurePoker);
+        }
     }
 
     /**
@@ -46,16 +66,14 @@ class Bucket extends Processor
     public function toArray()
     {
         return [
-            'class' => 'MilesChou\\Toggle\\Processors\\Bucket',
-            'config' => [
-                'bucket' => $this->bucket,
-            ],
+            'class' => 'MilesChou\\Toggle\\Processors\\AB',
+            'config' => $this->buckets,
         ];
     }
 
     protected function handle($context)
     {
-        return $this->bucket > mt_rand(0, 99);
+        return $this->poker[array_rand($this->poker)];
     }
 
     /**
@@ -63,12 +81,8 @@ class Bucket extends Processor
      */
     private function assertConfig($config)
     {
-        if (!isset($config['bucket'])) {
-            throw new InvalidArgumentException('Config bucket not found');
-        }
-
-        if (!is_int($config['bucket'])) {
-            throw new InvalidArgumentException('Config bucket must be an int');
+        if (!is_array($config)) {
+            throw new InvalidArgumentException('Config item must be an array');
         }
     }
 }
