@@ -10,8 +10,7 @@ group:
     - f3
     processor:
       class: MilesChou\Toggle\Processors\Timer
-      config:
-        timer:
-          11111: f1
-          33333: f3
-          22222: f2
+      timer:
+        11111: f1
+        33333: f3
+        22222: f2

@@ -113,14 +113,12 @@ class TimerTest extends \PHPUnit_Framework_TestCase
     {
         $expected = [
             'class' => 'MilesChou\\Toggle\\Processors\\Timer',
-            'config' => [
-                'default' => null,
-                'timer' => [
-                    22222 => 'f2',
-                    11111 => 'f1',
-                ],
-                'then' => true,
+            'default' => null,
+            'timer' => [
+                22222 => 'f2',
+                11111 => 'f1',
             ],
+            'then' => true,
         ];
 
         $target = Timer::create([
@@ -140,14 +138,12 @@ class TimerTest extends \PHPUnit_Framework_TestCase
     {
         $actual = Processor::retrieve([
             'class' => 'MilesChou\\Toggle\\Processors\\Timer',
-            'config' => [
-                'default' => null,
-                'timer' => [
-                    22222 => 'f2',
-                    11111 => 'f1',
-                ],
-                'then' => true,
+            'default' => null,
+            'timer' => [
+                22222 => 'f2',
+                11111 => 'f1',
             ],
+            'then' => true,
         ]);
 
         Carbon::setTestNow(Carbon::createFromTimestamp(10000));

@@ -10,5 +10,5 @@ group:
     - f3
     processor:
       class: MilesChou\Toggle\Processors\AB
-      config:
+      buckets:
         f1: 10

@@ -17,21 +17,21 @@ class AB extends Processor
     private $poker = [];
 
     /**
-     * @param array $config
+     * @param array $buckets
      * @return static
      */
-    public static function create(array $config = [])
+    public static function create(array $buckets = [])
     {
-        return new static($config);
+        return new static($buckets);
     }
 
     /**
-     * @param array $config
+     * @param array $buckets
      */
-    public function __construct(array $config = null)
+    public function __construct(array $buckets = null)
     {
-        if (null !== $config) {
-            $this->setConfig($config);
+        if (null !== $buckets) {
+            $this->setConfig(['buckets' => $buckets]);
         }
     }
 
@@ -50,7 +50,7 @@ class AB extends Processor
     {
         $this->assertConfig($config);
 
-        $this->buckets = $config;
+        $this->buckets = $config['buckets'];
 
         $this->poker = [];
 
@@ -67,7 +67,7 @@ class AB extends Processor
     {
         return [
             'class' => 'MilesChou\\Toggle\\Processors\\AB',
-            'config' => $this->buckets,
+            'buckets' => $this->buckets,
         ];
     }
 
@@ -84,8 +84,12 @@ class AB extends Processor
      */
     private function assertConfig($config)
     {
-        if (!is_array($config)) {
-            throw new InvalidArgumentException('Config item must be an array');
+        if (!isset($config['buckets'])) {
+            throw new InvalidArgumentException('Key `buckets` is undefined');
+        }
+
+        if (!is_array($config['buckets'])) {
+            throw new InvalidArgumentException('`buckets` must be an array');
         }
     }
 }

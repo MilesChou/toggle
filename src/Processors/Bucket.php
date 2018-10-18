@@ -9,24 +9,24 @@ class Bucket extends Processor
     /**
      * @var int
      */
-    private $bucket = 0;
+    private $percentage = 0;
 
     /**
-     * @param int $config
+     * @param int $percentage
      * @return static
      */
-    public static function create($config)
+    public static function create($percentage)
     {
-        return new static($config);
+        return new static($percentage);
     }
 
     /**
-     * @param int $config
+     * @param int $percentage
      */
-    public function __construct($config = null)
+    public function __construct($percentage = null)
     {
-        if (null !== $config) {
-            $this->setConfig($config);
+        if (null !== $percentage) {
+            $this->setConfig(['percentage' => $percentage]);
         }
     }
 
@@ -37,7 +37,7 @@ class Bucket extends Processor
     {
         $this->assertConfig($config);
 
-        $this->bucket = $config;
+        $this->percentage = $config['percentage'];
     }
 
     /**
@@ -47,7 +47,7 @@ class Bucket extends Processor
     {
         return [
             'class' => 'MilesChou\\Toggle\\Processors\\Bucket',
-            'config' => $this->bucket,
+            'percentage' => $this->percentage,
         ];
     }
 
@@ -56,7 +56,7 @@ class Bucket extends Processor
      */
     protected function handle($context)
     {
-        return $this->bucket > mt_rand(0, 99);
+        return $this->percentage > mt_rand(0, 99);
     }
 
     /**
@@ -64,12 +64,16 @@ class Bucket extends Processor
      */
     private function assertConfig($config)
     {
-        if (!is_int($config)) {
-            throw new InvalidArgumentException('Config must be an int');
+        if (!isset($config['percentage'])) {
+            throw new InvalidArgumentException('Percentage must be an int');
         }
 
-        if ($config < 0 || $config > 100) {
-            throw new InvalidArgumentException('Config is out of range');
+        if (!is_int($config['percentage'])) {
+            throw new InvalidArgumentException('Percentage must be an int');
+        }
+
+        if ($config['percentage'] < 0 || $config['percentage'] > 100) {
+            throw new InvalidArgumentException('Percentage is out of range');
         }
     }
 }

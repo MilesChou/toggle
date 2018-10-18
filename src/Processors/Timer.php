@@ -72,11 +72,9 @@ class Timer extends Processor
     {
         return [
             'class' => 'MilesChou\\Toggle\\Processors\\Timer',
-            'config' => [
-                'default' => $this->default,
-                'timer' => $this->timer,
-                'then' => $this->then,
-            ],
+            'default' => $this->default,
+            'timer' => $this->timer,
+            'then' => $this->then,
         ];
     }
 

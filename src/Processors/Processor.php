@@ -27,10 +27,11 @@ abstract class Processor
         }
 
         $class = $config['class'];
+        unset($config['class']);
 
         /** @var static $instance */
         $instance = new $class();
-        $instance->setConfig($config['config']);
+        $instance->setConfig($config);
 
         return $instance;
     }
