@@ -3,7 +3,6 @@
 namespace Tests;
 
 use MilesChou\Toggle\Context;
-use MilesChou\Toggle\Contracts\DataProviderInterface;
 use MilesChou\Toggle\DataProvider;
 use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Toggle;
@@ -51,19 +50,22 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnCorrectResultWhenImportFeatureOnly()
     {
         $dataProvider = new DataProvider([
-            'f1' => [
-                'params' => [],
-                'return' => true,
-            ],
-            'f2' => [
-                'params' => [],
-                'return' => false,
-            ],
-            'f3' => [
-                'params' => [],
-                'return' => false,
+            'feature' => [
+                'f1' => [
+                    'params' => [],
+                    'return' => true,
+                ],
+                'f2' => [
+                    'params' => [],
+                    'return' => false,
+                ],
+                'f3' => [
+                    'params' => [],
+                    'return' => false,
+                ],
             ],
         ]);
+
 
         $this->target->import($dataProvider);
 
@@ -132,28 +134,31 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnCorrectResultWhenImportFeatureAndGroup()
     {
         $dataProvider = new DataProvider([
-            'f1' => [
-                'params' => [],
-                'return' => true,
-            ],
-            'f2' => [
-                'params' => [],
-                'return' => false,
-            ],
-            'f3' => [
-                'params' => [],
-                'return' => false,
-            ],
-        ], [
-            'g1' => [
-                'params' => [],
-                'list' => [
-                    'f1',
-                    'f2',
-                    'f3',
+            'feature' => [
+                'f1' => [
+                    'params' => [],
+                    'return' => true,
                 ],
-                'return' => 'f1',
+                'f2' => [
+                    'params' => [],
+                    'return' => false,
+                ],
+                'f3' => [
+                    'params' => [],
+                    'return' => false,
+                ],
             ],
+            'group' => [
+                'g1' => [
+                    'params' => [],
+                    'list' => [
+                        'f1',
+                        'f2',
+                        'f3',
+                    ],
+                    'return' => 'f1',
+                ],
+            ]
         ]);
 
         $this->target->import($dataProvider);
@@ -223,28 +228,31 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
             ->select('g1');
 
         $dataProvider = new DataProvider([
-            'f1' => [
-                'params' => [],
-                'return' => true,
-            ],
-            'f2' => [
-                'params' => [],
-                'return' => false,
-            ],
-            'f3' => [
-                'params' => [],
-                'return' => false,
-            ],
-        ], [
-            'g1' => [
-                'params' => [],
-                'list' => [
-                    'f1',
-                    'f2',
-                    'f3',
+            'feature' => [
+                'f1' => [
+                    'params' => [],
+                    'return' => true,
                 ],
-                'return' => 'f3',
+                'f2' => [
+                    'params' => [],
+                    'return' => false,
+                ],
+                'f3' => [
+                    'params' => [],
+                    'return' => false,
+                ],
             ],
+            'group' => [
+                'g1' => [
+                    'params' => [],
+                    'list' => [
+                        'f1',
+                        'f2',
+                        'f3',
+                    ],
+                    'return' => 'f3',
+                ],
+            ]
         ]);
 
         $this->target->import($dataProvider);
@@ -271,28 +279,32 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
             ->select('g1');
 
         $dataProvider = new DataProvider([
-            'f1' => [
-                'params' => [],
-                'return' => true,
-            ],
-            'f2' => [
-                'params' => [],
-                'return' => false,
-            ],
-            'f3' => [
-                'params' => [],
-                'return' => false,
-            ],
-        ], [
-            'g1' => [
-                'params' => [],
-                'list' => [
-                    'f1',
-                    'f2',
-                    'f3',
+            'feature' =>
+                [
+                    'f1' => [
+                        'params' => [],
+                        'return' => true,
+                    ],
+                    'f2' => [
+                        'params' => [],
+                        'return' => false,
+                    ],
+                    'f3' => [
+                        'params' => [],
+                        'return' => false,
+                    ],
                 ],
-                'return' => 'f3',
-            ],
+            'group' => [
+                'g1' => [
+                    'params' => [],
+                    'list' => [
+                        'f1',
+                        'f2',
+                        'f3',
+                    ],
+                    'return' => 'f3',
+                ],
+            ]
         ]);
 
         $this->target->import($dataProvider, false);

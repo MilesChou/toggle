@@ -26,7 +26,7 @@ trait SerializerAwareTrait
     {
         $data = $this->resolveSerializer($this->serializerDriver)->deserialize($str);
 
-        return $this->retrieveRestoreData($data);
+        return $this->fill($data);
     }
 
     /**
@@ -49,9 +49,7 @@ trait SerializerAwareTrait
      */
     public function serialize()
     {
-        $data = $this->retrieveStoreData();
-
-        return $this->resolveSerializer($this->serializerDriver)->serialize($data);
+        return $this->resolveSerializer($this->serializerDriver)->serialize($this->toArray());
     }
 
     /**
@@ -70,15 +68,4 @@ trait SerializerAwareTrait
 
         return self::$serializerInstances[$driver];
     }
-
-    /**
-     * @param mixed $data
-     * @return static
-     */
-    abstract protected function retrieveRestoreData($data);
-
-    /**
-     * @return mixed
-     */
-    abstract protected function retrieveStoreData();
 }

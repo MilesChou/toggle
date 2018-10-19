@@ -7,6 +7,13 @@ use MilesChou\Toggle\Context;
 interface DataProviderInterface
 {
     /**
+     * @param array $data
+     * @param Context|null $context
+     * @return static
+     */
+    public function fill(array $data, $context = null);
+
+    /**
      * @return array
      */
     public function getFeatures();
@@ -29,4 +36,9 @@ interface DataProviderInterface
      * @return static
      */
     public function setGroups(array $groups, $context = null);
+
+    /**
+     * @return array
+     */
+    public function toArray();
 }

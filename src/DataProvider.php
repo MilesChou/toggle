@@ -20,13 +20,29 @@ class DataProvider implements DataProviderInterface
     private $groups = [];
 
     /**
-     * @param array $features
-     * @param array $groups
+     * @param array $data
      */
-    public function __construct(array $features = [], array $groups = [])
+    public function __construct(array $data = [])
     {
-        $this->setFeatures($features);
-        $this->setGroups($groups);
+        $this->fill($data);
+    }
+
+    /**
+     * @param array $data
+     * @param Context|null $context
+     * @return static
+     */
+    public function fill(array $data, $context = null)
+    {
+        if (isset($data['feature'])) {
+            $this->setFeatures($data['feature'], $context);
+        }
+
+        if (isset($data['group'])) {
+            $this->setGroups($data['group'], $context);
+        }
+
+        return $this;
     }
 
     /**
@@ -89,21 +105,9 @@ class DataProvider implements DataProviderInterface
     }
 
     /**
-     * @param mixed $data
-     * @return static
+     * @return array
      */
-    protected function retrieveRestoreData($data)
-    {
-        $this->setFeatures($data['feature']);
-        $this->setGroups($data['group']);
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    protected function retrieveStoreData()
+    public function toArray()
     {
         return [
             'feature' => $this->getFeatures(),

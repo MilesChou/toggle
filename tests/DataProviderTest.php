@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use MilesChou\Toggle\Contracts\DataProviderInterface;
 use MilesChou\Toggle\DataProvider;
 
 class DataProviderTest extends \PHPUnit_Framework_TestCase
@@ -15,24 +14,27 @@ class DataProviderTest extends \PHPUnit_Framework_TestCase
         $expected = '{"feature":{"f1":{"return":true},"f2":{"return":false},"f3":{"return":false}},"group":{"g1":{"list":["f1","f2","f3"],"return":"f1"}}}';
 
         $target = new DataProvider([
-            'f1' => [
-                'return' => true,
-            ],
-            'f2' => [
-                'return' => false,
-            ],
-            'f3' => [
-                'return' => false,
-            ],
-        ], [
-            'g1' => [
-                'list' => [
-                    'f1',
-                    'f2',
-                    'f3',
+            'feature' => [
+                'f1' => [
+                    'return' => true,
                 ],
-                'return' => 'f1',
+                'f2' => [
+                    'return' => false,
+                ],
+                'f3' => [
+                    'return' => false,
+                ],
             ],
+            'group' => [
+                'g1' => [
+                    'list' => [
+                        'f1',
+                        'f2',
+                        'f3',
+                    ],
+                    'return' => 'f1',
+                ],
+            ]
         ]);
 
         $this->assertSame($expected, $target->serialize());
