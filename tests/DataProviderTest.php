@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use MilesChou\Toggle\DataProvider;
+use MilesChou\Toggle\Providers\ArrayProvider;
 
 class DataProviderTest extends \PHPUnit_Framework_TestCase
 {
@@ -13,7 +13,7 @@ class DataProviderTest extends \PHPUnit_Framework_TestCase
     {
         $expected = '{"feature":{"f1":{"return":true},"f2":{"return":false},"f3":{"return":false}},"group":{"g1":{"list":["f1","f2","f3"],"return":"f1"}}}';
 
-        $target = new DataProvider([
+        $target = new ArrayProvider([
             'feature' => [
                 'f1' => [
                     'return' => true,
@@ -70,11 +70,11 @@ class DataProviderTest extends \PHPUnit_Framework_TestCase
 
         $input = '{"feature":{"f1":{"return":true},"f2":{"return":false},"f3":{"return":false}},"group":{"g1":{"list":["f1","f2","f3"],"return":"f1"}}}';
 
-        $target = new DataProvider();
+        $target = new ArrayProvider();
 
         $actual = $target->deserialize($input);
 
-        $this->assertInstanceOf(DataProvider::class, $actual);
+        $this->assertInstanceOf(ArrayProvider::class, $actual);
         $this->assertSame($expectedFeature, $actual->getFeatures());
         $this->assertSame($expectedGroup, $actual->getGroups());
     }

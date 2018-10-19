@@ -4,7 +4,7 @@ namespace MilesChou\Toggle\Contracts;
 
 use MilesChou\Toggle\Context;
 
-interface DataProviderInterface
+interface ProviderInterface
 {
     /**
      * @param array $data

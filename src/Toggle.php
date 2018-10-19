@@ -5,7 +5,8 @@ namespace MilesChou\Toggle;
 use MilesChou\Toggle\Concerns\ContextAwareTrait;
 use MilesChou\Toggle\Concerns\FeatureAwareTrait;
 use MilesChou\Toggle\Concerns\GroupAwareTrait;
-use MilesChou\Toggle\Contracts\DataProviderInterface;
+use MilesChou\Toggle\Contracts\ProviderInterface;
+use MilesChou\Toggle\Providers\ArrayProvider;
 use RuntimeException;
 
 class Toggle
@@ -27,18 +28,18 @@ class Toggle
     /**
      * @param string $dataProviderDriver
      * @param Context|null $context
-     * @return DataProviderInterface
+     * @return ProviderInterface
      */
-    public function export(Context $context = null, $dataProviderDriver = DataProvider::class)
+    public function export(Context $context = null, $dataProviderDriver = ArrayProvider::class)
     {
         if (!class_exists($dataProviderDriver)) {
             throw new RuntimeException("Unknown class {$dataProviderDriver}");
         }
 
-        /** @var DataProviderInterface $dataProvider */
+        /** @var ProviderInterface $dataProvider */
         $dataProvider = new $dataProviderDriver();
 
-        if (!$dataProvider instanceof DataProviderInterface) {
+        if (!$dataProvider instanceof ProviderInterface) {
             throw new RuntimeException('Driver must instance of Provider');
         }
 
@@ -50,10 +51,10 @@ class Toggle
     }
 
     /**
-     * @param DataProviderInterface $dataProvider
+     * @param ProviderInterface $dataProvider
      * @param bool $clean
      */
-    public function import(DataProviderInterface $dataProvider, $clean = true)
+    public function import(ProviderInterface $dataProvider, $clean = true)
     {
         if ($clean) {
             $this->cleanFeatures();

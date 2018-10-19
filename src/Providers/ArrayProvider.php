@@ -1,11 +1,14 @@
 <?php
 
-namespace MilesChou\Toggle;
+namespace MilesChou\Toggle\Providers;
 
 use MilesChou\Toggle\Concerns\SerializerAwareTrait;
-use MilesChou\Toggle\Contracts\DataProviderInterface;
+use MilesChou\Toggle\Context;
+use MilesChou\Toggle\Contracts\ProviderInterface;
+use MilesChou\Toggle\Feature;
+use MilesChou\Toggle\Group;
 
-class DataProvider implements DataProviderInterface
+class ArrayProvider implements ProviderInterface
 {
     use SerializerAwareTrait;
 

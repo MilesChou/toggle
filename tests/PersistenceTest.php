@@ -3,10 +3,10 @@
 namespace Tests;
 
 use MilesChou\Toggle\Context;
-use MilesChou\Toggle\DataProvider;
+use MilesChou\Toggle\Contracts\ProviderInterface;
 use MilesChou\Toggle\Feature;
+use MilesChou\Toggle\Providers\ArrayProvider;
 use MilesChou\Toggle\Toggle;
-use MilesChou\Toggle\Contracts\DataProviderInterface;
 
 class PersistenceTest extends \PHPUnit_Framework_TestCase
 {
@@ -50,7 +50,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnCorrectResultWhenImportFeatureOnly()
     {
-        $dataProvider = new DataProvider([
+        $dataProvider = new ArrayProvider([
             'feature' => [
                 'f1' => [
                     'params' => [],
@@ -102,7 +102,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
 
         $actual = $this->target->export();
 
-        $this->assertInstanceOf(DataProviderInterface::class, $actual);
+        $this->assertInstanceOf(ProviderInterface::class, $actual);
         $this->assertSame($expected, $actual->getFeatures());
     }
 
@@ -125,7 +125,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
 
         $actual = $this->target->export(Context::create(['return' => false]));
 
-        $this->assertInstanceOf(DataProviderInterface::class, $actual);
+        $this->assertInstanceOf(ProviderInterface::class, $actual);
         $this->assertSame($expected, $actual->getFeatures());
     }
 
@@ -134,7 +134,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnCorrectResultWhenImportFeatureAndGroup()
     {
-        $dataProvider = new DataProvider([
+        $dataProvider = new ArrayProvider([
             'feature' => [
                 'f1' => [
                     'params' => [],
@@ -211,7 +211,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
 
         $actual = $this->target->export();
 
-        $this->assertInstanceOf(DataProviderInterface::class, $actual);
+        $this->assertInstanceOf(ProviderInterface::class, $actual);
         $this->assertSame($expectedFeature, $actual->getFeatures());
         $this->assertSame($expectedGroup, $actual->getGroups());
     }
@@ -228,7 +228,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
             ->createGroup('g1', ['f1', 'f2', 'f3'], 'f1')
             ->select('g1');
 
-        $dataProvider = new DataProvider([
+        $dataProvider = new ArrayProvider([
             'feature' => [
                 'f1' => [
                     'params' => [],
@@ -279,7 +279,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
             ->createGroup('g1', ['f1', 'f2', 'f3'], 'f1')
             ->select('g1');
 
-        $dataProvider = new DataProvider([
+        $dataProvider = new ArrayProvider([
             'feature' =>
                 [
                     'f1' => [
