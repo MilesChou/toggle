@@ -29,7 +29,7 @@ class Toggle
      * @param Context|null $context
      * @return DataProviderInterface
      */
-    public function export(Context $context = null, $dataProviderDriver = 'MilesChou\\Toggle\\DataProvider')
+    public function export(Context $context = null, $dataProviderDriver = DataProvider::class)
     {
         if (!class_exists($dataProviderDriver)) {
             throw new RuntimeException("Unknown class {$dataProviderDriver}");

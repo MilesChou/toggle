@@ -46,7 +46,7 @@ class Bucket extends Processor
     public function toArray()
     {
         return [
-            'class' => 'MilesChou\\Toggle\\Processors\\Bucket',
+            'class' => __CLASS__,
             'percentage' => $this->percentage,
         ];
     }

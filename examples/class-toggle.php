@@ -1,21 +1,23 @@
 <?php
 
+use Examples\OldClass;
+use Examples\NewClass;
 use MilesChou\Toggle\Toggle;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $manager = new Toggle();
 
-$manager->createFeature('Examples\\NewClass');
-$manager->createFeature('Examples\\OldClass');
+$manager->createFeature(NewClass::class);
+$manager->createFeature(OldClass::class);
 
 $manager->createGroup('class-toggle', [
-    'Examples\\NewClass',
-    'Examples\\OldClass',
+    NewClass::class,
+    OldClass::class,
 ], function () {
     return array_rand([true, false])
-        ? 'Examples\\NewClass'
-        : 'Examples\\OldClass';
+        ? NewClass::class
+        : OldClass::class;
 });
 
 echo $manager->group('class-toggle')->select() . PHP_EOL;

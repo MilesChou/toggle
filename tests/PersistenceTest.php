@@ -6,6 +6,7 @@ use MilesChou\Toggle\Context;
 use MilesChou\Toggle\DataProvider;
 use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Toggle;
+use MilesChou\Toggle\Contracts\DataProviderInterface;
 
 class PersistenceTest extends \PHPUnit_Framework_TestCase
 {
@@ -101,7 +102,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
 
         $actual = $this->target->export();
 
-        $this->assertInstanceOf('MilesChou\\Toggle\\Contracts\\DataProviderInterface', $actual);
+        $this->assertInstanceOf(DataProviderInterface::class, $actual);
         $this->assertSame($expected, $actual->getFeatures());
     }
 
@@ -124,7 +125,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
 
         $actual = $this->target->export(Context::create(['return' => false]));
 
-        $this->assertInstanceOf('MilesChou\\Toggle\\Contracts\\DataProviderInterface', $actual);
+        $this->assertInstanceOf(DataProviderInterface::class, $actual);
         $this->assertSame($expected, $actual->getFeatures());
     }
 
@@ -210,7 +211,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
 
         $actual = $this->target->export();
 
-        $this->assertInstanceOf('MilesChou\\Toggle\\Contracts\\DataProviderInterface', $actual);
+        $this->assertInstanceOf(DataProviderInterface::class, $actual);
         $this->assertSame($expectedFeature, $actual->getFeatures());
         $this->assertSame($expectedGroup, $actual->getGroups());
     }

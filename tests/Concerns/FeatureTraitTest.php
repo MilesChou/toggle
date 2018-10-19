@@ -2,6 +2,8 @@
 
 namespace Tests\Concerns;
 
+use MilesChou\Toggle\Concerns\FeatureAwareTrait;
+
 class FeatureTraitTest extends \PHPUnit_Framework_TestCase
 {
     public function invalidProcessor()
@@ -23,7 +25,7 @@ class FeatureTraitTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('InvalidArgumentException', 'Processor must be callable');
 
-        $target = $this->getMockForTrait('MilesChou\\Toggle\\Concerns\\FeatureAwareTrait');
+        $target = $this->getMockForTrait(FeatureAwareTrait::class);
         $target->createFeature('foo', $invalidProcessor);
     }
 
@@ -34,7 +36,7 @@ class FeatureTraitTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('RuntimeException', "Feature 'not-exist' is not found");
 
-        $target = $this->getMockForTrait('MilesChou\\Toggle\\Concerns\\FeatureAwareTrait');
+        $target = $this->getMockForTrait(FeatureAwareTrait::class);
         $target->getFeature('not-exist');
     }
 

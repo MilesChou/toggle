@@ -4,6 +4,7 @@ namespace Tests;
 
 use Carbon\Carbon;
 use MilesChou\Toggle\Factory;
+use MilesChou\Toggle\Toggle;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -14,7 +15,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     {
         $actual = (new Factory())->createFromFile(__DIR__ . '/Fixtures/basic.yaml');
 
-        $this->assertInstanceOf('MilesChou\\Toggle\\Toggle', $actual);
+        $this->assertInstanceOf(Toggle::class, $actual);
 
         $this->assertSame('f1', $actual->select('g1'));
     }
@@ -27,7 +28,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $actual = (new Factory())->createFromFile(__DIR__ . '/Fixtures/timer_process.yaml');
         $actual->setPreserve(false);
 
-        $this->assertInstanceOf('MilesChou\\Toggle\\Toggle', $actual);
+        $this->assertInstanceOf(Toggle::class, $actual);
 
         Carbon::setTestNow(Carbon::createFromTimestamp(10000));
         $this->assertNull($actual->select('g1'));
@@ -49,7 +50,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     {
         $actual = (new Factory())->createFromFile(__DIR__ . '/Fixtures/bucket_process.yaml');
 
-        $this->assertInstanceOf('MilesChou\\Toggle\\Toggle', $actual);
+        $this->assertInstanceOf(Toggle::class, $actual);
 
         $this->assertSame('f1', $actual->select('g1'));
     }

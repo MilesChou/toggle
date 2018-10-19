@@ -66,7 +66,7 @@ class AB extends Processor
     public function toArray()
     {
         return [
-            'class' => 'MilesChou\\Toggle\\Processors\\AB',
+            'class' => __CLASS__,
             'buckets' => $this->buckets,
         ];
     }

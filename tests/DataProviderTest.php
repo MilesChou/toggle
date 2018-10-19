@@ -74,7 +74,7 @@ class DataProviderTest extends \PHPUnit_Framework_TestCase
 
         $actual = $target->deserialize($input);
 
-        $this->assertInstanceOf('MilesChou\\Toggle\\DataProvider', $actual);
+        $this->assertInstanceOf(DataProvider::class, $actual);
         $this->assertSame($expectedFeature, $actual->getFeatures());
         $this->assertSame($expectedGroup, $actual->getGroups());
     }

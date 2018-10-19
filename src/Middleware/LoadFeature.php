@@ -43,6 +43,7 @@ class LoadFeature
 
     /**
      * @param Toggle $toggle
+     * @param Encrypter $encrypter
      */
     public function __construct(Toggle $toggle, Encrypter $encrypter)
     {

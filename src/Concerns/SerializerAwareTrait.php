@@ -5,6 +5,7 @@ namespace MilesChou\Toggle\Concerns;
 use InvalidArgumentException;
 use MilesChou\Toggle\Contracts\SerializerInterface;
 use RuntimeException;
+use MilesChou\Toggle\Serializers\JsonSerializer;
 
 trait SerializerAwareTrait
 {
@@ -16,7 +17,7 @@ trait SerializerAwareTrait
     /**
      * @var mixed
      */
-    private $serializerDriver = 'MilesChou\\Toggle\\Serializers\\JsonSerializer';
+    private $serializerDriver = JsonSerializer::class;
 
     /**
      * @param string $str

@@ -2,6 +2,7 @@
 
 namespace Tests\Concerns;
 
+use MilesChou\Toggle\Concerns\GroupAwareTrait;
 use MilesChou\Toggle\Toggle;
 
 class GroupTraitTest extends \PHPUnit_Framework_TestCase
@@ -37,7 +38,7 @@ class GroupTraitTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('InvalidArgumentException', 'Group \'not-exist\' is not found');
 
-        $target = $this->getMockForTrait('MilesChou\\Toggle\\Concerns\\GroupAwareTrait');
+        $target = $this->getMockForTrait(GroupAwareTrait::class);
         $target->getGroup('not-exist');
     }
 }

@@ -71,7 +71,7 @@ class Timer extends Processor
     public function toArray()
     {
         return [
-            'class' => 'MilesChou\\Toggle\\Processors\\Timer',
+            'class' => __CLASS__,
             'default' => $this->default,
             'timer' => $this->timer,
             'then' => $this->then,

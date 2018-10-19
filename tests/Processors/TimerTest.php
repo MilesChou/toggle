@@ -112,7 +112,7 @@ class TimerTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnJsonWhenToArray()
     {
         $expected = [
-            'class' => 'MilesChou\\Toggle\\Processors\\Timer',
+            'class' => Timer::class,
             'default' => null,
             'timer' => [
                 22222 => 'f2',
@@ -137,7 +137,7 @@ class TimerTest extends \PHPUnit_Framework_TestCase
     public function shouldRestoreFromJsonWhenRetrieve()
     {
         $actual = Processor::retrieve([
-            'class' => 'MilesChou\\Toggle\\Processors\\Timer',
+            'class' => Timer::class,
             'default' => null,
             'timer' => [
                 22222 => 'f2',

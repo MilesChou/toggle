@@ -75,16 +75,16 @@ class Factory
             $config['params'] = [];
         }
 
-        $config['processor'] = $this->resolveProcessor($config['processor']);
+        $config['processor'] = $this->resolveProcessorConfig($config['processor']);
 
         return $config;
     }
 
     /**
      * @param array $config
-     * @return
+     * @return mixed
      */
-    private function resolveProcessor($config)
+    private function resolveProcessorConfig($config)
     {
         if (isset($config['class'])) {
             return Processor::retrieve($config);

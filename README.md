@@ -74,7 +74,7 @@ $manager->createFeature('f1', function(Context $context) {
 });
 
 // Will return true
-$manager->isActive('f1', Context::create(['return' => true));
+$manager->isActive('f1', Context::create(['return' => true]));
 ```
 
 ### Feature Group
