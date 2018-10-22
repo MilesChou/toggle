@@ -101,6 +101,30 @@ class Toggle
     }
 
     /**
+     * Import / export result data
+     *
+     * @param array|null $data
+     * @return array
+     */
+    public function result($data = null)
+    {
+        if (null === $data) {
+            return [
+                'feature' => $this->featuresPreserveResult,
+                'group' => $this->groupsPreserveResult,
+            ];
+        }
+
+        if (isset($data['feature'])) {
+            $this->featuresPreserveResult = $data['feature'];
+        }
+
+        if (isset($data['group'])) {
+            $this->groupsPreserveResult = $data['group'];
+        }
+    }
+
+    /**
      * @param string $name
      * @param null|Context $context
      * @return string
@@ -142,6 +166,17 @@ class Toggle
     }
 
     /**
+     * @param bool $strict
+     * @return static
+     */
+    public function setStrict($strict)
+    {
+        $this->strict = $strict;
+
+        return $this;
+    }
+
+    /**
      * When $feature on, then call $callable
      *
      * @param string $feature
@@ -155,17 +190,6 @@ class Toggle
         if ($this->isActive($feature, $context)) {
             $callable();
         }
-
-        return $this;
-    }
-
-    /**
-     * @param bool $strict
-     * @return static
-     */
-    public function setStrict($strict)
-    {
-        $this->strict = $strict;
 
         return $this;
     }
