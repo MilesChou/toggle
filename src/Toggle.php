@@ -6,7 +6,8 @@ use MilesChou\Toggle\Concerns\ContextAwareTrait;
 use MilesChou\Toggle\Concerns\FeatureAwareTrait;
 use MilesChou\Toggle\Concerns\GroupAwareTrait;
 use MilesChou\Toggle\Contracts\ProviderInterface;
-use MilesChou\Toggle\Providers\ArrayProvider;
+use MilesChou\Toggle\Providers\DataProvider;
+use MilesChou\Toggle\Providers\ResultProvider;
 use RuntimeException;
 
 class Toggle
@@ -26,21 +27,14 @@ class Toggle
     private $strict = false;
 
     /**
-     * @param string $dataProviderDriver
      * @param Context|null $context
+     * @param DataProvider|null $dataProvider
      * @return ProviderInterface
      */
-    public function export(Context $context = null, $dataProviderDriver = ArrayProvider::class)
+    public function export(Context $context = null, DataProvider $dataProvider = null)
     {
-        if (!class_exists($dataProviderDriver)) {
-            throw new RuntimeException("Unknown class {$dataProviderDriver}");
-        }
-
-        /** @var ProviderInterface $dataProvider */
-        $dataProvider = new $dataProviderDriver();
-
-        if (!$dataProvider instanceof ProviderInterface) {
-            throw new RuntimeException('Driver must instance of ProviderInterface');
+        if (null === $dataProvider) {
+            $dataProvider = new DataProvider();
         }
 
         $context = $this->resolveContext($context);
@@ -51,10 +45,10 @@ class Toggle
     }
 
     /**
-     * @param ProviderInterface $dataProvider
+     * @param DataProvider $dataProvider
      * @param bool $clean
      */
-    public function import(ProviderInterface $dataProvider, $clean = true)
+    public function import(DataProvider $dataProvider, $clean = true)
     {
         if ($clean) {
             $this->cleanFeatures();
@@ -103,25 +97,22 @@ class Toggle
     /**
      * Import / export result data
      *
-     * @param array|null $data
-     * @return array
+     * @param ResultProvider|null $resultProvider
+     * @return ResultProvider
      */
-    public function result($data = null)
+    public function result(ResultProvider $resultProvider = null)
     {
-        if (null === $data) {
-            return [
+        if (null === $resultProvider) {
+            return new ResultProvider([
                 'feature' => $this->featuresPreserveResult,
                 'group' => $this->groupsPreserveResult,
-            ];
+            ]);
         }
 
-        if (isset($data['feature'])) {
-            $this->featuresPreserveResult = $data['feature'];
-        }
+        $this->featuresPreserveResult = array_merge($this->featuresPreserveResult, $resultProvider->getFeatures());
+        $this->groupsPreserveResult = array_merge($this->groupsPreserveResult, $resultProvider->getGroups());
 
-        if (isset($data['group'])) {
-            $this->groupsPreserveResult = $data['group'];
-        }
+        return $resultProvider;
     }
 
     /**

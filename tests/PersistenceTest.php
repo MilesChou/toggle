@@ -5,7 +5,7 @@ namespace Tests;
 use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Contracts\ProviderInterface;
 use MilesChou\Toggle\Feature;
-use MilesChou\Toggle\Providers\ArrayProvider;
+use MilesChou\Toggle\Providers\DataProvider;
 use MilesChou\Toggle\Toggle;
 
 class PersistenceTest extends \PHPUnit_Framework_TestCase
@@ -28,29 +28,9 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function shouldThrowExceptionWhenExportToUnknownClass()
-    {
-        $this->setExpectedException('RuntimeException', 'Unknown class');
-
-        $this->target->export(null, 'Unknown');
-    }
-
-    /**
-     * @test
-     */
-    public function shouldThrowExceptionWhenExportToClassNotExtendsProvider()
-    {
-        $this->setExpectedException('RuntimeException', 'Driver must instance of Provider');
-
-        $this->target->export(null, 'stdClass');
-    }
-
-    /**
-     * @test
-     */
     public function shouldReturnCorrectResultWhenImportFeatureOnly()
     {
-        $dataProvider = new ArrayProvider([
+        $dataProvider = new DataProvider([
             'feature' => [
                 'f1' => [
                     'params' => [],
@@ -134,7 +114,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnCorrectResultWhenImportFeatureAndGroup()
     {
-        $dataProvider = new ArrayProvider([
+        $dataProvider = new DataProvider([
             'feature' => [
                 'f1' => [
                     'params' => [],
@@ -228,7 +208,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
             ->createGroup('g1', ['f1', 'f2', 'f3'], 'f1')
             ->select('g1');
 
-        $dataProvider = new ArrayProvider([
+        $dataProvider = new DataProvider([
             'feature' => [
                 'f1' => [
                     'params' => [],
@@ -279,7 +259,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
             ->createGroup('g1', ['f1', 'f2', 'f3'], 'f1')
             ->select('g1');
 
-        $dataProvider = new ArrayProvider([
+        $dataProvider = new DataProvider([
             'feature' =>
                 [
                     'f1' => [

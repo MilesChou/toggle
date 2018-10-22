@@ -4,7 +4,7 @@ namespace MilesChou\Toggle\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Encryption\Encrypter;
-use MilesChou\Toggle\Providers\ArrayProvider;
+use MilesChou\Toggle\Providers\DataProvider;
 use MilesChou\Toggle\Toggle;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,7 +65,7 @@ class LoadFeature
                 $value = $this->encrypter->decrypt($value);
             }
 
-            $dataProvider = new ArrayProvider();
+            $dataProvider = new DataProvider();
             $dataProvider->deserialize($value);
 
             $this->toggle->import($dataProvider);
@@ -74,7 +74,7 @@ class LoadFeature
         /** @var Response $response */
         $response = $next($request);
 
-        /** @var ArrayProvider $data */
+        /** @var DataProvider $data */
         $data = $this->toggle->export();
 
         $value = $this->encrypt

@@ -2,7 +2,7 @@
 
 namespace Tests\Serializers;
 
-use MilesChou\Toggle\Providers\ArrayProvider;
+use MilesChou\Toggle\Providers\DataProvider;
 use MilesChou\Toggle\Serializers\JsonSerializer;
 
 class JsonSerializerTest extends \PHPUnit_Framework_TestCase
@@ -27,7 +27,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnSerializeResult()
     {
-        $provider = new ArrayProvider([
+        $provider = new DataProvider([
             'feature' => [
                 'f1' => [
                     'r' => true,
@@ -87,7 +87,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
-        $actual = $this->target->deserialize('{"feature":{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}},"group":{"g1":{"l":["f1","f2","f3"],"r":"f1"}}}', new ArrayProvider());
+        $actual = $this->target->deserialize('{"feature":{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}},"group":{"g1":{"l":["f1","f2","f3"],"r":"f1"}}}', new DataProvider());
 
         $this->assertSame($expectedFeature, $actual->getFeatures());
         $this->assertSame($expectedGroup, $actual->getGroups());
