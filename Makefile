@@ -14,10 +14,10 @@ clean-all: clean
 
 test:
 	php vendor/bin/phpcs
-	php vendor/bin/phpunit
+	phpdbg -qrr vendor/bin/phpunit
 
 coverage: test
-	php vendor/bin/phpunit --coverage-html=build
+	@if [ "`uname`" = "Darwin" ]; then open build/coverage/index.html; fi
 
 benchmark: test
 	php vendor/bin/phpbench run --report=default
