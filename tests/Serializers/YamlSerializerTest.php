@@ -2,6 +2,7 @@
 
 namespace Tests\Serializers;
 
+use MilesChou\Toggle\Providers\ArrayProvider;
 use MilesChou\Toggle\Serializers\YamlSerializer;
 
 class YamlSerializerTest extends \PHPUnit_Framework_TestCase
@@ -41,7 +42,7 @@ group:
 
 EXCEPTED_DATA;
 
-        $actual = $this->target->serialize([
+        $provider = new ArrayProvider([
             'feature' => [
                 'f1' => [
                     'return' => true,
@@ -60,6 +61,8 @@ EXCEPTED_DATA;
                 ],
             ],
         ]);
+
+        $actual = $this->target->serialize($provider);
 
         $this->assertSame($expected, $actual);
     }
@@ -103,9 +106,9 @@ INPUT_DATA;
             ],
         ];
 
-        $actual = $this->target->deserialize($input);
+        $actual = $this->target->deserialize($input, new ArrayProvider());
 
-        $this->assertSame($expectedFeature, $actual['feature']);
-        $this->assertSame($expectedGroup, $actual['group']);
+        $this->assertSame($expectedFeature, $actual->getFeatures());
+        $this->assertSame($expectedGroup, $actual->getGroups());
     }
 }

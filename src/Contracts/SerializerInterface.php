@@ -6,13 +6,14 @@ interface SerializerInterface
 {
     /**
      * @param string $str
-     * @return mixed
+     * @param ProviderInterface $provider
+     * @return ProviderInterface
      */
-    public function deserialize($str);
+    public function deserialize($str, ProviderInterface $provider);
 
     /**
-     * @param mixed $data
+     * @param ProviderInterface $provider
      * @return string
      */
-    public function serialize($data);
+    public function serialize(ProviderInterface $provider);
 }

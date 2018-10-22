@@ -40,7 +40,7 @@ class Toggle
         $dataProvider = new $dataProviderDriver();
 
         if (!$dataProvider instanceof ProviderInterface) {
-            throw new RuntimeException('Driver must instance of Provider');
+            throw new RuntimeException('Driver must instance of ProviderInterface');
         }
 
         $context = $this->resolveContext($context);

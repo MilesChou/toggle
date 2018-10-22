@@ -2,21 +2,30 @@
 
 namespace MilesChou\Toggle\Serializers;
 
+use MilesChou\Toggle\Contracts\ProviderInterface;
 use MilesChou\Toggle\Contracts\SerializerInterface;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * @uses Yaml
+ * @uses \Symfony\Component\Yaml\Yaml
  */
 class YamlSerializer implements SerializerInterface
 {
-    public function serialize($data)
+    /**
+     * {@inheritdoc}
+     */
+    public function deserialize($str, ProviderInterface $provider)
     {
-        return Yaml::dump($data, 4, 2);
+        $provider->fill(Yaml::parse($str));
+
+        return $provider;
     }
 
-    public function deserialize($str)
+    /**
+     * {@inheritdoc}
+     */
+    public function serialize(ProviderInterface $provider)
     {
-        return Yaml::parse($str);
+        return Yaml::dump($provider->toArray(), 4, 2);
     }
 }

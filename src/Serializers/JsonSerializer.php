@@ -2,6 +2,7 @@
 
 namespace MilesChou\Toggle\Serializers;
 
+use MilesChou\Toggle\Contracts\ProviderInterface;
 use MilesChou\Toggle\Contracts\SerializerInterface;
 
 /**
@@ -10,13 +11,21 @@ use MilesChou\Toggle\Contracts\SerializerInterface;
  */
 class JsonSerializer implements SerializerInterface
 {
-    public function serialize($data)
+    /**
+     * {@inheritdoc}
+     */
+    public function deserialize($str, ProviderInterface $provider)
     {
-        return json_encode($data);
+        $provider->fill(json_decode($str, true));
+
+        return $provider;
     }
 
-    public function deserialize($str)
+    /**
+     * {@inheritdoc}
+     */
+    public function serialize(ProviderInterface $provider)
     {
-        return json_decode($str, true);
+        return json_encode($provider->toArray());
     }
 }

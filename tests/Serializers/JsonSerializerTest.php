@@ -2,6 +2,7 @@
 
 namespace Tests\Serializers;
 
+use MilesChou\Toggle\Providers\ArrayProvider;
 use MilesChou\Toggle\Serializers\JsonSerializer;
 
 class JsonSerializerTest extends \PHPUnit_Framework_TestCase
@@ -26,8 +27,8 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnSerializeResult()
     {
-        $actual = $this->target->serialize([
-            'f' => [
+        $provider = new ArrayProvider([
+            'feature' => [
                 'f1' => [
                     'r' => true,
                 ],
@@ -38,7 +39,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
                     'r' => false,
                 ],
             ],
-            'g' => [
+            'group' => [
                 'g1' => [
                     'l' => [
                         'f1',
@@ -50,8 +51,10 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
             ],
         ]);
 
+        $actual = $this->target->serialize($provider);
+
         $this->assertSame(
-            '{"f":{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}},"g":{"g1":{"l":["f1","f2","f3"],"r":"f1"}}}',
+            '{"feature":{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}},"group":{"g1":{"l":["f1","f2","f3"],"r":"f1"}}}',
             $actual
         );
     }
@@ -84,9 +87,9 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
-        $actual = $this->target->deserialize('{"f":{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}},"g":{"g1":{"l":["f1","f2","f3"],"r":"f1"}}}');
+        $actual = $this->target->deserialize('{"feature":{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}},"group":{"g1":{"l":["f1","f2","f3"],"r":"f1"}}}', new ArrayProvider());
 
-        $this->assertSame($expectedFeature, $actual['f']);
-        $this->assertSame($expectedGroup, $actual['g']);
+        $this->assertSame($expectedFeature, $actual->getFeatures());
+        $this->assertSame($expectedGroup, $actual->getGroups());
     }
 }

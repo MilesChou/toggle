@@ -2,7 +2,6 @@
 
 namespace MilesChou\Toggle\Providers;
 
-use MilesChou\Toggle\Concerns\SerializerAwareTrait;
 use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Contracts\ProviderInterface;
 use MilesChou\Toggle\Feature;
@@ -10,8 +9,6 @@ use MilesChou\Toggle\Group;
 
 class ArrayProvider implements ProviderInterface
 {
-    use SerializerAwareTrait;
-
     /**
      * @var array
      */
