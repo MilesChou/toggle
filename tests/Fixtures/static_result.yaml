@@ -1,3 +1,4 @@
 feature:
   f1:
+    hasStaticResult: true
     staticResult: false

@@ -7,6 +7,13 @@ use Noodlehaus\Config;
 
 class Factory
 {
+    private static function hasStaticResult($config)
+    {
+        return array_key_exists('hasStaticResult', $config) &&
+            array_key_exists('staticResult', $config) &&
+            true === $config['hasStaticResult'];
+    }
+
     /**
      * @param array $config
      * @return Toggle
@@ -22,7 +29,7 @@ class Factory
 
             $instance->createFeature($name, $feature['processor'], $feature['params']);
 
-            if (isset($feature['staticResult'])) {
+            if (static::hasStaticResult($feature)) {
                 $instance->feature($name)->staticResult($feature['staticResult']);
             }
         }
@@ -32,7 +39,7 @@ class Factory
 
             $instance->createGroup($name, $group['list'], $group['processor'], $group['params']);
 
-            if (isset($feature['staticResult'])) {
+            if (static::hasStaticResult($group)) {
                 $instance->group($name)->staticResult($group['staticResult']);
             }
         }
