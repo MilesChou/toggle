@@ -22,6 +22,15 @@ abstract class Provider implements ProviderInterface
 
     /**
      * @param array $data
+     * @return static
+     */
+    public static function create(array $data = [])
+    {
+        return new static($data);
+    }
+
+    /**
+     * @param array $data
      */
     public function __construct(array $data = [])
     {

@@ -75,7 +75,7 @@ class Toggle
             return $this->featuresPreserveResult[$name];
         }
 
-        if (!array_key_exists($name, $this->features)) {
+        if (!$this->hasFeature($name)) {
             if ($this->strict) {
                 throw new RuntimeException("Feature '{$name}' is not found");
             }
@@ -126,7 +126,7 @@ class Toggle
             return $this->groupsPreserveResult[$name];
         }
 
-        if (!array_key_exists($name, $this->groups)) {
+        if (!$this->hasGroup($name)) {
             if ($this->strict) {
                 throw new RuntimeException("Group '{$name}' is not found");
             }

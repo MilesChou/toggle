@@ -84,6 +84,15 @@ trait GroupAwareTrait
 
     /**
      * @param string $name
+     * @return bool
+     */
+    public function hasGroup($name)
+    {
+        return array_key_exists($name, $this->groups);
+    }
+
+    /**
+     * @param string $name
      * @return Group
      * @throws InvalidArgumentException
      */

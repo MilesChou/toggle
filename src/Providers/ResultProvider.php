@@ -9,6 +9,30 @@ use MilesChou\Toggle\Group;
 class ResultProvider extends Provider
 {
     /**
+     * @param string $name
+     * @param bool $result
+     * @return static
+     */
+    public function feature($name, $result)
+    {
+        $this->features[$name] = $result;
+
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @param string $result
+     * @return static
+     */
+    public function group($name, $result)
+    {
+        $this->groups[$name] = $result;
+
+        return $this;
+    }
+
+    /**
      * @param array $features
      * @param Context|null $context
      * @return static

@@ -78,6 +78,15 @@ trait FeatureAwareTrait
 
     /**
      * @param string $name
+     * @return bool
+     */
+    public function hasFeature($name)
+    {
+        return array_key_exists($name, $this->features);
+    }
+
+    /**
+     * @param string $name
      * @return Feature
      * @throws InvalidArgumentException
      */
