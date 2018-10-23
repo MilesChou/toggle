@@ -6,6 +6,7 @@ use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Contracts\ProviderInterface;
 use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Providers\DataProvider;
+use MilesChou\Toggle\Providers\ResultProvider;
 use MilesChou\Toggle\Toggle;
 
 class PersistenceTest extends \PHPUnit_Framework_TestCase
@@ -289,5 +290,39 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $this->target->import($dataProvider, false);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnStaticResultWhenCreateFeatureUsingStatic()
+    {
+        $this->target->createFeature('foo');
+        $this->target->feature('foo')->staticResult(false);
+
+        $data = ResultProvider::create()
+            ->feature('foo', true);
+
+        $this->target->result($data);
+
+        $this->assertFalse($this->target->isActive('foo'));
+    }
+    /**
+     * @test
+     */
+    public function shouldReturnStaticResultWhenCreateGroupUsingStatic()
+    {
+        $this->target
+            ->createFeature('f1')
+            ->createFeature('f2')
+            ->createGroup('foo', ['f1', 'f2']);
+        $this->target->group('foo')->staticResult('f1');
+
+        $data = ResultProvider::create()
+            ->group('foo', 'f2');
+
+        $this->target->result($data);
+
+        $this->assertSame('f1', $this->target->select('foo'));
     }
 }

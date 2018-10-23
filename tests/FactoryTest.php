@@ -4,6 +4,7 @@ namespace Tests;
 
 use Carbon\Carbon;
 use MilesChou\Toggle\Factory;
+use MilesChou\Toggle\Providers\ResultProvider;
 use MilesChou\Toggle\Toggle;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
@@ -53,5 +54,22 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(Toggle::class, $actual);
 
         $this->assertSame('f1', $actual->select('g1'));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReturnCorrectResultWhenCreateFromConfigProcessWithStaticResult()
+    {
+        $actual = (new Factory())->createFromFile(__DIR__ . '/Fixtures/static_result.yaml');
+
+        $this->assertInstanceOf(Toggle::class, $actual);
+        $this->assertFalse($actual->isActive('f1'));
+
+        $actual->result(
+            ResultProvider::create()->feature('f1', true)
+        );
+
+        $this->assertFalse($actual->isActive('f1'));
     }
 }

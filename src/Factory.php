@@ -21,12 +21,20 @@ class Factory
             $feature = $this->normalizeConfigItem($feature);
 
             $instance->createFeature($name, $feature['processor'], $feature['params']);
+
+            if (isset($feature['staticResult'])) {
+                $instance->feature($name)->staticResult($feature['staticResult']);
+            }
         }
 
         foreach ($config['group'] as $name => $group) {
             $group = $this->normalizeConfigItem($group);
 
             $instance->createGroup($name, $group['list'], $group['processor'], $group['params']);
+
+            if (isset($feature['staticResult'])) {
+                $instance->group($name)->staticResult($group['staticResult']);
+            }
         }
 
         return $instance;

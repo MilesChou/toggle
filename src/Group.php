@@ -6,6 +6,7 @@ use MilesChou\Toggle\Concerns\FeatureAwareTrait;
 use MilesChou\Toggle\Concerns\NameAwareTrait;
 use MilesChou\Toggle\Concerns\ParameterAwareTrait;
 use MilesChou\Toggle\Concerns\ProcessorAwareTrait;
+use MilesChou\Toggle\Concerns\StaticResultAwareTrait;
 use MilesChou\Toggle\Contracts\GroupInterface;
 use MilesChou\Toggle\Contracts\ParameterAwareInterface;
 use MilesChou\Toggle\Processors\Processor;
@@ -16,6 +17,7 @@ class Group implements GroupInterface, ParameterAwareInterface
     use NameAwareTrait;
     use ParameterAwareTrait;
     use ProcessorAwareTrait;
+    use StaticResultAwareTrait;
 
     /**
      * @param string $name

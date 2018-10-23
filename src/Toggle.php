@@ -71,10 +71,6 @@ class Toggle
      */
     public function isActive($name, Context $context = null)
     {
-        if (isset($this->featuresPreserveResult[$name])) {
-            return $this->featuresPreserveResult[$name];
-        }
-
         if (!$this->hasFeature($name)) {
             if ($this->strict) {
                 throw new RuntimeException("Feature '{$name}' is not found");
@@ -83,9 +79,18 @@ class Toggle
             return false;
         }
 
-        $context = $this->resolveContext($context);
+        $feature = $this->feature($name);
 
-        $result = $this->feature($name)->isActive($context);
+        if ($feature->hasStaticResult()) {
+            return $feature->staticResult();
+        }
+
+        if (isset($this->featuresPreserveResult[$name])) {
+            return $this->featuresPreserveResult[$name];
+        }
+
+        $context = $this->resolveContext($context);
+        $result = $feature->isActive($context);
 
         if ($this->preserve) {
             $this->featuresPreserveResult[$name] = $result;
@@ -122,10 +127,6 @@ class Toggle
      */
     public function select($name, Context $context = null)
     {
-        if (isset($this->groupsPreserveResult[$name])) {
-            return $this->groupsPreserveResult[$name];
-        }
-
         if (!$this->hasGroup($name)) {
             if ($this->strict) {
                 throw new RuntimeException("Group '{$name}' is not found");
@@ -134,9 +135,19 @@ class Toggle
             return null;
         }
 
+        $group = $this->group($name);
+
+        if ($group->hasStaticResult()) {
+            return $group->staticResult();
+        }
+
+        if (isset($this->groupsPreserveResult[$name])) {
+            return $this->groupsPreserveResult[$name];
+        }
+
         $context = $this->resolveContext($context);
 
-        $result = $this->group($name)->select($context);
+        $result = $group->select($context);
 
         if ($this->preserve) {
             $this->groupsPreserveResult[$name] = $result;
