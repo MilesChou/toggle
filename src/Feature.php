@@ -24,16 +24,6 @@ class Feature implements FeatureInterface, ParameterAwareInterface
     private $group;
 
     /**
-     * @var bool
-     */
-    private $isStaticResult = false;
-
-    /**
-     * @var bool
-     */
-    private $staticResult;
-
-    /**
      * @param string $name
      * @param callable|array|bool|null $processor
      * @param array $params
