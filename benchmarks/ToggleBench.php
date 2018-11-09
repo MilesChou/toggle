@@ -20,9 +20,7 @@ class ToggleBench
 
         $target->createFeature('f1')
             ->createFeature('f2')
-            ->createFeature('f3')
-            ->createGroup('foo', ['f1', 'f2', 'f3'], 'f1')
-            ->select('foo');
+            ->createFeature('f3');
     }
 
     /**
@@ -31,7 +29,7 @@ class ToggleBench
      */
     public function benchFeatureIsActive()
     {
-        $target = Feature::create('whatever', function (Context $context) {
+        $target = Feature::create('fwhatever', function (Context $context) {
             $id = $context->getParam('id');
 
             return 0 === $id % 2;

@@ -38,23 +38,13 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
                 'f3' => [
                     'r' => false,
                 ],
-            ],
-            'group' => [
-                'g1' => [
-                    'l' => [
-                        'f1',
-                        'f2',
-                        'f3',
-                    ],
-                    'r' => 'f1',
-                ],
-            ],
+            ]
         ]);
 
         $actual = $this->target->serialize($provider);
 
         $this->assertSame(
-            '{"feature":{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}},"group":{"g1":{"l":["f1","f2","f3"],"r":"f1"}}}',
+            '{"feature":{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}}}',
             $actual
         );
     }
@@ -76,20 +66,8 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
-        $expectedGroup = [
-            'g1' => [
-                'l' => [
-                    'f1',
-                    'f2',
-                    'f3',
-                ],
-                'r' => 'f1',
-            ],
-        ];
-
-        $actual = $this->target->deserialize('{"feature":{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}},"group":{"g1":{"l":["f1","f2","f3"],"r":"f1"}}}', new DataProvider());
+        $actual = $this->target->deserialize('{"feature":{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}}}', new DataProvider());
 
         $this->assertSame($expectedFeature, $actual->getFeatures());
-        $this->assertSame($expectedGroup, $actual->getGroups());
     }
 }

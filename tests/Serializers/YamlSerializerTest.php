@@ -33,12 +33,6 @@ feature:
     return: true
   f2:
     return: false
-group:
-  g1:
-    list:
-      - f1
-      - f2
-    return: f1
 
 EXCEPTED_DATA;
 
@@ -50,16 +44,7 @@ EXCEPTED_DATA;
                 'f2' => [
                     'return' => false,
                 ],
-            ],
-            'group' => [
-                'g1' => [
-                    'list' => [
-                        'f1',
-                        'f2',
-                    ],
-                    'return' => 'f1',
-                ],
-            ],
+            ]
         ]);
 
         $actual = $this->target->serialize($provider);
@@ -78,12 +63,6 @@ feature:
     return: true
   f2:
     return: false
-group:
-  g1:
-    list:
-      - f1
-      - f2
-    return: f1
 
 INPUT_DATA;
 
@@ -96,19 +75,8 @@ INPUT_DATA;
             ],
         ];
 
-        $expectedGroup = [
-            'g1' => [
-                'list' => [
-                    'f1',
-                    'f2',
-                ],
-                'return' => 'f1',
-            ],
-        ];
-
         $actual = $this->target->deserialize($input, new DataProvider());
 
         $this->assertSame($expectedFeature, $actual->getFeatures());
-        $this->assertSame($expectedGroup, $actual->getGroups());
     }
 }

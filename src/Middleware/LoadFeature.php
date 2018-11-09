@@ -1,12 +1,12 @@
 <?php
 
-namespace MilesChou\Toggle\Middleware;
+namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Encryption\Encrypter;
-use MilesChou\Toggle\Providers\DataProvider;
+use MilesChou\Toggle\Providers\ResultProvider;
+use MilesChou\Toggle\Serializers\JsonSerializer;
 use MilesChou\Toggle\Toggle;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,7 +17,7 @@ class LoadFeature
      *
      * @var string
      */
-    protected $key = '_f';
+    protected $key = '_feat';
 
     /**
      * Cookie key
@@ -29,7 +29,7 @@ class LoadFeature
     /**
      * @var bool
      */
-    protected $encrypt = false;
+    protected $encrypt = true;
 
     /**
      * @var Toggle
@@ -43,7 +43,6 @@ class LoadFeature
 
     /**
      * @param Toggle $toggle
-     * @param Encrypter $encrypter
      */
     public function __construct(Toggle $toggle, Encrypter $encrypter)
     {
@@ -58,6 +57,8 @@ class LoadFeature
      */
     public function handle($request, Closure $next)
     {
+        $jsonSerializer = new JsonSerializer();
+
         if ($request->cookies->has($this->key)) {
             $value = $request->cookies->get($this->key);
 
@@ -65,26 +66,23 @@ class LoadFeature
                 $value = $this->encrypter->decrypt($value);
             }
 
-            $dataProvider = new DataProvider();
-            $dataProvider->deserialize($value);
-
-            $this->toggle->import($dataProvider);
+            $this->toggle->result($jsonSerializer->deserialize($value, new ResultProvider()));
         }
 
         /** @var Response $response */
         $response = $next($request);
 
-        /** @var DataProvider $data */
-        $data = $this->toggle->export();
+        $result = $this->toggle->result();
+        $serialized = $jsonSerializer->serialize($result);
 
         $value = $this->encrypt
-            ? $this->encrypter->encrypt($data->serialize())
-            : $data->serialize();
+            ? $this->encrypter->encrypt($serialized)
+            : $serialized;
 
         $time = time() + $this->minutes * 60;
 
         $response->headers->setCookie(
-            new Cookie($this->key, $value, $time)
+            cookie($this->key, $value, $time)
         );
 
         return $response;

@@ -34,16 +34,6 @@ class Factory
             }
         }
 
-        foreach ($config['group'] as $name => $group) {
-            $group = $this->normalizeConfigItem($group);
-
-            $instance->createGroup($name, $group['list'], $group['processor'], $group['params']);
-
-            if (static::hasStaticResult($group)) {
-                $instance->group($name)->staticResult($group['staticResult']);
-            }
-        }
-
         return $instance;
     }
 

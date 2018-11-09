@@ -2,11 +2,8 @@
 
 namespace MilesChou\Toggle\Providers;
 
-use MilesChou\Toggle\Concerns\ProviderTrait;
 use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Contracts\ProviderInterface;
-use MilesChou\Toggle\Feature;
-use MilesChou\Toggle\Group;
 
 abstract class Provider implements ProviderInterface
 {
@@ -14,11 +11,6 @@ abstract class Provider implements ProviderInterface
      * @var array
      */
     protected $features = [];
-
-    /**
-     * @var array
-     */
-    protected $groups = [];
 
     /**
      * @param array $data
@@ -48,10 +40,6 @@ abstract class Provider implements ProviderInterface
             $this->setFeatures($data['feature'], $context);
         }
 
-        if (isset($data['group'])) {
-            $this->setGroups($data['group'], $context);
-        }
-
         return $this;
     }
 
@@ -66,19 +54,10 @@ abstract class Provider implements ProviderInterface
     /**
      * @return array
      */
-    public function getGroups()
-    {
-        return $this->groups;
-    }
-
-    /**
-     * @return array
-     */
     public function toArray()
     {
         return [
             'feature' => $this->getFeatures(),
-            'group' => $this->getGroups(),
         ];
     }
 }

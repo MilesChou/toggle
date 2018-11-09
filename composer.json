@@ -37,7 +37,6 @@
     "autoload-dev": {
         "psr-4": {
             "Benchmarks\\": "benchmarks",
-            "Examples\\": "examples",
             "Tests\\": "tests"
         }
     },

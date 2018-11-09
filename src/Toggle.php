@@ -4,7 +4,6 @@ namespace MilesChou\Toggle;
 
 use MilesChou\Toggle\Concerns\ContextAwareTrait;
 use MilesChou\Toggle\Concerns\FeatureAwareTrait;
-use MilesChou\Toggle\Concerns\GroupAwareTrait;
 use MilesChou\Toggle\Contracts\ProviderInterface;
 use MilesChou\Toggle\Providers\DataProvider;
 use MilesChou\Toggle\Providers\ResultProvider;
@@ -14,7 +13,6 @@ class Toggle
 {
     use ContextAwareTrait;
     use FeatureAwareTrait;
-    use GroupAwareTrait;
 
     /**
      * @var bool
@@ -40,8 +38,7 @@ class Toggle
         $context = $this->resolveContext($context);
 
         return $dataProvider
-            ->setFeatures($this->features, $context)
-            ->setGroups($this->groups, $context);
+            ->setFeatures($this->features, $context);
     }
 
     /**
@@ -52,15 +49,10 @@ class Toggle
     {
         if ($clean) {
             $this->cleanFeatures();
-            $this->cleanGroup();
         }
 
         foreach ($dataProvider->getFeatures() as $name => $feature) {
             $this->createFeature($name, $feature['return'], $feature['params']);
-        }
-
-        foreach ($dataProvider->getGroups() as $name => $group) {
-            $this->createGroup($name, $group['list'], $group['return'], $group['params']);
         }
     }
 
@@ -110,50 +102,12 @@ class Toggle
         if (null === $resultProvider) {
             return new ResultProvider([
                 'feature' => $this->featuresPreserveResult,
-                'group' => $this->groupsPreserveResult,
             ]);
         }
 
         $this->featuresPreserveResult = array_merge($this->featuresPreserveResult, $resultProvider->getFeatures());
-        $this->groupsPreserveResult = array_merge($this->groupsPreserveResult, $resultProvider->getGroups());
 
         return $resultProvider;
-    }
-
-    /**
-     * @param string $name
-     * @param null|Context $context
-     * @return string
-     */
-    public function select($name, Context $context = null)
-    {
-        if (!$this->hasGroup($name)) {
-            if ($this->strict) {
-                throw new RuntimeException("Group '{$name}' is not found");
-            }
-
-            return null;
-        }
-
-        $group = $this->group($name);
-
-        if ($group->hasStaticResult()) {
-            return $group->staticResult();
-        }
-
-        if (isset($this->groupsPreserveResult[$name])) {
-            return $this->groupsPreserveResult[$name];
-        }
-
-        $context = $this->resolveContext($context);
-
-        $result = $group->select($context);
-
-        if ($this->preserve) {
-            $this->groupsPreserveResult[$name] = $result;
-        }
-
-        return $result;
     }
 
     /**
