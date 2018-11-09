@@ -9,28 +9,28 @@ class Factory
 {
     private static function hasStaticResult($config)
     {
-        return array_key_exists('hasStaticResult', $config) &&
-            array_key_exists('staticResult', $config) &&
-            true === $config['hasStaticResult'];
+        return isset($config['staticResult']) && is_bool($config['staticResult']);
     }
 
     /**
      * @param array $config
      * @return Toggle
      */
-    public function createFromArray($config)
+    public function createFromArray(array $config)
     {
         $instance = new Toggle();
 
-        $config = $this->normalizeConfig($config);
+        if (empty($config)) {
+            return $instance;
+        }
 
-        foreach ($config['feature'] as $name => $feature) {
-            $feature = $this->normalizeConfigItem($feature);
+        foreach ($config as $name => $item) {
+            $item = $this->normalizeConfigItem($item);
 
-            $instance->createFeature($name, $feature['processor'], $feature['params']);
+            $instance->createFeature($name, $item['processor'], $item['params']);
 
-            if (static::hasStaticResult($feature)) {
-                $instance->feature($name)->staticResult($feature['staticResult']);
+            if (static::hasStaticResult($item)) {
+                $instance->feature($name)->setStaticResult($item['staticResult']);
             }
         }
 
@@ -47,23 +47,6 @@ class Factory
         $config = (new Config($file))->all();
 
         return $this->createFromArray($config);
-    }
-
-    /**
-     * @param array $config
-     * @return array
-     */
-    private function normalizeConfig($config)
-    {
-        if (!isset($config['feature'])) {
-            $config['feature'] = [];
-        }
-
-        if (!isset($config['group'])) {
-            $config['group'] = [];
-        }
-
-        return $config;
     }
 
     /**

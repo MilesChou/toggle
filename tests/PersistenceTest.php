@@ -140,7 +140,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnStaticResultWhenCreateFeatureUsingStatic()
     {
         $this->target->createFeature('foo');
-        $this->target->feature('foo')->staticResult(false);
+        $this->target->feature('foo')->setStaticResult(false);
 
         $data = ResultProvider::create()
             ->feature('foo', true);

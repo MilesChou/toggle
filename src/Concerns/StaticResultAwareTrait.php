@@ -7,16 +7,13 @@ trait StaticResultAwareTrait
     /**
      * @var bool
      */
-    private $isStaticResult = false;
-
-    /**
-     * @var mixed
-     */
     private $staticResult;
 
+    /**
+     * @return void
+     */
     public function cleanStaticResult()
     {
-        $this->isStaticResult = false;
         $this->staticResult = null;
     }
 
@@ -25,20 +22,23 @@ trait StaticResultAwareTrait
      */
     public function hasStaticResult()
     {
-        return $this->isStaticResult;
+        return null !== $this->staticResult;
     }
 
     /**
-     * @param mixed|null $result
-     * @return static|mixed
+     * @return bool|null
      */
-    public function staticResult($result = null)
+    public function staticResult()
     {
-        if (null === $result) {
-            return $this->staticResult;
-        }
+        return $this->staticResult;
+    }
 
-        $this->isStaticResult = true;
+    /**
+     * @param bool|null $result
+     * @return static
+     */
+    public function setStaticResult($result = null)
+    {
         $this->staticResult = $result;
 
         return $this;

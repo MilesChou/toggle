@@ -1,4 +1,2 @@
-feature:
-  f1:
-    hasStaticResult: true
-    staticResult: false
+f1:
+  staticResult: false
