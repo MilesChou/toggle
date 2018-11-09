@@ -18,9 +18,9 @@ class ToggleBench
     {
         $target = new Toggle();
 
-        $target->createFeature('f1')
-            ->createFeature('f2')
-            ->createFeature('f3');
+        $target->create('f1')
+            ->create('f2')
+            ->create('f3');
     }
 
     /**

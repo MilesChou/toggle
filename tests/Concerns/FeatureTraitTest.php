@@ -26,7 +26,7 @@ class FeatureTraitTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('InvalidArgumentException', 'Processor must be callable');
 
         $target = $this->getMockForTrait(FeatureAwareTrait::class);
-        $target->createFeature('foo', $invalidProcessor);
+        $target->create('foo', $invalidProcessor);
     }
 
     /**
@@ -37,7 +37,7 @@ class FeatureTraitTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('RuntimeException', "Feature 'not-exist' is not found");
 
         $target = $this->getMockForTrait(FeatureAwareTrait::class);
-        $target->getFeature('not-exist');
+        $target->feature('not-exist');
     }
 
     /**
@@ -46,7 +46,7 @@ class FeatureTraitTest extends \PHPUnit_Framework_TestCase
     public function shouldBeOkayWhenCreateWithProcessorInsteadOfParam()
     {
         $target = $this->getMockForTrait('MilesChou\\Toggle\\Concerns\\FeatureAwareTrait');
-        $target->createFeature('foo', null, ['some' => 'thing']);
+        $target->create('foo', null, ['some' => 'thing']);
 
         $this->assertSame('thing', $target->feature('foo')->getParam('some'));
     }

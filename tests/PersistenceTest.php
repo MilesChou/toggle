@@ -74,9 +74,9 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
         ];
 
         $this->target
-            ->createFeature('f1', true)
-            ->createFeature('f2', false)
-            ->createFeature('f3', false);
+            ->create('f1', true)
+            ->create('f2', false)
+            ->create('f3', false);
 
         $actual = $this->target->export();
 
@@ -97,7 +97,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
         ];
 
         $this->target
-            ->createFeature('f1', function (Context $context) {
+            ->create('f1', function (Context $context) {
                 return $context->return;
             });
 
@@ -139,7 +139,7 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnStaticResultWhenCreateFeatureUsingStatic()
     {
-        $this->target->createFeature('foo');
+        $this->target->create('foo');
         $this->target->feature('foo')->setStaticResult(false);
 
         $data = ResultProvider::create()

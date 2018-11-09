@@ -47,7 +47,7 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnTrueWhenCreateFeatureAndReturnTrue()
     {
-        $this->target->createFeature('foo', function () {
+        $this->target->create('foo', function () {
             return true;
         });
 
@@ -59,7 +59,7 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnTrueWhenCreateFeatureAndReturnFalse()
     {
-        $this->target->createFeature('foo', function () {
+        $this->target->create('foo', function () {
             return false;
         });
 
@@ -71,7 +71,7 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnTrueWhenCreateFeatureUsingStaticAndReturnTrue()
     {
-        $this->target->createFeature('foo', true);
+        $this->target->create('foo', true);
 
         $this->assertTrue($this->target->isActive('foo'));
     }
@@ -81,7 +81,7 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnTrueWhenCreateFeatureUsingStaticAndReturnFalse()
     {
-        $this->target->createFeature('foo', false);
+        $this->target->create('foo', false);
 
         $this->assertFalse($this->target->isActive('foo'));
     }
@@ -95,8 +95,8 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
 
         $this->target->setStrict(true);
 
-        $this->target->createFeature('foo')
-            ->removeFeature('foo');
+        $this->target->create('foo')
+            ->remove('foo');
 
         $this->target->isActive('foo');
     }
@@ -106,7 +106,7 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnSameResultWhenIsActiveWithDifferentContext()
     {
-        $this->target->createFeature('f1', function (Context $context) {
+        $this->target->create('f1', function (Context $context) {
             $id = $context->getParam('id');
 
             return 0 === $id % 2;
@@ -121,7 +121,7 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnDifferentResultWhenIsActiveWithDifferentContextWithoutPreserve()
     {
-        $this->target->createFeature('f1', function (Context $context) {
+        $this->target->create('f1', function (Context $context) {
             $id = $context->getParam('id');
 
             return 0 === $id % 2;

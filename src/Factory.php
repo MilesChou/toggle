@@ -27,7 +27,7 @@ class Factory
         foreach ($config as $name => $item) {
             $item = $this->normalizeConfigItem($item);
 
-            $instance->createFeature($name, $item['processor'], $item['params']);
+            $instance->create($name, $item['processor'], $item['params']);
 
             if (static::hasStaticResult($item)) {
                 $instance->feature($name)->setStaticResult($item['staticResult']);

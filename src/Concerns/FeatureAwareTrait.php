@@ -16,17 +16,17 @@ trait FeatureAwareTrait
     /**
      * @var array
      */
-    private $featuresPreserveResult = [];
+    private $preserveResult = [];
 
     /**
      * @param Feature $feature
      * @return static
      */
-    public function addFeature(Feature $feature)
+    public function add(Feature $feature)
     {
         $name = $feature->getName();
 
-        if ($this->isFeatureExist($name)) {
+        if ($this->exist($name)) {
             throw new RuntimeException("Feature '{$name}' is exist");
         }
 
@@ -36,103 +36,31 @@ trait FeatureAwareTrait
     }
 
     /**
-     * @param array $features
-     * @return static
-     */
-    public function appendFeatures(array $features)
-    {
-        foreach ($features as $feature) {
-            $this->addFeature($feature);
-        }
-
-        return $this;
-    }
-
-    public function cleanFeatures()
-    {
-        $this->features = [];
-        $this->featuresPreserveResult = [];
-    }
-
-    /**
-     * @param string $name
-     * @param callable|bool|null $processor
-     * @param array $params
-     * @return static
-     */
-    public function createFeature($name, $processor = null, array $params = [])
-    {
-        return $this->addFeature(Feature::create($name, $processor, $params));
-    }
-
-    /**
-     * Alias of getFeature()
-     *
-     * @param string $name
-     * @return Feature
-     */
-    public function feature($name)
-    {
-        return $this->getFeature($name);
-    }
-
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public function hasFeature($name)
-    {
-        return array_key_exists($name, $this->features);
-    }
-
-    /**
-     * @param string $name
-     * @return Feature
-     * @throws InvalidArgumentException
-     */
-    public function getFeature($name)
-    {
-        if (!$this->isFeatureExist($name)) {
-            throw new RuntimeException("Feature '{$name}' is not found");
-        }
-
-        return $this->features[$name];
-    }
-
-    /**
      * @return array
      */
-    public function getFeatures()
+    public function all()
     {
         return $this->features;
     }
 
     /**
-     * @param array $names
-     * @return array
+     * @param array $features
+     * @return static
      */
-    public function getFeaturesByName(array $names)
+    public function append(array $features)
     {
-        return array_reduce($names, function ($carry, $name) {
-            $carry[$name] = $this->getFeature($name);
+        foreach ($features as $feature) {
+            $this->add($feature);
+        }
 
-            return $carry;
-        }, []);
-    }
-
-    /**
-     * @return array
-     */
-    public function getFeaturesName()
-    {
-        return array_keys($this->features);
+        return $this;
     }
 
     /**
      * @param Feature|string $name
      * @return bool
      */
-    public function isFeatureExist($name)
+    public function exist($name)
     {
         if ($name instanceof Feature) {
             $name = $name->getName();
@@ -143,20 +71,74 @@ trait FeatureAwareTrait
 
     /**
      * @param string $name
+     * @param callable|bool|null $processor
+     * @param array $params
+     * @return static
      */
-    public function removeFeature($name)
+    public function create($name, $processor = null, array $params = [])
     {
-        unset($this->features[$name], $this->featuresPreserveResult[$name]);
+        return $this->add(Feature::create($name, $processor, $params));
+    }
+
+    /**
+     * Alias of getFeature()
+     *
+     * @param string $name
+     * @return Feature
+     */
+    public function feature($name)
+    {
+        return $this->get($name);
+    }
+
+    /**
+     * @return void
+     */
+    public function flush()
+    {
+        $this->features = [];
+        $this->preserveResult = [];
+    }
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function has($name)
+    {
+        return array_key_exists($name, $this->features);
+    }
+
+    /**
+     * @param string $name
+     * @return Feature
+     * @throws InvalidArgumentException
+     */
+    public function get($name)
+    {
+        if (!$this->exist($name)) {
+            throw new RuntimeException("Feature '{$name}' is not found");
+        }
+
+        return $this->features[$name];
+    }
+
+    /**
+     * @param string $name
+     */
+    public function remove($name)
+    {
+        unset($this->features[$name], $this->preserveResult[$name]);
     }
 
     /**
      * @param array $features
      * @return static
      */
-    public function setFeatures(array $features)
+    public function set(array $features)
     {
-        $this->cleanFeatures();
-        $this->appendFeatures($features);
+        $this->flush();
+        $this->append($features);
 
         return $this;
     }

@@ -48,11 +48,11 @@ class Toggle
     public function import(DataProvider $dataProvider, $clean = true)
     {
         if ($clean) {
-            $this->cleanFeatures();
+            $this->flush();
         }
 
         foreach ($dataProvider->getFeatures() as $name => $feature) {
-            $this->createFeature($name, $feature['return'], $feature['params']);
+            $this->create($name, $feature['return'], $feature['params']);
         }
     }
 
@@ -63,7 +63,7 @@ class Toggle
      */
     public function isActive($name, Context $context = null)
     {
-        if (!$this->hasFeature($name)) {
+        if (!$this->has($name)) {
             if ($this->strict) {
                 throw new RuntimeException("Feature '{$name}' is not found");
             }
@@ -77,15 +77,15 @@ class Toggle
             return $feature->staticResult();
         }
 
-        if (isset($this->featuresPreserveResult[$name])) {
-            return $this->featuresPreserveResult[$name];
+        if (isset($this->preserveResult[$name])) {
+            return $this->preserveResult[$name];
         }
 
         $context = $this->resolveContext($context);
         $result = $feature->isActive($context);
 
         if ($this->preserve) {
-            $this->featuresPreserveResult[$name] = $result;
+            $this->preserveResult[$name] = $result;
         }
 
         return $result;
@@ -101,11 +101,11 @@ class Toggle
     {
         if (null === $resultProvider) {
             return new ResultProvider([
-                'feature' => $this->featuresPreserveResult,
+                'feature' => $this->preserveResult,
             ]);
         }
 
-        $this->featuresPreserveResult = array_merge($this->featuresPreserveResult, $resultProvider->getFeatures());
+        $this->preserveResult = array_merge($this->preserveResult, $resultProvider->getFeatures());
 
         return $resultProvider;
     }
