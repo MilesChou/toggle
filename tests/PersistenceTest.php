@@ -31,19 +31,17 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnCorrectResultWhenImportFeatureOnly()
     {
         $dataProvider = new DataProvider([
-            'feature' => [
-                'f1' => [
-                    'params' => [],
-                    'return' => true,
-                ],
-                'f2' => [
-                    'params' => [],
-                    'return' => false,
-                ],
-                'f3' => [
-                    'params' => [],
-                    'return' => false,
-                ],
+            'f1' => [
+                'params' => [],
+                'return' => true,
+            ],
+            'f2' => [
+                'params' => [],
+                'return' => false,
+            ],
+            'f3' => [
+                'params' => [],
+                'return' => false,
             ],
         ]);
 
@@ -115,20 +113,18 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
     public function shouldReturnCorrectResultWhenImportFeatureAndGroup()
     {
         $dataProvider = new DataProvider([
-            'feature' => [
-                'f1' => [
-                    'params' => [],
-                    'return' => true,
-                ],
-                'f2' => [
-                    'params' => [],
-                    'return' => false,
-                ],
-                'f3' => [
-                    'params' => [],
-                    'return' => false,
-                ],
-            ]
+            'f1' => [
+                'params' => [],
+                'return' => true,
+            ],
+            'f2' => [
+                'params' => [],
+                'return' => false,
+            ],
+            'f3' => [
+                'params' => [],
+                'return' => false,
+            ],
         ]);
 
         $this->target->import($dataProvider);

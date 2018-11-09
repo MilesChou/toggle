@@ -36,9 +36,7 @@ abstract class Provider implements ProviderInterface
      */
     public function fill(array $data, $context = null)
     {
-        if (isset($data['feature'])) {
-            $this->setFeatures($data['feature'], $context);
-        }
+        $this->setFeatures($data, $context);
 
         return $this;
     }
@@ -56,8 +54,6 @@ abstract class Provider implements ProviderInterface
      */
     public function toArray()
     {
-        return [
-            'feature' => $this->getFeatures(),
-        ];
+        return $this->getFeatures();
     }
 }

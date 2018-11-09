@@ -58,11 +58,10 @@ EXCEPTED_DATA;
     public function shouldReturnDeserializeResult()
     {
         $input = <<< INPUT_DATA
-feature:
-  f1:
-    return: true
-  f2:
-    return: false
+f1:
+  return: true
+f2:
+  return: false
 
 INPUT_DATA;
 
