@@ -25,11 +25,11 @@ Use the static result:
 
 use MilesChou\Toggle\Toggle;
 
-$manager = new Toggle();
-$manager->createFeature('f1', true);
+$toggle = new Toggle();
+$toggle->createFeature('f1', true);
 
 // Will return true
-$manager->isActive('f1');
+$toggle->isActive('f1');
 ```
 
 Use the object with static return:
@@ -40,11 +40,11 @@ Use the object with static return:
 use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Toggle;
 
-$manager = new Toggle();
-$manager->addFeature(Feature::create('f1', true));
+$toggle = new Toggle();
+$toggle->addFeature(Feature::create('f1', true));
 
 // Will return true
-$manager->isActive('f1');
+$toggle->isActive('f1');
 ```
 
 Use callable to decide the return dynamically:
@@ -54,13 +54,13 @@ Use callable to decide the return dynamically:
 
 use MilesChou\Toggle\Toggle;
 
-$manager = new Toggle();
-$manager->createFeature('f1', function() {
+$toggle = new Toggle();
+$toggle->createFeature('f1', function() {
     return true;
 });
 
 // Will return true
-$manager->isActive('f1');
+$toggle->isActive('f1');
 ```
 
 Use callable with Context:
@@ -71,31 +71,31 @@ Use callable with Context:
 use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Toggle;
 
-$manager = new Toggle();
-$manager->createFeature('f1', function(Context $context) {
+$toggle = new Toggle();
+$toggle->createFeature('f1', function(Context $context) {
     return $context->return;
 });
 
 // Will return true
-$manager->isActive('f1', Context::create(['return' => true]));
+$toggle->isActive('f1', Context::create(['return' => true]));
 ```
 
 ### Parameters
 
-Both `Feature` and `Group` can store some parameter. For example:
+`Feature` instance can store some parameter. For example:
 
 ```php
 <?php
 
 use MilesChou\Toggle\Toggle;
 
-$manager = new Toggle();
+$toggle = new Toggle();
 
-$manager->createFeature('f1', ['name' => 'Miles']);
-$manager->createFeature('f2', ['name' => 'Chou']);
+$toggle->createFeature('f1', ['name' => 'Miles']);
+$toggle->createFeature('f2', ['name' => 'Chou']);
 
 // Will return 'Chou'
-$manager->feature('f1')->getParam('name');
+$toggle->feature('f1')->getParam('name');
 ```
 
 ### Serializer
@@ -106,7 +106,7 @@ Sometimes, we should store the toggle state in somewhere. Using `export()` to se
 <?php
 
 // $dataProvider just like DTO.
-$dataProvider = $manager->export();
+$dataProvider = $toggle->export();
 
 // $str is JSON, default. 
 $str = (new JsonSerializer())->serialize($dataProvider);
@@ -123,12 +123,12 @@ This snippet is like `if` / `switch` structure:
 
 use MilesChou\Toggle\Toggle;
 
-$manager = new Toggle();
-$manager->createFeature('f1');
-$manager->createFeature('f2');
-$manager->createFeature('f3');
+$toggle = new Toggle();
+$toggle->createFeature('f1');
+$toggle->createFeature('f2');
+$toggle->createFeature('f3');
 
-$manager
+$toggle
     ->when('f1', function () {
         // Something when f1 is on
     })
