@@ -3,38 +3,38 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Contracts\Encryption\Encrypter;
+use Illuminate\Cookie\CookieJar;
 use MilesChou\Toggle\Providers\ResultProvider;
 use MilesChou\Toggle\Serializers\JsonSerializer;
 use MilesChou\Toggle\Toggle;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class LoadFeature
+class LoadToggle
 {
-    /**
-     * Cookie key
-     *
-     * @var string
-     */
-    protected $key = '_feat';
-
-    /**
-     * Cookie key
-     *
-     * @var int
-     */
-    protected $minutes = 43200;
-
     /**
      * @var bool
      */
     protected $encrypt = true;
 
     /**
-     * @var Toggle
+     * Cookie key
+     *
+     * @var string
      */
-    private $toggle;
+    protected $key = '_f';
+
+    /**
+     * @var int
+     */
+    protected $minutes = 43200;
+
+    /**
+     * @var CookieJar
+     */
+    private $cookieJar;
 
     /**
      * @var Encrypter
@@ -42,12 +42,18 @@ class LoadFeature
     private $encrypter;
 
     /**
+     * @var Toggle
+     */
+    private $toggle;
+
+    /**
      * @param Toggle $toggle
      */
-    public function __construct(Toggle $toggle, Encrypter $encrypter)
+    public function __construct(Toggle $toggle, Encrypter $encrypter, CookieJar $cookieJar)
     {
         $this->toggle = $toggle;
         $this->encrypter = $encrypter;
+        $this->cookieJar = $cookieJar;
     }
 
     /**
@@ -63,7 +69,7 @@ class LoadFeature
             $value = $request->cookies->get($this->key);
 
             if ($this->encrypt) {
-                $value = $this->encrypter->decrypt($value);
+                $value = $this->decryptCookieValue($value);
             }
 
             $this->toggle->result($jsonSerializer->deserialize($value, new ResultProvider()));
@@ -82,9 +88,22 @@ class LoadFeature
         $time = time() + $this->minutes * 60;
 
         $response->headers->setCookie(
-            cookie($this->key, $value, $time)
+            $this->cookieJar->make($this->key, $value, $time)
         );
 
         return $response;
+    }
+
+    /**
+     * @param null|string $value
+     * @return null|string
+     */
+    private function decryptCookieValue($value)
+    {
+        try {
+            return $this->encrypter->decrypt($value);
+        } catch (DecryptException $exception) {
+            return '[]';
+        }
     }
 }
