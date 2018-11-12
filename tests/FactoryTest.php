@@ -13,7 +13,11 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnCorrectResultWhenCreateFromConfigBasic()
     {
-        $actual = (new Factory())->createFromFile(__DIR__ . '/Fixtures/basic.yaml');
+        $actual = (new Factory())->createFromArray([
+            'f1' => [],
+            'f2' => [],
+            'f3' => [],
+        ]);
 
         $this->assertInstanceOf(Toggle::class, $actual);
     }
@@ -23,7 +27,11 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnCorrectResultWhenCreateFromConfigProcessWithStaticResult()
     {
-        $actual = (new Factory())->createFromFile(__DIR__ . '/Fixtures/static_result.yaml');
+        $actual = (new Factory())->createFromArray([
+            'f1' => [
+                'staticResult' => false,
+            ],
+        ]);
 
         $this->assertInstanceOf(Toggle::class, $actual);
         $this->assertFalse($actual->isActive('f1'));
