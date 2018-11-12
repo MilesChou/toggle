@@ -5,17 +5,18 @@ namespace MilesChou\Toggle;
 use MilesChou\Toggle\Concerns\NameAwareTrait;
 use MilesChou\Toggle\Concerns\ParameterAwareTrait;
 use MilesChou\Toggle\Concerns\ProcessorAwareTrait;
-use MilesChou\Toggle\Concerns\StaticResultAwareTrait;
+use MilesChou\Toggle\Concerns\ResultAwareTrait;
 use MilesChou\Toggle\Contracts\FeatureInterface;
 use MilesChou\Toggle\Contracts\ParameterAwareInterface;
+use MilesChou\Toggle\Contracts\ResultInterface;
 use MilesChou\Toggle\Processors\Processor;
 
-class Feature implements FeatureInterface, ParameterAwareInterface
+class Feature implements FeatureInterface, ParameterAwareInterface, ResultInterface
 {
     use NameAwareTrait;
     use ParameterAwareTrait;
     use ProcessorAwareTrait;
-    use StaticResultAwareTrait;
+    use ResultAwareTrait;
 
     /**
      * @param string $name
@@ -25,16 +26,19 @@ class Feature implements FeatureInterface, ParameterAwareInterface
      */
     public static function create($name, $processor = null, array $params = [])
     {
-        if (is_array($processor)) {
-            $processor = Processor::retrieve($processor);
+        // default is false
+        if (null === $processor) {
+            $processor = false;
         }
 
-        if (null === $processor || is_bool($processor)) {
-            $result = (bool)$processor;
-
-            $processor = function () use ($result) {
-                return $result;
+        if (is_bool($processor)) {
+            $processor = function () use ($processor) {
+                return $processor;
             };
+        }
+
+        if (is_array($processor)) {
+            $processor = Processor::retrieve($processor);
         }
 
         return new static($name, $processor, $params);
@@ -47,7 +51,7 @@ class Feature implements FeatureInterface, ParameterAwareInterface
      */
     public function __construct($name, $processor, array $params = [])
     {
-        $this->setName($name);
+        $this->name($name);
         $this->setProcessor($processor);
         $this->setParams($params);
     }
@@ -58,7 +62,7 @@ class Feature implements FeatureInterface, ParameterAwareInterface
      */
     public function isActive($context = null)
     {
-        return $this->process($context);
+        return $this->process($context, $this->getParams());
     }
 
     /**

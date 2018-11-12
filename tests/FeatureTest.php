@@ -2,36 +2,24 @@
 
 namespace Tests;
 
+use InvalidArgumentException;
 use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Feature;
 
 class FeatureTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Feature
-     */
-    private $target;
-
-    protected function setUp()
-    {
-        $this->target = new Feature('whatever', function () {
-            return null;
-        });
-    }
-
-    protected function tearDown()
-    {
-        $this->target = null;
-    }
-
-    /**
      * @test
      */
     public function shouldThrowExceptionWhenDefaultWithCallableReturnNull()
     {
-        $this->setExpectedException('InvalidArgumentException');
+        $this->setExpectedException(InvalidArgumentException::class);
 
-        $this->assertNull($this->target->isActive());
+        $target = Feature::create('whatever', function () {
+            return null;
+        });
+
+        $target->isActive();
     }
 
     public function invalidProcessor()
@@ -54,7 +42,7 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionWhenNewWithInvalidProcessor($invalidProcessor)
     {
-        $this->setExpectedException('InvalidArgumentException', 'Processor must be callable');
+        $this->setExpectedException(InvalidArgumentException::class, 'Processor must be callable');
 
         new Feature('whatever', $invalidProcessor);
     }

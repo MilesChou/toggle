@@ -18,7 +18,7 @@ The `Toggle` class is the core class. All feature config will set on this object
 
 ### Feature Toggle
 
-Use the static result:
+Use the fixed result:
 
 ```php
 <?php
@@ -26,13 +26,13 @@ Use the static result:
 use MilesChou\Toggle\Toggle;
 
 $toggle = new Toggle();
-$toggle->createFeature('f1', true);
+$toggle->create('f1', true);
 
 // Will return true
 $toggle->isActive('f1');
 ```
 
-Use the object with static return:
+Use the object with fixed result:
 
 ```php
 <?php
@@ -41,7 +41,7 @@ use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Toggle;
 
 $toggle = new Toggle();
-$toggle->addFeature(Feature::create('f1', true));
+$toggle->add(Feature::create('f1', true));
 
 // Will return true
 $toggle->isActive('f1');
@@ -55,7 +55,7 @@ Use callable to decide the return dynamically:
 use MilesChou\Toggle\Toggle;
 
 $toggle = new Toggle();
-$toggle->createFeature('f1', function() {
+$toggle->create('f1', function() {
     return true;
 });
 
@@ -72,8 +72,8 @@ use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Toggle;
 
 $toggle = new Toggle();
-$toggle->createFeature('f1', function(Context $context) {
-    return $context->return;
+$toggle->create('f1', function(Context $context) {
+    return $context->get('key', 'default');
 });
 
 // Will return true
@@ -87,26 +87,35 @@ $toggle->isActive('f1', Context::create(['return' => true]));
 ```php
 <?php
 
+use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Toggle;
 
 $toggle = new Toggle();
 
-$toggle->createFeature('f1', ['name' => 'Miles']);
-$toggle->createFeature('f2', ['name' => 'Chou']);
+$toggle->create('f1', true, ['name' => 'Miles']);
+$toggle->create('f2', false, ['name' => 'Chou']);
 
 // Will return 'Chou'
 $toggle->feature('f1')->getParam('name');
+
+// Also using in callback
+$toggle->create('f3', function(Context $context, array $params) {
+    return $params['key'] === $context->get('key', 'default');
+}, ['key' => 'foo']);
 ```
 
 ### Serializer
 
-Sometimes, we should store the toggle state in somewhere. Using `export()` to serialize and `import()` to restore.
+Sometimes, we should store the toggle state in somewhere. Using `Factory::transferToDataProvider()` to serialize and `Factory::createFromDataProvider()` to restore.
 
 ```php
 <?php
 
+use MilesChou\Toggle\Factory;
+use MilesChou\Toggle\Serializers\JsonSerializer;
+
 // $dataProvider just like DTO.
-$dataProvider = $toggle->export();
+$dataProvider = (new Factory())->transferToDataProvider($toggle);
 
 // $str is JSON, default. 
 $str = (new JsonSerializer())->serialize($dataProvider);
@@ -124,18 +133,18 @@ This snippet is like `if` / `switch` structure:
 use MilesChou\Toggle\Toggle;
 
 $toggle = new Toggle();
-$toggle->createFeature('f1');
-$toggle->createFeature('f2');
-$toggle->createFeature('f3');
+$toggle->create('f1');
+$toggle->create('f2');
+$toggle->create('f3');
 
 $toggle
-    ->when('f1', function () {
+    ->when('f1', function ($context, $params) {
         // Something when f1 is on
     })
-    ->when('f2', function () {
+    ->when('f2', function ($context, $params) {
         // Something when f2 is on
     })
-    ->when('f3', function () {
+    ->when('f3', function ($context, $params) {
         // Something when f3 is on
     });
 ```

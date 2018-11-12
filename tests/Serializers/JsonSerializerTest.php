@@ -68,6 +68,6 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
 
         $actual = $this->target->deserialize('{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}}', new DataProvider());
 
-        $this->assertSame($expectedFeature, $actual->getFeatures());
+        $this->assertSame($expectedFeature, $actual->toArray());
     }
 }

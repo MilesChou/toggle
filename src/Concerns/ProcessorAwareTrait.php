@@ -4,7 +4,6 @@ namespace MilesChou\Toggle\Concerns;
 
 use InvalidArgumentException;
 use MilesChou\Toggle\Context;
-use RuntimeException;
 
 trait ProcessorAwareTrait
 {
@@ -28,7 +27,7 @@ trait ProcessorAwareTrait
      */
     public function setProcessor($processor)
     {
-        if (!$this->isValidProcessor($processor)) {
+        if (!is_callable($processor)) {
             throw new InvalidArgumentException('Processor must be callable');
         }
 
@@ -38,39 +37,22 @@ trait ProcessorAwareTrait
     }
 
     /**
-     * @param mixed $result
+     * @param Context|null $context
+     * @param array $parameters
+     * @return mixed
      * @throws InvalidArgumentException
      */
-    protected function assertResult($result)
-    {
-        if (!$this->isValidProcessedResult($result)) {
-            throw new InvalidArgumentException('Processed result is not valid');
-        }
-    }
-
-    /**
-     * @param mixed $processor
-     * @return bool
-     */
-    protected function isValidProcessor($processor)
-    {
-        return is_callable($processor);
-    }
-
-    /**
-     * @param Context|null $context
-     * @return mixed
-     * @throws RuntimeException
-     */
-    protected function process($context)
+    protected function process($context, array $parameters = [])
     {
         if (null === $context) {
             $context = Context::create();
         }
 
-        $result = call_user_func($this->getProcessor(), $context);
+        $result = call_user_func($this->getProcessor(), $context, $parameters);
 
-        $this->assertResult($result);
+        if (!$this->isValidProcessedResult($result)) {
+            throw new InvalidArgumentException('Processed result is not valid');
+        }
 
         return $result;
     }

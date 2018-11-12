@@ -2,15 +2,13 @@
 
 namespace MilesChou\Toggle\Providers;
 
-use MilesChou\Toggle\Context;
+use MilesChou\Toggle\Concerns\ParameterAwareTrait;
+use MilesChou\Toggle\Contracts\ParameterAwareInterface;
 use MilesChou\Toggle\Contracts\ProviderInterface;
 
-abstract class Provider implements ProviderInterface
+abstract class Provider implements ProviderInterface, ParameterAwareInterface
 {
-    /**
-     * @var array
-     */
-    protected $features = [];
+    use ParameterAwareTrait;
 
     /**
      * @param array $data
@@ -30,30 +28,10 @@ abstract class Provider implements ProviderInterface
     }
 
     /**
-     * @param array $data
-     * @param Context|null $context
-     * @return static
-     */
-    public function fill(array $data, $context = null)
-    {
-        $this->setFeatures($data, $context);
-
-        return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getFeatures()
-    {
-        return $this->features;
-    }
-
-    /**
      * @return array
      */
     public function toArray()
     {
-        return $this->getFeatures();
+        return $this->getParams();
     }
 }

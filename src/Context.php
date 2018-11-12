@@ -7,7 +7,12 @@ use MilesChou\Toggle\Contracts\ParameterAwareInterface;
 
 class Context implements ParameterAwareInterface
 {
-    use ParameterAwareTrait;
+    use ParameterAwareTrait {
+        getParam as get;
+        getParams as all;
+        hasParam as has;
+        setParam as set;
+    }
 
     /**
      * @param array $params
@@ -28,16 +33,16 @@ class Context implements ParameterAwareInterface
 
     public function __get($name)
     {
-        return $this->getParam($name);
+        return $this->get($name);
     }
 
     public function __set($name, $value)
     {
-        $this->setParam($name, $value);
+        $this->set($name, $value);
     }
 
     public function __isset($name)
     {
-        return $this->existParam($name);
+        return $this->has($name);
     }
 }

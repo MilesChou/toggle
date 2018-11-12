@@ -12,6 +12,14 @@ trait ContextAwareTrait
     private $context;
 
     /**
+     * @return Context|null
+     */
+    public function getContext()
+    {
+        return $this->context;
+    }
+
+    /**
      * @param Context|null $context
      * @return static
      */

@@ -8,7 +8,7 @@ interface ParameterAwareInterface
      * @param string $key
      * @return bool
      */
-    public function existParam($key);
+    public function hasParam($key);
 
     /**
      * @param string $name

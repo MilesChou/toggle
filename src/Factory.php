@@ -3,6 +3,7 @@
 namespace MilesChou\Toggle;
 
 use MilesChou\Toggle\Processors\Processor;
+use MilesChou\Toggle\Providers\DataProvider;
 use Noodlehaus\Config;
 
 class Factory
@@ -18,23 +19,36 @@ class Factory
      */
     public function createFromArray(array $config)
     {
-        $instance = new Toggle();
+        $toggle = new Toggle();
 
         if (empty($config)) {
-            return $instance;
+            return $toggle;
         }
 
         foreach ($config as $name => $item) {
             $item = $this->normalizeConfigItem($item);
 
-            $instance->create($name, $item['processor'], $item['params']);
+            $toggle->create($name, $item['processor'], $item['params']);
 
             if (static::hasStaticResult($item)) {
-                $instance->feature($name)->setStaticResult($item['staticResult']);
+                $toggle->feature($name)->result($item['staticResult']);
             }
         }
 
-        return $instance;
+        return $toggle;
+    }
+
+    /**
+     * @param DataProvider $dataProvider
+     * @return Toggle
+     */
+    public function createFromDataProvider(DataProvider $dataProvider)
+    {
+        return $this->createFromArray(array_map(function ($feature) {
+            $feature['processor'] = $feature['return'];
+
+            return $feature;
+        }, $dataProvider->toArray()));
     }
 
     /**
@@ -47,6 +61,21 @@ class Factory
         $config = (new Config($file))->all();
 
         return $this->createFromArray($config);
+    }
+
+    /**
+     * @param Toggle $toggle
+     * @param DataProvider|null $dataProvider
+     * @return DataProvider
+     */
+    public function transferToDataProvider(Toggle $toggle, DataProvider $dataProvider = null)
+    {
+        if (null === $dataProvider) {
+            $dataProvider = new DataProvider();
+        }
+
+        return $dataProvider
+            ->fill($toggle->all(), $toggle->getContext());
     }
 
     /**

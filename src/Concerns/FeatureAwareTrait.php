@@ -24,13 +24,11 @@ trait FeatureAwareTrait
      */
     public function add(Feature $feature)
     {
-        $name = $feature->getName();
-
-        if ($this->exist($name)) {
-            throw new RuntimeException("Feature '{$name}' is exist");
+        if ($this->has($feature)) {
+            throw new RuntimeException("Feature '{$feature->name()}' is exist");
         }
 
-        $this->features[$name] = $feature;
+        $this->features[$feature->name()] = $feature;
 
         return $this;
     }
@@ -54,19 +52,6 @@ trait FeatureAwareTrait
         }
 
         return $this;
-    }
-
-    /**
-     * @param Feature|string $name
-     * @return bool
-     */
-    public function exist($name)
-    {
-        if ($name instanceof Feature) {
-            $name = $name->getName();
-        }
-
-        return array_key_exists($name, $this->features);
     }
 
     /**
@@ -101,22 +86,26 @@ trait FeatureAwareTrait
     }
 
     /**
-     * @param string $name
+     * @param Feature|string $name
      * @return bool
      */
     public function has($name)
     {
+        if ($name instanceof Feature) {
+            $name = $name->name();
+        }
+
         return array_key_exists($name, $this->features);
     }
 
     /**
      * @param string $name
-     * @return Feature
+     * @return Feature|string
      * @throws InvalidArgumentException
      */
     public function get($name)
     {
-        if (!$this->exist($name)) {
+        if (!$this->has($name)) {
             throw new RuntimeException("Feature '{$name}' is not found");
         }
 

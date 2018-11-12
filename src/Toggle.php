@@ -4,8 +4,6 @@ namespace MilesChou\Toggle;
 
 use MilesChou\Toggle\Concerns\ContextAwareTrait;
 use MilesChou\Toggle\Concerns\FeatureAwareTrait;
-use MilesChou\Toggle\Contracts\ProviderInterface;
-use MilesChou\Toggle\Providers\DataProvider;
 use MilesChou\Toggle\Providers\ResultProvider;
 use RuntimeException;
 
@@ -25,38 +23,6 @@ class Toggle
     private $strict = false;
 
     /**
-     * @param Context|null $context
-     * @param DataProvider|null $dataProvider
-     * @return ProviderInterface
-     */
-    public function export(Context $context = null, DataProvider $dataProvider = null)
-    {
-        if (null === $dataProvider) {
-            $dataProvider = new DataProvider();
-        }
-
-        $context = $this->resolveContext($context);
-
-        return $dataProvider
-            ->setFeatures($this->features, $context);
-    }
-
-    /**
-     * @param DataProvider $dataProvider
-     * @param bool $clean
-     */
-    public function import(DataProvider $dataProvider, $clean = true)
-    {
-        if ($clean) {
-            $this->flush();
-        }
-
-        foreach ($dataProvider->getFeatures() as $name => $feature) {
-            $this->create($name, $feature['return'], $feature['params']);
-        }
-    }
-
-    /**
      * @param string $name
      * @param null|Context $context
      * @return bool
@@ -73,8 +39,8 @@ class Toggle
 
         $feature = $this->feature($name);
 
-        if ($feature->hasStaticResult()) {
-            return $feature->staticResult();
+        if ($feature->hasResult()) {
+            return $feature->result();
         }
 
         if (isset($this->preserveResult[$name])) {
@@ -105,7 +71,7 @@ class Toggle
             ]);
         }
 
-        $this->preserveResult = array_merge($this->preserveResult, $resultProvider->getFeatures());
+        $this->preserveResult = array_merge($this->preserveResult, $resultProvider->toArray());
 
         return $resultProvider;
     }
@@ -135,16 +101,18 @@ class Toggle
     /**
      * When $feature on, then call $callable
      *
-     * @param string $feature
+     * @param string $name
      * @param callable $callable
      * @param Context|null $context
      *
      * @return static
      */
-    public function when($feature, callable $callable, Context $context = null)
+    public function when($name, callable $callable, Context $context = null)
     {
+        $feature = $this->get($name);
+
         if ($this->isActive($feature, $context)) {
-            $callable();
+            $callable($this->resolveContext($context), $feature->getParams());
         }
 
         return $this;

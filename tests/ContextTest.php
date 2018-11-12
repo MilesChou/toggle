@@ -28,9 +28,9 @@ class ContextTest extends \PHPUnit_Framework_TestCase
     {
         $this->target->setParam('exist', 'whatever');
 
-        $this->assertTrue($this->target->existParam('exist'));
+        $this->assertTrue($this->target->hasParam('exist'));
         $this->assertTrue(isset($this->target->exist));
-        $this->assertFalse($this->target->existParam('notExist'));
+        $this->assertFalse($this->target->hasParam('notExist'));
         $this->assertFalse(isset($this->target->notExist));
     }
 }

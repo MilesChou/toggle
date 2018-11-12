@@ -11,21 +11,12 @@ trait ParameterAwareTrait
 
     /**
      * @param string $name
-     * @return bool
-     */
-    public function existParam($name)
-    {
-        return isset($this->params[$name]);
-    }
-
-    /**
-     * @param string $name
      * @param mixed|null $default
      * @return mixed
      */
     public function getParam($name, $default = null)
     {
-        return $this->existParam($name) ? $this->params[$name] : $default;
+        return $this->hasParam($name) ? $this->params[$name] : $default;
     }
 
     /**
@@ -34,6 +25,15 @@ trait ParameterAwareTrait
     public function getParams()
     {
         return $this->params;
+    }
+
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function hasParam($name)
+    {
+        return isset($this->params[$name]);
     }
 
     /**

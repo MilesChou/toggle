@@ -76,6 +76,6 @@ INPUT_DATA;
 
         $actual = $this->target->deserialize($input, new DataProvider());
 
-        $this->assertSame($expectedFeature, $actual->getFeatures());
+        $this->assertSame($expectedFeature, $actual->toArray());
     }
 }

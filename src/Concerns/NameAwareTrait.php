@@ -10,20 +10,17 @@ trait NameAwareTrait
     private $name;
 
     /**
-     * @return string
+     * @param null|string $name
+     * @return string|static
      */
-    public function getName()
+    public function name($name = null)
     {
-        return $this->name;
-    }
+        if (null === $name) {
+            return $this->name;
+        }
 
-    /**
-     * @param string $name
-     * @return static
-     */
-    public function setName($name)
-    {
         $this->name = $name;
+
         return $this;
     }
 }

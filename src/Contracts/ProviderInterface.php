@@ -16,17 +16,5 @@ interface ProviderInterface
     /**
      * @return array
      */
-    public function getFeatures();
-
-    /**
-     * @param array $features
-     * @param Context|null $context
-     * @return static
-     */
-    public function setFeatures(array $features, $context = null);
-
-    /**
-     * @return array
-     */
     public function toArray();
 }
