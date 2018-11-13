@@ -66,9 +66,7 @@ class Toggle
     public function result(ResultProvider $resultProvider = null)
     {
         if (null === $resultProvider) {
-            return new ResultProvider([
-                'feature' => $this->preserveResult,
-            ]);
+            return new ResultProvider($this->preserveResult);
         }
 
         $this->preserveResult = array_merge($this->preserveResult, $resultProvider->toArray());
