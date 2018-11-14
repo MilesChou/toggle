@@ -37,6 +37,28 @@ trait ParameterAwareTrait
     }
 
     /**
+     * @param mixed|null $key
+     * @param mixed|null $value
+     * @return mixed
+     */
+    public function params($key = null, $value = null)
+    {
+        if (null === $key) {
+            return $this->getParams();
+        }
+
+        if (is_array($key)) {
+            return $this->setParams($key);
+        }
+
+        if (null === $value) {
+            return $this->getParam($key);
+        }
+
+        return $this->setParam($key, $value);
+    }
+
+    /**
      * @param string $name
      * @param mixed $value
      * @return static

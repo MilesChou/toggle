@@ -13,23 +13,27 @@ trait ProcessorAwareTrait
     private $processor;
 
     /**
-     * @return callable
+     * @param mixed $processor
      */
-    public function getProcessor()
-    {
-        return $this->processor;
-    }
-
-    /**
-     * @param callable|null $processor
-     * @return $this
-     * @throws InvalidArgumentException
-     */
-    public function setProcessor($processor)
+    protected static function assertProcessor($processor)
     {
         if (!is_callable($processor)) {
             throw new InvalidArgumentException('Processor must be callable');
         }
+    }
+
+    /**
+     * @param callable|null $processor
+     * @return callable|static
+     * @throws InvalidArgumentException
+     */
+    public function processor($processor = null)
+    {
+        if (null === $processor) {
+            return $this->processor;
+        }
+
+        static::assertProcessor($processor);
 
         $this->processor = $processor;
 
@@ -48,7 +52,7 @@ trait ProcessorAwareTrait
             $context = Context::create();
         }
 
-        $result = call_user_func($this->getProcessor(), $context, $parameters);
+        $result = call_user_func($this->processor(), $context, $parameters);
 
         if (!$this->isValidProcessedResult($result)) {
             throw new InvalidArgumentException('Processed result is not valid');

@@ -14,6 +14,6 @@ class ProcessorAwareTraitTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('InvalidArgumentException', 'Processor must be callable');
 
         $target = Feature::create();
-        $target->setProcessor('not a callback');
+        $target->processor('not a callback');
     }
 }

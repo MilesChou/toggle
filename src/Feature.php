@@ -39,19 +39,21 @@ class Feature implements FeatureInterface, ParameterAwareInterface, ResultInterf
             $processor = Processor::retrieve($processor);
         }
 
+        static::assertProcessor($processor);
+
         return new static($processor, $params, $staticResult);
     }
 
     /**
      * @param callable $processor The callable will return bool
      * @param array $params
-     * @param bool|null $staticResult
+     * @param bool|null $result
      */
-    public function __construct($processor, array $params = [], $staticResult = null)
+    public function __construct(callable $processor, array $params = [], $result = null)
     {
-        $this->setProcessor($processor);
-        $this->setParams($params);
-        $this->result($staticResult);
+        $this->processor($processor)
+            ->params($params)
+            ->result($result);
     }
 
     /**

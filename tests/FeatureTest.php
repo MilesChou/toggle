@@ -22,31 +22,6 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
         $target->isActive();
     }
 
-    public function invalidProcessor()
-    {
-        return [
-            [true],
-            [false],
-            [123],
-            [3.14],
-            [''],
-            ['str'],
-            [[]],
-            [new \stdClass()],
-        ];
-    }
-
-    /**
-     * @test
-     * @dataProvider invalidProcessor
-     */
-    public function shouldThrowExceptionWhenNewWithInvalidProcessor($invalidProcessor)
-    {
-        $this->setExpectedException(InvalidArgumentException::class, 'Processor must be callable');
-
-        new Feature($invalidProcessor);
-    }
-
     /**
      * @test
      */
