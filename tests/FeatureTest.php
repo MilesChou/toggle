@@ -15,7 +15,7 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(InvalidArgumentException::class);
 
-        $target = Feature::create('whatever', function () {
+        $target = Feature::create(function () {
             return null;
         });
 
@@ -44,7 +44,7 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(InvalidArgumentException::class, 'Processor must be callable');
 
-        new Feature('whatever', $invalidProcessor);
+        new Feature($invalidProcessor);
     }
 
     /**
@@ -52,7 +52,7 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnFalseDefault()
     {
-        $target = Feature::create('default-off');
+        $target = Feature::create();
 
         $this->assertFalse($target->isActive());
     }
@@ -62,7 +62,7 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnDifferentResultWhenGivenDifferentContext()
     {
-        $target = Feature::create('whatever', function (Context $context) {
+        $target = Feature::create(function (Context $context) {
             $id = $context->getParam('id');
 
             return 0 === $id % 2;

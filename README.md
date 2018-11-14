@@ -41,7 +41,7 @@ use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Toggle;
 
 $toggle = new Toggle();
-$toggle->add('f1', Feature::create('f1', true));
+$toggle->add('f1', Feature::create(true));
 
 // Will return true
 $toggle->isActive('f1');

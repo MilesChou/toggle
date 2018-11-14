@@ -65,7 +65,7 @@ trait FeatureAwareTrait
      */
     public function create($name, $processor = null, array $params = [], $staticResult = null)
     {
-        return $this->add($name, Feature::create($name, $processor, $params));
+        return $this->add($name, Feature::create($processor, $params));
     }
 
     /**
@@ -94,10 +94,6 @@ trait FeatureAwareTrait
      */
     public function has($name)
     {
-        if ($name instanceof Feature) {
-            $name = $name->name();
-        }
-
         return array_key_exists($name, $this->features);
     }
 

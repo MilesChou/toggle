@@ -29,7 +29,7 @@ class ToggleBench
      */
     public function benchFeatureIsActive()
     {
-        $target = Feature::create('fwhatever', function (Context $context) {
+        $target = Feature::create(function (Context $context) {
             $id = $context->getParam('id');
 
             return 0 === $id % 2;
