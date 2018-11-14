@@ -4,10 +4,13 @@ namespace MilesChou\Toggle;
 
 use MilesChou\Toggle\Concerns\ContextAwareTrait;
 use MilesChou\Toggle\Concerns\FeatureAwareTrait;
+use MilesChou\Toggle\Contracts\ContextInterface;
+use MilesChou\Toggle\Contracts\ProviderInterface;
+use MilesChou\Toggle\Contracts\ToggleInterface;
 use MilesChou\Toggle\Providers\ResultProvider;
 use RuntimeException;
 
-class Toggle
+class Toggle implements ToggleInterface
 {
     use ContextAwareTrait;
     use FeatureAwareTrait;
@@ -24,10 +27,10 @@ class Toggle
 
     /**
      * @param string $name
-     * @param null|Context $context
+     * @param ContextInterface|null $context
      * @return bool
      */
-    public function isActive($name, Context $context = null)
+    public function isActive($name, ContextInterface $context = null)
     {
         if (!$this->has($name)) {
             if ($this->strict) {
@@ -60,18 +63,16 @@ class Toggle
     /**
      * Import / export result data
      *
-     * @param ResultProvider|null $resultProvider
-     * @return ResultProvider
+     * @param ProviderInterface|null $result
+     * @return ProviderInterface|null
      */
-    public function result(ResultProvider $resultProvider = null)
+    public function result(ProviderInterface $result = null)
     {
-        if (null === $resultProvider) {
+        if (null === $result) {
             return new ResultProvider($this->preserveResult);
         }
 
-        $this->preserveResult = array_merge($this->preserveResult, $resultProvider->toArray());
-
-        return $resultProvider;
+        $this->preserveResult = array_merge($this->preserveResult, $result->toArray());
     }
 
     /**
@@ -101,11 +102,11 @@ class Toggle
      *
      * @param string $name
      * @param callable $callable
-     * @param Context|null $context
+     * @param ContextInterface|null $context
      *
      * @return static
      */
-    public function when($name, callable $callable, Context $context = null)
+    public function when($name, callable $callable, ContextInterface $context = null)
     {
         $feature = $this->get($name);
 

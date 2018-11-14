@@ -2,17 +2,17 @@
 
 namespace MilesChou\Toggle\Concerns;
 
-use MilesChou\Toggle\Context;
+use MilesChou\Toggle\Contracts\ContextInterface;
 
 trait ContextAwareTrait
 {
     /**
-     * @var Context|null
+     * @var ContextInterface|null
      */
     private $context;
 
     /**
-     * @return Context|null
+     * @return ContextInterface|null
      */
     public function getContext()
     {
@@ -20,7 +20,7 @@ trait ContextAwareTrait
     }
 
     /**
-     * @param Context|null $context
+     * @param ContextInterface|null $context
      * @return static
      */
     public function setContext($context)
@@ -31,8 +31,8 @@ trait ContextAwareTrait
     }
 
     /**
-     * @param Context|null $context
-     * @return Context|null
+     * @param ContextInterface|null $context
+     * @return ContextInterface|null
      */
     protected function resolveContext($context)
     {

@@ -3,13 +3,14 @@
 namespace MilesChou\Toggle\Concerns;
 
 use InvalidArgumentException;
+use MilesChou\Toggle\Contracts\FeatureInterface;
 use MilesChou\Toggle\Feature;
 use RuntimeException;
 
 trait FeatureAwareTrait
 {
     /**
-     * @var Feature[]
+     * @var FeatureInterface[]
      */
     private $features = [];
 
@@ -19,16 +20,17 @@ trait FeatureAwareTrait
     private $preserveResult = [];
 
     /**
-     * @param Feature $feature
+     * @param string $name
+     * @param FeatureInterface $feature
      * @return static
      */
-    public function add(Feature $feature)
+    public function add($name, FeatureInterface $feature)
     {
-        if ($this->has($feature)) {
-            throw new RuntimeException("Feature '{$feature->name()}' is exist");
+        if ($this->has($name)) {
+            throw new RuntimeException("Feature '{$name}' is exist");
         }
 
-        $this->features[$feature->name()] = $feature;
+        $this->features[$name] = $feature;
 
         return $this;
     }
@@ -47,8 +49,8 @@ trait FeatureAwareTrait
      */
     public function append(array $features)
     {
-        foreach ($features as $feature) {
-            $this->add($feature);
+        foreach ($features as $name => $feature) {
+            $this->add($name, $feature);
         }
 
         return $this;
@@ -58,11 +60,12 @@ trait FeatureAwareTrait
      * @param string $name
      * @param callable|bool|null $processor
      * @param array $params
+     * @param bool|null $staticResult
      * @return static
      */
-    public function create($name, $processor = null, array $params = [])
+    public function create($name, $processor = null, array $params = [], $staticResult = null)
     {
-        return $this->add(Feature::create($name, $processor, $params));
+        return $this->add($name, Feature::create($name, $processor, $params));
     }
 
     /**
@@ -121,14 +124,34 @@ trait FeatureAwareTrait
     }
 
     /**
-     * @param array $features
+     * @param string $name
+     * @param FeatureInterface $feature
      * @return static
      */
-    public function set(array $features)
+    public function set($name, FeatureInterface $feature)
     {
-        $this->flush();
-        $this->append($features);
+        $this->assertFeatureExist($name);
+
+        $this->features[$name] = $feature;
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function names()
+    {
+        return array_keys($this->features);
+    }
+
+    /**
+     * @param $name
+     */
+    private function assertFeatureExist($name)
+    {
+        if (!$this->has($name)) {
+            throw new RuntimeException("Feature '{$name}' is not found");
+        }
     }
 }

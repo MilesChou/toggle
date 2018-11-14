@@ -3,9 +3,10 @@
 namespace MilesChou\Toggle;
 
 use MilesChou\Toggle\Concerns\ParameterAwareTrait;
+use MilesChou\Toggle\Contracts\ContextInterface as ContextContract;
 use MilesChou\Toggle\Contracts\ParameterAwareInterface;
 
-class Context implements ParameterAwareInterface
+class Context implements ContextContract, ParameterAwareInterface
 {
     use ParameterAwareTrait {
         getParam as get;
