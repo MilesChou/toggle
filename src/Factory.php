@@ -28,11 +28,7 @@ class Factory
         foreach ($config as $name => $item) {
             $item = $this->normalizeConfigItem($item);
 
-            $toggle->create($name, $item['processor'], $item['params']);
-
-            if (static::hasStaticResult($item)) {
-                $toggle->feature($name)->result($item['staticResult']);
-            }
+            $toggle->create($name, $item['processor'], $item['params'], $item['staticResult']);
         }
 
         return $toggle;
@@ -90,6 +86,10 @@ class Factory
 
         if (!isset($config['params'])) {
             $config['params'] = [];
+        }
+
+        if (!static::hasStaticResult($config)) {
+            $config['staticResult'] = null;
         }
 
         $config['processor'] = $this->resolveProcessorConfig($config['processor']);

@@ -65,7 +65,7 @@ trait FeatureAwareTrait
      */
     public function create($name, $processor = null, array $params = [], $staticResult = null)
     {
-        return $this->add($name, Feature::create($processor, $params));
+        return $this->add($name, Feature::create($processor, $params, $staticResult));
     }
 
     /**

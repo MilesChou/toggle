@@ -19,9 +19,10 @@ class Feature implements FeatureInterface, ParameterAwareInterface, ResultInterf
     /**
      * @param callable|array|bool|null $processor
      * @param array $params
+     * @param bool|null $staticResult
      * @return static
      */
-    public static function create($processor = null, array $params = [])
+    public static function create($processor = null, array $params = [], $staticResult = null)
     {
         // default is false
         if (null === $processor) {
@@ -38,17 +39,19 @@ class Feature implements FeatureInterface, ParameterAwareInterface, ResultInterf
             $processor = Processor::retrieve($processor);
         }
 
-        return new static($processor, $params);
+        return new static($processor, $params, $staticResult);
     }
 
     /**
      * @param callable $processor The callable will return bool
      * @param array $params
+     * @param bool|null $staticResult
      */
-    public function __construct($processor, array $params = [])
+    public function __construct($processor, array $params = [], $staticResult = null)
     {
         $this->setProcessor($processor);
         $this->setParams($params);
+        $this->result($staticResult);
     }
 
     /**
