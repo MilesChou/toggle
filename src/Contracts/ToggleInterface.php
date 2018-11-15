@@ -78,13 +78,9 @@ interface ToggleInterface
     public function set($name, FeatureInterface $feature);
 
     /**
-     * When $feature on, then call $callable
-     *
      * @param string $name
-     * @param callable $callable
-     * @param ContextInterface|null $context
      *
-     * @return static
+     * @return RunnerInterface
      */
-    public function when($name, callable $callable, ContextInterface $context = null);
+    public function when($name);
 }

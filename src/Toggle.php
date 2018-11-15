@@ -98,22 +98,11 @@ class Toggle implements ToggleInterface
     }
 
     /**
-     * When $feature on, then call $callable
-     *
      * @param string $name
-     * @param callable $callable
-     * @param ContextInterface|null $context
-     *
-     * @return static
+     * @return Runner
      */
-    public function when($name, callable $callable, ContextInterface $context = null)
+    public function when($name)
     {
-        $feature = $this->get($name);
-
-        if ($this->isActive($feature, $context)) {
-            $callable($this->resolveContext($context), $feature->getParams());
-        }
-
-        return $this;
+        return new Runner($this->feature($name));
     }
 }

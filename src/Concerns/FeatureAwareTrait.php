@@ -69,14 +69,17 @@ trait FeatureAwareTrait
     }
 
     /**
-     * Alias of getFeature()
-     *
      * @param string $name
-     * @return Feature
+     * @return FeatureInterface
+     * @throws InvalidArgumentException
      */
     public function feature($name)
     {
-        return $this->get($name);
+        if (!$this->has($name)) {
+            throw new RuntimeException("Feature '{$name}' is not found");
+        }
+
+        return $this->features[$name];
     }
 
     /**
@@ -95,20 +98,6 @@ trait FeatureAwareTrait
     public function has($name)
     {
         return array_key_exists($name, $this->features);
-    }
-
-    /**
-     * @param string $name
-     * @return Feature|string
-     * @throws InvalidArgumentException
-     */
-    public function get($name)
-    {
-        if (!$this->has($name)) {
-            throw new RuntimeException("Feature '{$name}' is not found");
-        }
-
-        return $this->features[$name];
     }
 
     /**

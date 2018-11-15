@@ -3,6 +3,7 @@
 namespace Tests;
 
 use MilesChou\Toggle\Context;
+use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Toggle;
 
 class ToggleTest extends \PHPUnit_Framework_TestCase
@@ -131,5 +132,39 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($this->target->isActive('f1', Context::create(['id' => 2])));
         $this->assertFalse($this->target->isActive('f1', Context::create(['id' => 3])));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldBeWorkWhenCallWhenIsActive()
+    {
+        $this->target->create('f1', true, ['bar' => 'a']);
+
+        $context = new Context(['foo' => 'b']);
+
+        $this->target->when('f1')
+            ->isActive($context)
+            ->then(function (Feature $feature, Context $context) {
+                $this->assertSame('a', $feature->params('bar'));
+                $this->assertSame('b', $context->get('foo'));
+            });
+    }
+
+    /**
+     * @test
+     */
+    public function shouldBeWorkWhenCallWhenIsDeactivate()
+    {
+        $this->target->create('f1', false, ['bar' => 'a']);
+
+        $context = new Context(['foo' => 'b']);
+
+        $this->target->when('f1')
+            ->isInactive($context)
+            ->then(function (Feature $feature, Context $context) {
+                $this->assertSame('a', $feature->params('bar'));
+                $this->assertSame('b', $context->get('foo'));
+            });
     }
 }
