@@ -2,12 +2,10 @@
 
 namespace Tests;
 
-use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Contracts\ProviderInterface;
 use MilesChou\Toggle\Factory;
 use MilesChou\Toggle\Processors\Bucket;
 use MilesChou\Toggle\Providers\DataProvider;
-use MilesChou\Toggle\Providers\ResultProvider;
 use MilesChou\Toggle\Toggle;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
@@ -67,9 +65,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(Toggle::class, $actual);
         $this->assertFalse($actual->isActive('f1'));
 
-        $actual->result(
-            ResultProvider::create()->feature('f1', true)
-        );
+        $actual->result([
+            'f1' => true,
+        ]);
 
         $this->assertFalse($actual->isActive('f1'));
     }
@@ -146,9 +144,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         ];
 
         $toggle = (new Toggle())
-            ->setContext(Context::create(['return' => false]))
-            ->create('f1', function (Context $context) {
-                return $context->getParam('return');
+            ->setContext(['return' => false])
+            ->create('f1', function ($context) {
+                return $context['return'];
             });
 
         $actual = (new Factory())->transferToDataProvider($toggle);

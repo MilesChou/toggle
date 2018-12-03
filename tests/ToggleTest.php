@@ -107,14 +107,14 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnSameResultWhenIsActiveWithDifferentContext()
     {
-        $this->target->create('f1', function (Context $context) {
-            $id = $context->getParam('id');
+        $this->target->create('f1', function ($context) {
+            $id = $context['id'];
 
             return 0 === $id % 2;
         });
 
-        $this->assertTrue($this->target->isActive('f1', Context::create(['id' => 2])));
-        $this->assertTrue($this->target->isActive('f1', Context::create(['id' => 3])));
+        $this->assertTrue($this->target->isActive('f1', ['id' => 2]));
+        $this->assertTrue($this->target->isActive('f1', ['id' => 3]));
     }
 
     /**
@@ -122,16 +122,16 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnDifferentResultWhenIsActiveWithDifferentContextWithoutPreserve()
     {
-        $this->target->create('f1', function (Context $context) {
-            $id = $context->getParam('id');
+        $this->target->create('f1', function ($context) {
+            $id = $context['id'];
 
             return 0 === $id % 2;
         });
 
         $this->target->setPreserve(false);
 
-        $this->assertTrue($this->target->isActive('f1', Context::create(['id' => 2])));
-        $this->assertFalse($this->target->isActive('f1', Context::create(['id' => 3])));
+        $this->assertTrue($this->target->isActive('f1', ['id' => 2]));
+        $this->assertFalse($this->target->isActive('f1', ['id' => 3]));
     }
 
     /**
@@ -141,14 +141,10 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
     {
         $this->target->create('f1', true, ['bar' => 'a']);
 
-        $context = new Context(['foo' => 'b']);
-
-        $this->target->when('f1')
-            ->isActive($context)
-            ->then(function (Feature $feature, Context $context) {
-                $this->assertSame('a', $feature->params('bar'));
-                $this->assertSame('b', $context->get('foo'));
-            });
+        $this->target->when('f1', function (Feature $feature, $context) {
+            $this->assertSame('a', $feature->params('bar'));
+            $this->assertSame('b', $context['foo']);
+        }, null, ['foo' => 'b']);
     }
 
     /**
@@ -158,13 +154,9 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
     {
         $this->target->create('f1', false, ['bar' => 'a']);
 
-        $context = new Context(['foo' => 'b']);
-
-        $this->target->when('f1')
-            ->isInactive($context)
-            ->then(function (Feature $feature, Context $context) {
-                $this->assertSame('a', $feature->params('bar'));
-                $this->assertSame('b', $context->get('foo'));
-            });
+        $this->target->when('f1', function (Feature $feature, $context) {
+            $this->assertSame('a', $feature->params('bar'));
+            $this->assertSame('b', $context['foo']);
+        }, null, ['foo' => 'b']);
     }
 }

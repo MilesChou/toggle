@@ -2,13 +2,24 @@
 
 namespace MilesChou\Toggle\Contracts;
 
-use MilesChou\Toggle\Context;
-
 interface FeatureInterface
 {
     /**
-     * @param Context|null $context
+     * @param array $context
      * @return bool
      */
-    public function isActive($context = null);
+    public function isActive(array $context = []);
+
+    /**
+     * @param array|string|null $key
+     * @param mixed|null $value
+     * @return mixed|static
+     */
+    public function params($key = null, $value = null);
+
+    /**
+     * @param callable|null $processor
+     * @return callable|static
+     */
+    public function processor($processor = null);
 }

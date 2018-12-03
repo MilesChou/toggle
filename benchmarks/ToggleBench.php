@@ -35,7 +35,7 @@ class ToggleBench
             return 0 === $id % 2;
         });
 
-        $target->isActive(Context::create(['id' => 1]));
-        $target->isActive(Context::create(['id' => 2]));
+        $target->isActive(['id' => 1]);
+        $target->isActive(['id' => 2]);
     }
 }

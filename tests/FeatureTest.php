@@ -37,13 +37,13 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnDifferentResultWhenGivenDifferentContext()
     {
-        $target = Feature::create(function (Context $context) {
-            $id = $context->getParam('id');
+        $target = Feature::create(function ($context) {
+            $id = $context['id'];
 
             return 0 === $id % 2;
         });
 
-        $this->assertFalse($target->isActive(Context::create(['id' => 1])));
-        $this->assertTrue($target->isActive(Context::create(['id' => 2])));
+        $this->assertFalse($target->isActive(['id' => 1]));
+        $this->assertTrue($target->isActive(['id' => 2]));
     }
 }

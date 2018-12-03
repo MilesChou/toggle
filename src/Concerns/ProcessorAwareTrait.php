@@ -3,7 +3,6 @@
 namespace MilesChou\Toggle\Concerns;
 
 use InvalidArgumentException;
-use MilesChou\Toggle\Context;
 
 trait ProcessorAwareTrait
 {
@@ -41,17 +40,13 @@ trait ProcessorAwareTrait
     }
 
     /**
-     * @param Context|null $context
+     * @param array $context
      * @param array $parameters
      * @return mixed
      * @throws InvalidArgumentException
      */
-    protected function process($context, array $parameters = [])
+    protected function process(array $context, array $parameters = [])
     {
-        if (null === $context) {
-            $context = Context::create();
-        }
-
         $result = call_user_func($this->processor(), $context, $parameters);
 
         if (!$this->isValidProcessedResult($result)) {

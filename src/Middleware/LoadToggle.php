@@ -72,7 +72,9 @@ class LoadToggle
                 $value = $this->decryptCookieValue($value);
             }
 
-            $this->toggle->result($jsonSerializer->deserialize($value, new ResultProvider()));
+            $data = $jsonSerializer->deserialize($value, new ResultProvider());
+
+            $this->toggle->result($data->toArray());
         }
 
         /** @var Response $response */

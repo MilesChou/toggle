@@ -57,10 +57,10 @@ class Feature implements FeatureInterface, ParameterAwareInterface, ResultInterf
     }
 
     /**
-     * @param Context|null $context
+     * @param array $context
      * @return bool
      */
-    public function isActive($context = null)
+    public function isActive(array $context = [])
     {
         return $this->process($context, $this->getParams());
     }

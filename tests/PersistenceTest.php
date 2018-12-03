@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use MilesChou\Toggle\Providers\ResultProvider;
 use MilesChou\Toggle\Toggle;
 
 class PersistenceTest extends \PHPUnit_Framework_TestCase
@@ -30,10 +29,9 @@ class PersistenceTest extends \PHPUnit_Framework_TestCase
         $this->target->create('foo');
         $this->target->feature('foo')->result(false);
 
-        $data = ResultProvider::create()
-            ->feature('foo', true);
-
-        $this->target->result($data);
+        $this->target->result([
+            'foo' => true,
+        ]);
 
         $this->assertFalse($this->target->isActive('foo'));
     }

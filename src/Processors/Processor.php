@@ -3,15 +3,14 @@
 namespace MilesChou\Toggle\Processors;
 
 use InvalidArgumentException;
-use MilesChou\Toggle\Context;
 
 abstract class Processor
 {
     /**
-     * @param Context|null $context
+     * @param array $context
      * @return mixed
      */
-    final public function __invoke(Context $context = null)
+    final public function __invoke(array $context = [])
     {
         return $this->handle($context);
     }
@@ -47,7 +46,7 @@ abstract class Processor
     abstract public function toArray();
 
     /**
-     * @param Context $context
+     * @param array $context
      * @return mixed
      */
     abstract protected function handle($context);
