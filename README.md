@@ -102,25 +102,6 @@ $toggle->create('f3', function($context, array $params) {
 }, ['key' => 'foo']);
 ```
 
-### Serializer
-
-Sometimes, we should store the toggle state in somewhere. Using `Factory::transferToDataProvider()` to serialize and `Factory::createFromDataProvider()` to restore.
-
-```php
-<?php
-
-use MilesChou\Toggle\Factory;
-use MilesChou\Toggle\Serializers\JsonSerializer;
-
-// $dataProvider just like DTO.
-$dataProvider = (new Factory())->transferToDataProvider($toggle);
-
-// $str is JSON, default. 
-$str = (new JsonSerializer())->serialize($dataProvider);
-
-// store $str in cache / stroage / etc.
-```
-
 ### Control Structure
 
 This snippet is like `if` / `switch` structure:

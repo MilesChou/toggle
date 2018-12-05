@@ -2,7 +2,6 @@
 
 namespace Tests\Serializers;
 
-use MilesChou\Toggle\Providers\DataProvider;
 use MilesChou\Toggle\Serializers\YamlSerializer;
 
 class YamlSerializerTest extends \PHPUnit_Framework_TestCase

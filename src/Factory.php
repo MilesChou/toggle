@@ -3,7 +3,6 @@
 namespace MilesChou\Toggle;
 
 use MilesChou\Toggle\Processors\Processor;
-use MilesChou\Toggle\Providers\DataProvider;
 use Noodlehaus\Config;
 
 class Factory
@@ -35,19 +34,6 @@ class Factory
     }
 
     /**
-     * @param DataProvider $dataProvider
-     * @return Toggle
-     */
-    public function createFromDataProvider(DataProvider $dataProvider)
-    {
-        return $this->createFromArray(array_map(function ($feature) {
-            $feature['processor'] = $feature['return'];
-
-            return $feature;
-        }, $dataProvider->toArray()));
-    }
-
-    /**
      * @param string $file
      * @return Toggle
      * @throws \Noodlehaus\Exception\EmptyDirectoryException
@@ -57,21 +43,6 @@ class Factory
         $config = (new Config($file))->all();
 
         return $this->createFromArray($config);
-    }
-
-    /**
-     * @param Toggle $toggle
-     * @param DataProvider|null $dataProvider
-     * @return DataProvider
-     */
-    public function transferToDataProvider(Toggle $toggle, DataProvider $dataProvider = null)
-    {
-        if (null === $dataProvider) {
-            $dataProvider = new DataProvider();
-        }
-
-        return $dataProvider
-            ->fill($toggle->all(), $toggle->getContext());
     }
 
     /**

@@ -2,7 +2,6 @@
 
 namespace Tests\Serializers;
 
-use MilesChou\Toggle\Providers\DataProvider;
 use MilesChou\Toggle\Serializers\JsonSerializer;
 
 class JsonSerializerTest extends \PHPUnit_Framework_TestCase

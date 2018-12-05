@@ -2,7 +2,6 @@
 
 namespace MilesChou\Toggle\Serializers;
 
-use MilesChou\Toggle\Contracts\ProviderInterface;
 use MilesChou\Toggle\Contracts\SerializerInterface;
 
 /**
