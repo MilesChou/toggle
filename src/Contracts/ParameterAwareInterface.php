@@ -11,16 +11,9 @@ interface ParameterAwareInterface
     public function hasParam($key);
 
     /**
-     * @param string $name
-     * @param mixed|null $default
+     * @param mixed|null $key
+     * @param mixed|null $value
      * @return mixed
      */
-    public function getParam($name, $default = null);
-
-    /**
-     * @param string $key
-     * @param mixed $value
-     * @return static
-     */
-    public function setParam($key, $value);
+    public function params($key = null, $value = null);
 }
