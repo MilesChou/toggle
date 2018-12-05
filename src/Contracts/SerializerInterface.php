@@ -6,14 +6,13 @@ interface SerializerInterface
 {
     /**
      * @param string $str
-     * @param ProviderInterface $provider
-     * @return ProviderInterface
+     * @return array
      */
-    public function deserialize($str, ProviderInterface $provider);
+    public function deserialize($str);
 
     /**
-     * @param ProviderInterface $provider
+     * @param array $data
      * @return string
      */
-    public function serialize(ProviderInterface $provider);
+    public function serialize($data);
 }

@@ -6,7 +6,6 @@ use Closure;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Cookie\CookieJar;
-use MilesChou\Toggle\Providers\ResultProvider;
 use MilesChou\Toggle\Serializers\JsonSerializer;
 use MilesChou\Toggle\Toggle;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,7 +71,7 @@ class LoadToggle
                 $value = $this->decryptCookieValue($value);
             }
 
-            $data = $jsonSerializer->deserialize($value, new ResultProvider());
+            $data = $jsonSerializer->deserialize($value);
 
             $this->toggle->result($data->toArray());
         }

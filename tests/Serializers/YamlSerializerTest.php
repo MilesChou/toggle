@@ -36,7 +36,7 @@ feature:
 
 EXCEPTED_DATA;
 
-        $provider = new DataProvider([
+        $actual = $this->target->serialize([
             'feature' => [
                 'f1' => [
                     'return' => true,
@@ -46,8 +46,6 @@ EXCEPTED_DATA;
                 ],
             ]
         ]);
-
-        $actual = $this->target->serialize($provider);
 
         $this->assertSame($expected, $actual);
     }
@@ -74,8 +72,8 @@ INPUT_DATA;
             ],
         ];
 
-        $actual = $this->target->deserialize($input, new DataProvider());
+        $actual = $this->target->deserialize($input);
 
-        $this->assertSame($expectedFeature, $actual->toArray());
+        $this->assertSame($expectedFeature, $actual);
     }
 }

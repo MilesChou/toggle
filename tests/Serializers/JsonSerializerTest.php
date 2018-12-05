@@ -27,7 +27,7 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnSerializeResult()
     {
-        $provider = new DataProvider([
+        $actual = $this->target->serialize([
             'feature' => [
                 'f1' => [
                     'r' => true,
@@ -40,8 +40,6 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
                 ],
             ]
         ]);
-
-        $actual = $this->target->serialize($provider);
 
         $this->assertSame(
             '{"feature":{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}}}',
@@ -66,8 +64,8 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
-        $actual = $this->target->deserialize('{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}}', new DataProvider());
+        $actual = $this->target->deserialize('{"f1":{"r":true},"f2":{"r":false},"f3":{"r":false}}');
 
-        $this->assertSame($expectedFeature, $actual->toArray());
+        $this->assertSame($expectedFeature, $actual);
     }
 }

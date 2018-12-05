@@ -14,18 +14,16 @@ class JsonSerializer implements SerializerInterface
     /**
      * {@inheritdoc}
      */
-    public function deserialize($str, ProviderInterface $provider)
+    public function deserialize($str)
     {
-        $provider->fill(json_decode($str, true));
-
-        return $provider;
+        return json_decode($str, true);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function serialize(ProviderInterface $provider)
+    public function serialize($data)
     {
-        return json_encode($provider->toArray());
+        return json_encode($data);
     }
 }

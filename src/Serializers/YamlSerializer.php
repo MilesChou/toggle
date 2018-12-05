@@ -14,18 +14,16 @@ class YamlSerializer implements SerializerInterface
     /**
      * {@inheritdoc}
      */
-    public function deserialize($str, ProviderInterface $provider)
+    public function deserialize($str)
     {
-        $provider->fill(Yaml::parse($str));
-
-        return $provider;
+        return Yaml::parse($str);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function serialize(ProviderInterface $provider)
+    public function serialize($array)
     {
-        return Yaml::dump($provider->toArray(), 4, 2);
+        return Yaml::dump($array, 4, 2);
     }
 }
