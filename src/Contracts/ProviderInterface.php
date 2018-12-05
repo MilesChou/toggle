@@ -2,16 +2,14 @@
 
 namespace MilesChou\Toggle\Contracts;
 
-use MilesChou\Toggle\Context;
-
 interface ProviderInterface
 {
     /**
      * @param array $data
-     * @param Context|null $context
+     * @param array $context
      * @return static
      */
-    public function fill(array $data, $context = null);
+    public function fill(array $data, array $context = null);
 
     /**
      * @return array

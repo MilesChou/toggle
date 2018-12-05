@@ -68,16 +68,15 @@ Use callable with Context:
 ```php
 <?php
 
-use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Toggle;
 
 $toggle = new Toggle();
-$toggle->create('f1', function(Context $context) {
-    return $context->get('key', 'default');
+$toggle->create('f1', function($context) {
+    return $context['key'];
 });
 
 // Will return true
-$toggle->isActive('f1', Context::create(['return' => true]));
+$toggle->isActive('f1', ['return' => true]);
 ```
 
 ### Parameters
@@ -87,7 +86,6 @@ $toggle->isActive('f1', Context::create(['return' => true]));
 ```php
 <?php
 
-use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Toggle;
 
 $toggle = new Toggle();
@@ -96,11 +94,11 @@ $toggle->create('f1', true, ['name' => 'Miles']);
 $toggle->create('f2', false, ['name' => 'Chou']);
 
 // Will return 'Chou'
-$toggle->feature('f1')->getParam('name');
+$toggle->feature('f1')->params('name');
 
 // Also using in callback
-$toggle->create('f3', function(Context $context, array $params) {
-    return $params['key'] === $context->get('key', 'default');
+$toggle->create('f3', function($context, array $params) {
+    return $params['key'] === $context['key'];
 }, ['key' => 'foo']);
 ```
 

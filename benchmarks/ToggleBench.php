@@ -2,7 +2,6 @@
 
 namespace Benchmarks;
 
-use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Toggle;
 use PhpBench\Benchmark\Metadata\Annotations\Iterations;
@@ -29,8 +28,8 @@ class ToggleBench
      */
     public function benchFeatureIsActive()
     {
-        $target = Feature::create(function (Context $context) {
-            $id = $context->getParam('id');
+        $target = Feature::create(function ($context) {
+            $id = $context['id'];
 
             return 0 === $id % 2;
         });

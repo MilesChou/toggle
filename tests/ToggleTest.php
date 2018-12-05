@@ -2,7 +2,6 @@
 
 namespace Tests;
 
-use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Toggle;
 

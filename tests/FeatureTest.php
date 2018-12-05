@@ -3,7 +3,6 @@
 namespace Tests;
 
 use InvalidArgumentException;
-use MilesChou\Toggle\Context;
 use MilesChou\Toggle\Feature;
 
 class FeatureTest extends \PHPUnit_Framework_TestCase
