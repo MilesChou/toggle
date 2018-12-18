@@ -4,10 +4,8 @@ namespace MilesChou\Toggle;
 
 use MilesChou\Toggle\Concerns\ParameterAwareTrait;
 use MilesChou\Toggle\Concerns\ProcessorAwareTrait;
-use MilesChou\Toggle\Concerns\ResultAwareTrait;
 use MilesChou\Toggle\Contracts\FeatureInterface;
 use MilesChou\Toggle\Contracts\ParameterAwareInterface;
-use MilesChou\Toggle\Contracts\ResultInterface;
 use MilesChou\Toggle\Processors\Processor;
 
 class Feature implements FeatureInterface, ParameterAwareInterface

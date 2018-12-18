@@ -48,7 +48,7 @@ trait ParameterAwareTrait
         }
 
         if (is_array($key)) {
-            return $this->setParams($key);
+            return $this->setParams(array_merge($this->params, $key));
         }
 
         if (null === $value) {

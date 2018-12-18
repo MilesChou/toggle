@@ -4,6 +4,7 @@ namespace Tests;
 
 use InvalidArgumentException;
 use MilesChou\Toggle\Feature;
+use RuntimeException;
 
 class FeatureTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,7 +13,7 @@ class FeatureTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldThrowExceptionWhenDefaultWithCallableReturnNull()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->setExpectedException(RuntimeException::class);
 
         $target = Feature::create(function () {
             return null;

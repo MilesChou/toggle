@@ -3,6 +3,7 @@
 namespace MilesChou\Toggle\Concerns;
 
 use InvalidArgumentException;
+use RuntimeException;
 
 trait ProcessorAwareTrait
 {
@@ -43,14 +44,14 @@ trait ProcessorAwareTrait
      * @param array $context
      * @param array $parameters
      * @return mixed
-     * @throws InvalidArgumentException
+     * @throws RuntimeException
      */
     protected function process(array $context, array $parameters = [])
     {
         $result = call_user_func($this->processor(), $context, $parameters);
 
         if (!$this->isValidProcessedResult($result)) {
-            throw new InvalidArgumentException('Processed result is not valid');
+            throw new RuntimeException('Processed result is not valid');
         }
 
         return $result;
