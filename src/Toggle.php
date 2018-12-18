@@ -142,7 +142,9 @@ class Toggle implements ToggleInterface
 
         if ($this->isActive($name, $context)) {
             return $callback($feature, $context);
-        } elseif ($default) {
+        }
+
+        if ($default) {
             return $default($feature, $context);
         }
 
@@ -158,7 +160,9 @@ class Toggle implements ToggleInterface
 
         if ($this->isInactive($name, $context)) {
             return $callback($feature, $context);
-        } elseif ($default) {
+        }
+
+        if ($default) {
             return $default($feature, $context);
         }
 
