@@ -44,19 +44,6 @@ trait FeatureAwareTrait
     }
 
     /**
-     * @param array $features
-     * @return static
-     */
-    public function append(array $features)
-    {
-        foreach ($features as $name => $feature) {
-            $this->add($name, $feature);
-        }
-
-        return $this;
-    }
-
-    /**
      * @param string $name
      * @param callable|bool|null $processor
      * @param array $params
