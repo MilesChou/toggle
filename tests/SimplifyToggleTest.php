@@ -312,7 +312,7 @@ class SimplifyToggleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \MilesChou\Toggle\Simplify\Toggle::when
+     * @covers \MilesChou\Toggle\Toggle::when
      * @test
      */
     public function shouldBeWorkWhenCallWhen()
@@ -326,7 +326,7 @@ class SimplifyToggleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \MilesChou\Toggle\Simplify\Toggle::when
+     * @covers \MilesChou\Toggle\Toggle::when
      * @test
      */
     public function shouldBeWorkWhenCallWhenWithDefault()
@@ -345,7 +345,7 @@ class SimplifyToggleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \MilesChou\Toggle\Simplify\Toggle::when
+     * @covers \MilesChou\Toggle\Toggle::when
      * @test
      */
     public function shouldBeWorkWhenCallWhenWithoutDefault()
@@ -359,7 +359,7 @@ class SimplifyToggleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \MilesChou\Toggle\Simplify\Toggle::unless
+     * @covers \MilesChou\Toggle\Toggle::unless
      * @test
      */
     public function shouldBeWorkWhenCallUnless()
@@ -373,7 +373,7 @@ class SimplifyToggleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \MilesChou\Toggle\Simplify\Toggle::unless
+     * @covers \MilesChou\Toggle\Toggle::unless
      * @test
      */
     public function shouldBeWorkWhenCallUnlessWithDefault()
@@ -392,7 +392,7 @@ class SimplifyToggleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \MilesChou\Toggle\Simplify\Toggle::unless
+     * @covers \MilesChou\Toggle\Toggle::unless
      * @test
      */
     public function shouldBeWorkWhenCallUnlessWithoutDefault()
