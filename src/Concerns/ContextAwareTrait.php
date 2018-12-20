@@ -10,34 +10,17 @@ trait ContextAwareTrait
     private $context = [];
 
     /**
-     * @return array
+     * @param array|null $context
+     * @return mixed
      */
-    public function getContext()
+    public function context(array $context = null)
     {
-        return $this->context;
-    }
+        if (null === $context) {
+            return $this->context;
+        }
 
-    /**
-     * @param array $context
-     * @return static
-     */
-    public function setContext(array $context = [])
-    {
         $this->context = $context;
 
         return $this;
-    }
-
-    /**
-     * @param array|null $context
-     * @return array
-     */
-    protected function resolveContext(array $context = [])
-    {
-        if (empty($context)) {
-            $context = $this->context;
-        }
-
-        return $context;
     }
 }

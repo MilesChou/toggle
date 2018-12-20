@@ -136,6 +136,50 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function shouldReturnDifferentResultWhenIsActiveWithProvisionContext()
+    {
+        $this->target->setPreserve(false);
+
+        $this->target->create('f1', function ($context) {
+            $id = $context['id'];
+
+            return 0 === $id % 2;
+        });
+
+        $this->target->context(['id' => 2]);
+
+        $this->assertTrue($this->target->isActive('f1'));
+
+        $this->target->context(['id' => 3]);
+
+        $this->assertFalse($this->target->isActive('f1'));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldReplaceProvisionContextWhenUsingOnDemandContext()
+    {
+        $this->target->setPreserve(false);
+
+        $this->target->create('f1', function ($context) {
+            $id = $context['id'];
+
+            return 0 === $id % 2;
+        });
+
+        $this->target->context(['id' => 2]);
+
+        $this->assertFalse($this->target->isActive('f1', ['id' => 3]));
+
+        $this->target->context(['id' => 3]);
+
+        $this->assertTrue($this->target->isActive('f1', ['id' => 2]));
+    }
+
+    /**
+     * @test
+     */
     public function shouldBeWorkWhenCallWhenIsActive()
     {
         $this->target->create('f1', true, ['bar' => 'a']);

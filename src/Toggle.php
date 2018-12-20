@@ -45,7 +45,10 @@ class Toggle implements ToggleInterface
             return $this->preserveResult[$name];
         }
 
-        $context = $this->resolveContext($context);
+        if (empty($context)) {
+            $context = $this->context();
+        }
+
         $result = $feature->isActive($context);
 
         if ($this->preserve) {
