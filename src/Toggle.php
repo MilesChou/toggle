@@ -68,25 +68,7 @@ class Toggle implements ToggleInterface
      */
     public function params($name, $key = null, $default = null)
     {
-        $feature = $this->feature($name);
-
-        if (is_array($key)) {
-            $feature->params($key);
-
-            return $this;
-        }
-
-        $params = $feature->params();
-
-        if (null === $key) {
-            return $params;
-        }
-
-        if (array_key_exists($key, $params)) {
-            return $params[$key];
-        }
-
-        return $default;
+        return $this->feature($name)->params($key, $default);
     }
 
     /**
