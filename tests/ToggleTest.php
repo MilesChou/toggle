@@ -158,4 +158,25 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
             $this->assertSame('b', $context['foo']);
         }, null, ['foo' => 'b']);
     }
+
+    /**
+     * @test
+     */
+    public function shouldBeWorkWhenCallSet()
+    {
+        $this->target->set('f1', Feature::create(true));
+
+        $this->assertTrue($this->target->isActive('f1'));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldUsedLatestResultWhenCallSetTwice()
+    {
+        $this->target->set('f1', Feature::create(true));
+        $this->target->set('f1', Feature::create(false));
+
+        $this->assertFalse($this->target->isActive('f1'));
+    }
 }

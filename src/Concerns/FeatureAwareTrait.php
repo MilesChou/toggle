@@ -102,8 +102,6 @@ trait FeatureAwareTrait
      */
     public function set($name, FeatureInterface $feature)
     {
-        $this->assertFeatureExist($name);
-
         $this->features[$name] = $feature;
 
         return $this;
@@ -115,15 +113,5 @@ trait FeatureAwareTrait
     public function names()
     {
         return array_keys($this->features);
-    }
-
-    /**
-     * @param $name
-     */
-    private function assertFeatureExist($name)
-    {
-        if (!$this->has($name)) {
-            throw new RuntimeException("Feature '{$name}' is not found");
-        }
     }
 }
