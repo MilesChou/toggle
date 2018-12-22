@@ -127,10 +127,8 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
             return 0 === $id % 2;
         });
 
-        $this->target->setPreserve(false);
-
         $this->assertTrue($this->target->isActive('f1', ['id' => 2]));
-        $this->assertFalse($this->target->isActive('f1', ['id' => 3]));
+        $this->assertFalse($this->target->duplicate()->isActive('f1', ['id' => 3]));
     }
 
     /**
@@ -138,8 +136,6 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReturnDifferentResultWhenIsActiveWithProvisionContext()
     {
-        $this->target->setPreserve(false);
-
         $this->target->create('f1', function ($context) {
             $id = $context['id'];
 
@@ -150,7 +146,7 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($this->target->isActive('f1'));
 
-        $this->target->context(['id' => 3]);
+        $this->target = $this->target->duplicate()->context(['id' => 3]);
 
         $this->assertFalse($this->target->isActive('f1'));
     }
@@ -160,8 +156,6 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldReplaceProvisionContextWhenUsingOnDemandContext()
     {
-        $this->target->setPreserve(false);
-
         $this->target->create('f1', function ($context) {
             $id = $context['id'];
 
@@ -172,7 +166,7 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($this->target->isActive('f1', ['id' => 3]));
 
-        $this->target->context(['id' => 3]);
+        $this->target = $this->target->duplicate()->context(['id' => 3]);
 
         $this->assertTrue($this->target->isActive('f1', ['id' => 2]));
     }

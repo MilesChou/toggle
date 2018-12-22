@@ -15,12 +15,22 @@ class Toggle implements ToggleInterface
     /**
      * @var bool
      */
-    private $preserve = true;
+    private $strict = false;
 
     /**
-     * @var bool
+     * @param bool $preserve
+     * @return static
      */
-    private $strict = false;
+    public function duplicate($preserve = false)
+    {
+        $clone = clone $this;
+
+        if (!$preserve) {
+            $clone->preserveResult = [];
+        }
+
+        return $clone;
+    }
 
     /**
      * {@inheritdoc}
@@ -49,13 +59,11 @@ class Toggle implements ToggleInterface
             $context = $this->context();
         }
 
-        $result = $feature->isActive($context);
-
-        if ($this->preserve) {
-            $this->preserveResult[$name] = $result;
+        if (!isset($this->preserveResult[$name])) {
+            $this->preserveResult[$name] = $feature->isActive($context);
         }
 
-        return $result;
+        return $this->preserveResult[$name];
     }
 
     /**
@@ -104,17 +112,6 @@ class Toggle implements ToggleInterface
         }
 
         $this->preserveResult = array_merge($this->preserveResult, $result);
-
-        return $this;
-    }
-
-    /**
-     * @param bool $preserve
-     * @return static
-     */
-    public function setPreserve($preserve)
-    {
-        $this->preserve = $preserve;
 
         return $this;
     }
