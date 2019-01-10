@@ -2,12 +2,24 @@
 
 namespace Tests;
 
+use InvalidArgumentException;
 use MilesChou\Toggle\Factory;
 use MilesChou\Toggle\Toggle;
 use Tests\Fixtures\DummyProcessor;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @test
+     */
+    public function shouldReturnEmptyToggleWhenCreateFromEmptyArray()
+    {
+        $actual = (new Factory())->createFromArray([]);
+
+        $this->assertInstanceOf(Toggle::class, $actual);
+        $this->assertEmpty($actual->all());
+    }
+
     /**
      * @test
      */
@@ -65,5 +77,21 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(DummyProcessor::class, $actual);
         $this->assertSame(['something' => 'whatever'], $actual->getConfig());
+    }
+
+    /**
+     * @test
+     */
+    public function shouldThrowExceptionWhenClassIsNotGiven()
+    {
+        $this->setExpectedException(InvalidArgumentException::class);
+
+        (new Factory())->createFromArray([
+            'f1' => [
+                'processor' => [
+                    'something' => 'whatever',
+                ]
+            ],
+        ]);
     }
 }
