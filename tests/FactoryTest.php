@@ -4,6 +4,7 @@ namespace Tests;
 
 use MilesChou\Toggle\Factory;
 use MilesChou\Toggle\Toggle;
+use Tests\Fixtures\DummyProcessor;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -45,5 +46,24 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $this->assertFalse($actual->isActive('f1'));
+    }
+
+    /**
+     * @test
+     */
+    public function shouldGenerateProcessorFromArrayConfig()
+    {
+        /** @var DummyProcessor $actual */
+        $actual = (new Factory())->createFromArray([
+            'f1' => [
+                'processor' => [
+                    'class' => DummyProcessor::class,
+                    'something' => 'whatever',
+                ]
+            ],
+        ])->processor('f1');
+
+        $this->assertInstanceOf(DummyProcessor::class, $actual);
+        $this->assertSame(['something' => 'whatever'], $actual->getConfig());
     }
 }
