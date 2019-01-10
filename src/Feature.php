@@ -6,7 +6,6 @@ use MilesChou\Toggle\Concerns\ParameterAwareTrait;
 use MilesChou\Toggle\Concerns\ProcessorAwareTrait;
 use MilesChou\Toggle\Contracts\FeatureInterface;
 use MilesChou\Toggle\Contracts\ParameterAwareInterface;
-use MilesChou\Toggle\Processors\Processor;
 
 class Feature implements FeatureInterface, ParameterAwareInterface
 {
@@ -38,7 +37,7 @@ class Feature implements FeatureInterface, ParameterAwareInterface
         }
 
         if (is_array($processor)) {
-            $processor = Processor::retrieve($processor);
+            $processor = Factory::retrieveProcessor($processor);
         }
 
         static::assertProcessor($processor);

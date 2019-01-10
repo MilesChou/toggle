@@ -3,7 +3,6 @@
 namespace Tests;
 
 use MilesChou\Toggle\Factory;
-use MilesChou\Toggle\Processors\Bucket;
 use MilesChou\Toggle\Toggle;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
@@ -18,28 +17,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
             'f2' => [],
             'f3' => [
                 'processor' => true
-            ],
-        ]);
-
-        $this->assertInstanceOf(Toggle::class, $actual);
-        $this->assertFalse($actual->isActive('f1'));
-        $this->assertFalse($actual->isActive('f2'));
-        $this->assertTrue($actual->isActive('f3'));
-    }
-
-    /**
-     * @test
-     */
-    public function shouldReturnCorrectResultWhenCreateFromConfigBasicWithProcessor()
-    {
-        $actual = (new Factory())->createFromArray([
-            'f1' => [],
-            'f2' => [],
-            'f3' => [
-                'processor' => [
-                    'class' => Bucket::class,
-                    'percentage' => 100,
-                ]
             ],
         ]);
 

@@ -2,11 +2,32 @@
 
 namespace MilesChou\Toggle;
 
-use MilesChou\Toggle\Processors\Processor;
+use InvalidArgumentException;
+use MilesChou\Toggle\Contracts\ProcessorInterface;
 use Noodlehaus\Config;
 
 class Factory
 {
+    /**
+     * @param array $config
+     * @return ProcessorInterface
+     */
+    public static function retrieveProcessor(array $config)
+    {
+        if (!isset($config['class'])) {
+            throw new InvalidArgumentException("Retrieve process must have 'class' key");
+        }
+
+        $class = $config['class'];
+        unset($config['class']);
+
+        /** @var ProcessorInterface $instance */
+        $instance = new $class();
+        $instance->setConfig($config);
+
+        return $instance;
+    }
+
     private static function hasStaticResult($config)
     {
         return isset($config['staticResult']) && is_bool($config['staticResult']);
@@ -45,6 +66,7 @@ class Factory
         return $this->createFromArray($config);
     }
 
+
     /**
      * @param array $config
      * @return array
@@ -75,7 +97,7 @@ class Factory
     private function resolveProcessorConfig($config)
     {
         if (isset($config['class'])) {
-            return Processor::retrieve($config);
+            return static::retrieveProcessor($config);
         }
 
         return $config;
