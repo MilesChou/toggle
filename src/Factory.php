@@ -3,7 +3,7 @@
 namespace MilesChou\Toggle;
 
 use InvalidArgumentException;
-use MilesChou\Toggle\Contracts\ProcessorInterface;
+use MilesChou\Toggle\Simplify\ProcessorInterface;
 use Noodlehaus\Config;
 
 class Factory

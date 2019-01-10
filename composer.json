@@ -15,7 +15,7 @@
     "require": {
         "php": ">=5.5",
         "ext-json": "*",
-        "mileschou/toggle-simplify": "^1.0"
+        "mileschou/toggle-simplify": "^1.1"
     },
     "require-dev": {
         "hassankhan/config": "^0.11.2",
