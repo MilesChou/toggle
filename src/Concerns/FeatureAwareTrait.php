@@ -15,11 +15,6 @@ trait FeatureAwareTrait
     private $features = [];
 
     /**
-     * @var array
-     */
-    private $preserveResult = [];
-
-    /**
      * @param string $name
      * @param FeatureInterface $feature
      * @return static
@@ -75,7 +70,6 @@ trait FeatureAwareTrait
     public function flush()
     {
         $this->features = [];
-        $this->preserveResult = [];
     }
 
     /**
@@ -92,7 +86,7 @@ trait FeatureAwareTrait
      */
     public function remove($name)
     {
-        unset($this->features[$name], $this->preserveResult[$name]);
+        unset($this->features[$name]);
     }
 
     /**

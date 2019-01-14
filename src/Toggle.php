@@ -10,7 +10,15 @@ use RuntimeException;
 class Toggle implements ToggleInterface
 {
     use ContextAwareTrait;
-    use FeatureAwareTrait;
+    use FeatureAwareTrait {
+        remove as private removeFeature;
+        flush as private flushFeature;
+    }
+
+    /**
+     * @var array
+     */
+    private $preserveResult = [];
 
     /**
      * @var bool
@@ -30,6 +38,16 @@ class Toggle implements ToggleInterface
         }
 
         return $clone;
+    }
+
+    /**
+     * @return void
+     */
+    public function flush()
+    {
+        $this->flushFeature();
+
+        $this->preserveResult = [];
     }
 
     /**
@@ -94,6 +112,16 @@ class Toggle implements ToggleInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function remove($name)
+    {
+        $this->removeFeature($name);
+
+        unset($this->preserveResult[$name]);
     }
 
     /**
