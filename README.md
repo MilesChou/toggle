@@ -72,7 +72,7 @@ use MilesChou\Toggle\Toggle;
 
 $toggle = new Toggle();
 $toggle->create('f1', function($context) {
-    return $context['key'];
+    return $context['return'];
 });
 
 // Will return true
