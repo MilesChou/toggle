@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests;
+namespace Tests\Toggle;
 
 use InvalidArgumentException;
 use MilesChou\Toggle\Factory;
 use MilesChou\Toggle\Toggle;
-use Tests\Fixtures\DummyProcessor;
+use Tests\Toggle\Fixtures\DummyProcessor;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {

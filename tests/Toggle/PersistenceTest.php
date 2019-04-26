@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Tests\Toggle;
 
 use MilesChou\Toggle\Toggle;
 

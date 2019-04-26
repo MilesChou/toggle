@@ -31,7 +31,7 @@
     },
     "autoload": {
         "psr-4": {
-            "MilesChou\\Toggle\\": "src"
+            "MilesChou\\Toggle\\": "src/Toggle"
         }
     },
     "autoload-dev": {

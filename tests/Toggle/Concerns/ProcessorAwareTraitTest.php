@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Concerns;
+namespace Tests\Toggle\Concerns;
 
 use MilesChou\Toggle\Feature;
 

@@ -1,8 +1,7 @@
 <?php
 
-namespace Tests;
+namespace Tests\Toggle;
 
-use InvalidArgumentException;
 use MilesChou\Toggle\Feature;
 use RuntimeException;
 

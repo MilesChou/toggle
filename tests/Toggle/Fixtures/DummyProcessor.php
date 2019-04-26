@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Fixtures;
+namespace Tests\Toggle\Fixtures;
 
 use MilesChou\Toggle\Simplify\ProcessorInterface;
 

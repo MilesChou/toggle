@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Serializers;
+namespace Tests\Toggle\Serializers;
 
 use MilesChou\Toggle\Serializers\YamlSerializer;
 
