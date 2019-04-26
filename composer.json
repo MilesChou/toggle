@@ -20,7 +20,6 @@
     "require-dev": {
         "hassankhan/config": "^0.11.2",
         "illuminate/cookie": "^5.0",
-        "nesbot/carbon": "^1.33",
         "php-coveralls/php-coveralls": "^2.1",
         "phpbench/phpbench": "^0.10.0",
         "phpunit/phpunit": ">=4.8 <6",
@@ -28,7 +27,6 @@
         "symfony/yaml": "^2.8"
     },
     "suggest": {
-        "nesbot/carbon": "Required to use the Timer processor",
         "hassankhan/config": "Required to use the Factory to build instance"
     },
     "autoload": {
