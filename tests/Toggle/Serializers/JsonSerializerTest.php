@@ -3,8 +3,9 @@
 namespace Tests\Toggle\Serializers;
 
 use MilesChou\Toggle\Serializers\JsonSerializer;
+use PHPUnit\Framework\TestCase;
 
-class JsonSerializerTest extends \PHPUnit_Framework_TestCase
+class JsonSerializerTest extends TestCase
 {
     /**
      * @var JsonSerializer

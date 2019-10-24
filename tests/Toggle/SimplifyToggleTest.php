@@ -5,9 +5,10 @@ namespace Tests\Toggle;
 use InvalidArgumentException;
 use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Toggle;
+use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-class SimplifyToggleTest extends \PHPUnit_Framework_TestCase
+class SimplifyToggleTest extends TestCase
 {
     /**
      * @var Toggle
@@ -26,11 +27,10 @@ class SimplifyToggleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @expectedException RuntimeException
      */
     public function shouldThrowExceptionWhenCallIsActiveWithNoDataAndStrictMode()
     {
-        $this->setExpectedException(RuntimeException::class);
-
         $this->target->setStrict(true);
 
         $this->target->isActive('not-exist');
@@ -58,32 +58,30 @@ class SimplifyToggleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @expectedException InvalidArgumentException
      * @dataProvider invalidProcessor
      */
     public function shouldThrowExceptionWithInvalidProcessor($invalidProcessor)
     {
-        $this->setExpectedException(InvalidArgumentException::class, 'Processor must be callable');
-
         $this->target->create('foo', $invalidProcessor);
     }
 
     /**
      * @test
+     * @expectedException RuntimeException
      */
     public function shouldThrowExceptionWhenGetFeatureAndFeatureNotFound()
     {
-        $this->setExpectedException(RuntimeException::class, "Feature 'not-exist' is not found");
-
         $this->target->feature('not-exist');
     }
 
     /**
      * @test
+     * @expectedException RuntimeException
+     * @expectedExceptionMessage Feature 'foo' is exist
      */
     public function shouldThrowExceptionWhenAddFeatureButFeatureExist()
     {
-        $this->setExpectedException(RuntimeException::class, "Feature 'foo' is exist");
-
         $this->target->create('foo');
         $this->target->create('foo');
     }
@@ -148,11 +146,10 @@ class SimplifyToggleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @expectedException RuntimeException
      */
     public function shouldThrowExceptionWhenCreateFeatureAndReturnNull()
     {
-        $this->setExpectedException(RuntimeException::class);
-
         $this->target->create('foo', function () {
             return null;
         });
@@ -182,11 +179,11 @@ class SimplifyToggleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @expectedException RuntimeException
+     * @expectedExceptionMessage foo
      */
     public function shouldThrowExceptionWhenCreateFeatureAndRemoveFeature()
     {
-        $this->setExpectedException(RuntimeException::class, 'foo');
-
         $this->target->setStrict(true);
 
         $this->target->create('foo')

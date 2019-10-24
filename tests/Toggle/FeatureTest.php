@@ -3,17 +3,17 @@
 namespace Tests\Toggle;
 
 use MilesChou\Toggle\Feature;
+use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-class FeatureTest extends \PHPUnit_Framework_TestCase
+class FeatureTest extends TestCase
 {
     /**
      * @test
+     * @expectedException RuntimeException
      */
     public function shouldThrowExceptionWhenDefaultWithCallableReturnNull()
     {
-        $this->setExpectedException(RuntimeException::class);
-
         $target = Feature::create(function () {
             return null;
         });

@@ -4,8 +4,10 @@ namespace Tests\Toggle;
 
 use MilesChou\Toggle\Feature;
 use MilesChou\Toggle\Toggle;
+use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
-class ToggleTest extends \PHPUnit_Framework_TestCase
+class ToggleTest extends TestCase
 {
     /**
      * @var Toggle
@@ -24,11 +26,10 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @expectedException RuntimeException
      */
     public function shouldThrowExceptionWhenCallIsActiveWithNoDataAndStrictMode()
     {
-        $this->setExpectedException('RuntimeException');
-
         $this->target->setStrict(true);
 
         $this->target->isActive('not-exist');
@@ -88,11 +89,10 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     * @expectedException RuntimeException
      */
     public function shouldThrowExceptionWhenCreateFeatureAndRemoveFeature()
     {
-        $this->setExpectedException('RuntimeException', 'foo');
-
         $this->target->setStrict(true);
 
         $this->target->create('foo')
@@ -195,6 +195,8 @@ class ToggleTest extends \PHPUnit_Framework_TestCase
             $this->assertSame('a', $feature->params('bar'));
             $this->assertSame('b', $context['foo']);
         }, null, ['foo' => 'b']);
+
+        $this->assertTrue(true);
     }
 
     /**

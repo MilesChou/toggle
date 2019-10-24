@@ -3,8 +3,9 @@
 namespace Tests\Toggle;
 
 use MilesChou\Toggle\Toggle;
+use PHPUnit\Framework\TestCase;
 
-class PersistenceTest extends \PHPUnit_Framework_TestCase
+class PersistenceTest extends TestCase
 {
     /**
      * @var Toggle

@@ -3,8 +3,9 @@
 namespace Tests\Toggle\Serializers;
 
 use MilesChou\Toggle\Serializers\YamlSerializer;
+use PHPUnit\Framework\TestCase;
 
-class YamlSerializerTest extends \PHPUnit_Framework_TestCase
+class YamlSerializerTest extends TestCase
 {
     /**
      * @var YamlSerializer
