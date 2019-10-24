@@ -2,18 +2,17 @@
 
 namespace MilesChou\Toggle;
 
-use MilesChou\Toggle\Concerns\ContextAwareTrait;
-use MilesChou\Toggle\Concerns\FeatureAwareTrait;
 use MilesChou\Toggle\Contracts\ToggleInterface;
 use RuntimeException;
 
 class Toggle implements ToggleInterface
 {
-    use ContextAwareTrait;
-    use FeatureAwareTrait {
+    use Concerns\ContextAwareTrait;
+    use Concerns\FeatureAwareTrait {
         remove as private removeFeature;
         flush as private flushFeature;
     }
+    use Concerns\PersistentTrait;
 
     /**
      * @var array
@@ -125,7 +124,7 @@ class Toggle implements ToggleInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function result(array $result = null)
     {
