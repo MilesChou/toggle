@@ -18,6 +18,7 @@
         "mileschou/toggle-simplify": "^1.1"
     },
     "require-dev": {
+        "codacy/coverage": "^1.4",
         "hassankhan/config": "^0.11.2",
         "illuminate/cookie": "^5.1",
         "php-coveralls/php-coveralls": "^2.1",
