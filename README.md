@@ -2,9 +2,8 @@
 
 [![License][license-svg]][license-link]
 [![Build Status](https://travis-ci.com/MilesChou/toggle.svg?branch=master)](https://travis-ci.com/MilesChou/toggle)
-[![Coverage Status](https://coveralls.io/repos/github/MilesChou/toggle/badge.svg)](https://coveralls.io/github/MilesChou/toggle)
+[![codecov](https://codecov.io/gh/MilesChou/toggle/branch/master/graph/badge.svg)](https://codecov.io/gh/MilesChou/toggle)
 [![Codacy Badge][codacy-svg]][codacy-link]
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/MilesChou/toggle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/MilesChou/toggle/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/MilesChou/toggle/v/stable)](https://packagist.org/packages/MilesChou/toggle)
 [![Total Downloads](https://poser.pugx.org/MilesChou/toggle/d/total.svg)](https://packagist.org/packages/MilesChou/toggle)
 [![License](https://poser.pugx.org/MilesChou/toggle/license)](https://packagist.org/packages/MilesChou/toggle)

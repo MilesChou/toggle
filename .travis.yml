@@ -9,6 +9,7 @@ php:
   - 7.1
   - 7.2
   - 7.3
+  - 7.4
 
 env:
   - LARAVEL_VERSION=5.1.*
@@ -54,10 +55,8 @@ script:
   - php vendor/bin/phpunit
 
 after_success:
-  - if [[ "7.3" == "${TRAVIS_PHP_VERSION}" ]]; then travis_retry php vendor/bin/php-coveralls -v ; fi
+  - if [[ "7.3" == "${TRAVIS_PHP_VERSION}" ]]; then bash <(curl -s https://codecov.io/bash) ; fi
   - if [[ "7.3" == "${TRAVIS_PHP_VERSION}" ]]; then travis_retry php vendor/bin/codacycoverage clover ; fi
-  - if [[ "7.3" == "${TRAVIS_PHP_VERSION}" ]]; then travis_retry wget https://scrutinizer-ci.com/ocular.phar ; fi
-  - if [[ "7.3" == "${TRAVIS_PHP_VERSION}" ]]; then travis_retry php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml ; fi
   - php vendor/bin/phpbench run --report=default
 
 cache:

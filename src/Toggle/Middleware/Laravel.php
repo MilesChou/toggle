@@ -11,7 +11,10 @@ use MilesChou\Toggle\Toggle;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class LoadToggle
+/**
+ * The middleware for Laravel Framework
+ */
+class Laravel
 {
     /**
      * @var bool
@@ -87,7 +90,7 @@ class LoadToggle
         $time = time() + $this->minutes * 60;
 
         $response->headers->setCookie(
-            $this->cookieJar->make($this->key, $value, $time)
+            $this->cookieJar->make($this->key, $value, $time, null, null, false, true)
         );
 
         return $response;
