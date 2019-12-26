@@ -8,3 +8,9 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - uses: MilesChou/composer-action/7.3/install@master
+      - uses: docker://php:7.3-alpine
+        with:
+          args: php vendor/bin/phpcs
+      - uses: docker://php:7.3-alpine
+        with:
+          args: php vendor/bin/phpunit
