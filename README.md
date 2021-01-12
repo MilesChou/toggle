@@ -1,7 +1,6 @@
 # Toggle
 
-[![License][license-svg]][license-link]
-[![Build Status](https://travis-ci.com/MilesChou/toggle.svg?branch=master)](https://travis-ci.com/MilesChou/toggle)
+![tests](https://github.com/MilesChou/toggle/workflows/tests/badge.svg)
 [![codecov](https://codecov.io/gh/MilesChou/toggle/branch/master/graph/badge.svg)](https://codecov.io/gh/MilesChou/toggle)
 [![Codacy Badge][codacy-svg]][codacy-link]
 [![Latest Stable Version](https://poser.pugx.org/MilesChou/toggle/v/stable)](https://packagist.org/packages/MilesChou/toggle)
