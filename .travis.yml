@@ -30,7 +30,7 @@ branches:
     - /^\d+\.\d+\.\d+$/
 
 before_install:
-  - composer require --no-update --dev illuminate/cookie=${LARAVEL_VERSION}
+  - composer require --no-update --dev laravel/framework=${LARAVEL_VERSION}
 
 install:
   - COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist
