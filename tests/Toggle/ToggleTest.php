@@ -14,22 +14,23 @@ class ToggleTest extends TestCase
      */
     private $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new Toggle();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->target = null;
     }
 
     /**
      * @test
-     * @expectedException RuntimeException
      */
     public function shouldThrowExceptionWhenCallIsActiveWithNoDataAndStrictMode()
     {
+        $this->expectException(RuntimeException::class);
+
         $this->target->setStrict(true);
 
         $this->target->isActive('not-exist');
@@ -89,10 +90,11 @@ class ToggleTest extends TestCase
 
     /**
      * @test
-     * @expectedException RuntimeException
      */
     public function shouldThrowExceptionWhenCreateFeatureAndRemoveFeature()
     {
+        $this->expectException(RuntimeException::class);
+
         $this->target->setStrict(true);
 
         $this->target->create('foo')

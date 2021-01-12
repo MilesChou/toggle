@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Toggle;
+namespace Tests\Toggle\ServiceProvider;
 
 use Illuminate\Events\EventServiceProvider;
 use Illuminate\Filesystem\FilesystemServiceProvider;
@@ -9,7 +9,6 @@ use Illuminate\Foundation\Testing\TestCase;
 use Illuminate\Support\Fluent;
 use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\View\Engines\EngineResolver;
-use Illuminate\View\Factory;
 use Illuminate\View\ViewServiceProvider;
 use MilesChou\Toggle\ServiceProvider\BladeServiceProvider;
 use MilesChou\Toggle\Toggle;

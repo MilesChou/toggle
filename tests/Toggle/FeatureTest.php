@@ -10,10 +10,11 @@ class FeatureTest extends TestCase
 {
     /**
      * @test
-     * @expectedException RuntimeException
      */
     public function shouldThrowExceptionWhenDefaultWithCallableReturnNull()
     {
+        $this->expectException(RuntimeException::class);
+
         $target = Feature::create(function () {
             return null;
         });

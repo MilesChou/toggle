@@ -82,10 +82,11 @@ class FactoryTest extends TestCase
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
      */
     public function shouldThrowExceptionWhenClassIsNotGiven()
     {
+        $this->expectException(InvalidArgumentException::class);
+
         (new Factory())->createFromArray([
             'f1' => [
                 'processor' => [

@@ -13,12 +13,12 @@ class PersistenceTest extends TestCase
      */
     private $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new Toggle();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->target = null;
     }

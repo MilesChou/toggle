@@ -15,22 +15,23 @@ class SimplifyToggleTest extends TestCase
      */
     private $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new Toggle();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->target = null;
     }
 
     /**
      * @test
-     * @expectedException RuntimeException
      */
     public function shouldThrowExceptionWhenCallIsActiveWithNoDataAndStrictMode()
     {
+        $this->expectException(RuntimeException::class);
+
         $this->target->setStrict(true);
 
         $this->target->isActive('not-exist');
@@ -58,30 +59,33 @@ class SimplifyToggleTest extends TestCase
 
     /**
      * @test
-     * @expectedException InvalidArgumentException
      * @dataProvider invalidProcessor
      */
     public function shouldThrowExceptionWithInvalidProcessor($invalidProcessor)
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $this->target->create('foo', $invalidProcessor);
     }
 
     /**
      * @test
-     * @expectedException RuntimeException
      */
     public function shouldThrowExceptionWhenGetFeatureAndFeatureNotFound()
     {
+        $this->expectException(RuntimeException::class);
+
         $this->target->feature('not-exist');
     }
 
     /**
      * @test
-     * @expectedException RuntimeException
-     * @expectedExceptionMessage Feature 'foo' is exist
      */
     public function shouldThrowExceptionWhenAddFeatureButFeatureExist()
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage("Feature 'foo' is exist");
+
         $this->target->create('foo');
         $this->target->create('foo');
     }
@@ -146,10 +150,11 @@ class SimplifyToggleTest extends TestCase
 
     /**
      * @test
-     * @expectedException RuntimeException
      */
     public function shouldThrowExceptionWhenCreateFeatureAndReturnNull()
     {
+        $this->expectException(RuntimeException::class);
+
         $this->target->create('foo', function () {
             return null;
         });
@@ -179,11 +184,12 @@ class SimplifyToggleTest extends TestCase
 
     /**
      * @test
-     * @expectedException RuntimeException
-     * @expectedExceptionMessage foo
      */
     public function shouldThrowExceptionWhenCreateFeatureAndRemoveFeature()
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('foo');
+
         $this->target->setStrict(true);
 
         $this->target->create('foo')
@@ -305,7 +311,7 @@ class SimplifyToggleTest extends TestCase
             'foo' => 'a',
         ]);
 
-        $this->assertInternalType('callable', $this->target->processor('f1'));
+        $this->assertIsCallable($this->target->processor('f1'));
     }
 
     /**

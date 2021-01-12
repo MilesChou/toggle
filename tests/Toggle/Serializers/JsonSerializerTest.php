@@ -12,12 +12,12 @@ class JsonSerializerTest extends TestCase
      */
     private $target;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->target = new JsonSerializer();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->target = null;
     }

@@ -23,22 +23,24 @@ class FeatureTraitTest extends TestCase
     /**
      * @test
      * @dataProvider invalidProcessor
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Processor must be callable
      */
     public function shouldThrowExceptionWithInvalidFeature($invalidProcessor)
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Processor must be callable');
+
         $target = $this->getMockForTrait(FeatureAwareTrait::class);
         $target->create('foo', $invalidProcessor);
     }
 
     /**
      * @test
-     * @expectedException RuntimeException
-     * @expectedExceptionMessage Feature 'not-exist' is not found
      */
     public function shouldThrowExceptionWhenGetFeatureAndFeatureNotFound()
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage("Feature 'not-exist' is not found");
+
         $target = $this->getMockForTrait(FeatureAwareTrait::class);
         $target->feature('not-exist');
     }
