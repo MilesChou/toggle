@@ -6,6 +6,7 @@ use Illuminate\Events\EventServiceProvider;
 use Illuminate\Filesystem\FilesystemServiceProvider;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\TestCase;
+use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Fluent;
 use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\View\Engines\EngineResolver;
@@ -30,6 +31,8 @@ class BladeServiceProviderTest extends TestCase
             'view.paths' => ['/tmp'],
             'view.compiled' => '/tmp',
         ]));
+
+        Facade::setFacadeApplication($app);
 
         return $app;
     }
