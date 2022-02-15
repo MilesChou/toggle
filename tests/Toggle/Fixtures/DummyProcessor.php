@@ -2,7 +2,7 @@
 
 namespace Tests\Toggle\Fixtures;
 
-use MilesChou\Toggle\Simplify\ProcessorInterface;
+use MilesChou\Toggle\Contracts\ProcessorInterface;
 
 class DummyProcessor implements ProcessorInterface
 {

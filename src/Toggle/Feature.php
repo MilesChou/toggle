@@ -23,7 +23,7 @@ class Feature implements FeatureInterface, ParameterAwareInterface
      * @param bool|null $staticResult
      * @return static
      */
-    public static function create($processor = null, array $params = [], $staticResult = null)
+    public static function create($processor = null, array $params = [], ?bool $staticResult = null): Feature
     {
         // default is false
         if (null === $processor) {
@@ -50,7 +50,7 @@ class Feature implements FeatureInterface, ParameterAwareInterface
      * @param array $params
      * @param bool|null $result
      */
-    public function __construct(callable $processor, array $params = [], $result = null)
+    public function __construct(callable $processor, array $params = [], ?bool $result = null)
     {
         $this->processor($processor)
             ->params($params)
@@ -68,7 +68,7 @@ class Feature implements FeatureInterface, ParameterAwareInterface
     /**
      * @return bool
      */
-    public function hasResult()
+    public function hasResult(): bool
     {
         return null !== $this->result;
     }
@@ -77,7 +77,7 @@ class Feature implements FeatureInterface, ParameterAwareInterface
      * @param array $context
      * @return bool
      */
-    public function isActive(array $context = [])
+    public function isActive(array $context = []): bool
     {
         return $this->process($context, $this->getParams());
     }
