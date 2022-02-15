@@ -29,7 +29,7 @@ class PersistenceTest extends TestCase
     public function shouldReturnStaticResultWhenCreateFeatureUsingStatic()
     {
         $this->target->create('foo');
-        $this->target->feature('foo')->result(false);
+        $this->target->feature('foo')->disable();
 
         $this->target->result([
             'foo' => true,
@@ -44,9 +44,9 @@ class PersistenceTest extends TestCase
     public function shouldSavePersistenceWhenCallSave()
     {
         $this->target->create('foo');
-        $this->target->feature('foo')->result(true);
+        $this->target->feature('foo')->enable();
         $this->target->create('bar');
-        $this->target->feature('bar')->result(false);
+        $this->target->feature('bar')->disable();
 
         $persistence = new Memory();
 

@@ -59,7 +59,7 @@ class Toggle implements ToggleInterface
         $feature = $this->feature($name);
 
         if ($feature->hasResult()) {
-            return $feature->result();
+            return $feature->flag();
         }
 
         if (isset($this->preserveResult[$name])) {
@@ -104,7 +104,7 @@ class Toggle implements ToggleInterface
     /**
      * @param string $name
      */
-    public function remove($name)
+    public function remove(string $name)
     {
         $this->removeFeature($name);
 

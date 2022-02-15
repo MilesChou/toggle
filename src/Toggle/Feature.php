@@ -15,7 +15,7 @@ class Feature implements FeatureInterface, ParameterAwareInterface
     /**
      * @var bool
      */
-    private $result;
+    private $flag;
 
     /**
      * @param callable|array|bool|null $processor
@@ -59,14 +59,14 @@ class Feature implements FeatureInterface, ParameterAwareInterface
 
     public function disable(): FeatureInterface
     {
-        $this->result(false);
+        $this->flag = false;
 
         return $this;
     }
 
     public function enable(): FeatureInterface
     {
-        $this->result(true);
+        $this->flag = true;
 
         return $this;
     }
@@ -76,7 +76,7 @@ class Feature implements FeatureInterface, ParameterAwareInterface
      */
     public function flush()
     {
-        $this->result = null;
+        $this->flag = null;
     }
 
     /**
@@ -84,7 +84,7 @@ class Feature implements FeatureInterface, ParameterAwareInterface
      */
     public function hasResult(): bool
     {
-        return null !== $this->result;
+        return null !== $this->flag;
     }
 
     /**
@@ -98,18 +98,36 @@ class Feature implements FeatureInterface, ParameterAwareInterface
 
     /**
      * @param bool|null $result
-     * @return static|bool|null
+     * @return $this|bool|null
+     * @deprecated use flag() and persist()
      */
     public function result($result = null)
     {
         if (null === $result) {
-            return $this->result;
+            return $this->flag;
         }
 
-        $this->result = $result;
+        $this->flag = $result;
 
         return $this;
     }
+
+    public function persist(bool $flag)
+    {
+        if ($flag) {
+            $this->enable();
+        } else {
+            $this->disable();
+        }
+
+        return $this;
+    }
+
+    public function flag(): bool
+    {
+        return $this->flag;
+    }
+
 
     /**
      * @param mixed $result

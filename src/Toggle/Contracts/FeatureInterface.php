@@ -5,18 +5,25 @@ namespace MilesChou\Toggle\Contracts;
 interface FeatureInterface
 {
     /**
-     * Set the feature disable
+     * Set the feature flag disable
      *
      * @return FeatureInterface
      */
     public function disable(): FeatureInterface;
 
     /**
-     * Set the feature enable
+     * Set the feature flag enable
      *
      * @return FeatureInterface
      */
     public function enable(): FeatureInterface;
+
+    /**
+     * Get the persistent flag
+     *
+     * @return bool|null
+     */
+    public function flag(): ?bool;
 
     /**
      * @return bool
@@ -37,14 +44,16 @@ interface FeatureInterface
     public function params($key = null, $value = null);
 
     /**
+     * Persist the toggle flags
+     *
+     * @param bool $flag
+     * @return callable|static
+     */
+    public function persist(bool $flag);
+
+    /**
      * @param callable|null $processor
      * @return callable|static
      */
     public function processor($processor = null);
-
-    /**
-     * @param bool|null $result
-     * @return static|bool|null
-     */
-    public function result($result = null);
 }
