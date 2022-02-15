@@ -17,18 +17,12 @@ class DummyProcessor implements ProcessorInterface
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setConfig($config)
     {
         $this->config = $config;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function toArray()
+    public function toArray(): array
     {
         $config = $this->config;
         $config['class'] = __CLASS__;

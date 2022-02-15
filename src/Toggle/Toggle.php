@@ -28,7 +28,7 @@ class Toggle implements ToggleInterface
      * @param bool $preserve
      * @return static
      */
-    public function duplicate($preserve = false)
+    public function duplicate(bool $preserve = false): ToggleInterface
     {
         $clone = clone $this;
 
@@ -39,9 +39,6 @@ class Toggle implements ToggleInterface
         return $clone;
     }
 
-    /**
-     * @return void
-     */
     public function flush()
     {
         $this->flushFeature();
@@ -49,10 +46,7 @@ class Toggle implements ToggleInterface
         $this->preserveResult = [];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function isActive($name, array $context = [])
+    public function isActive(string $name, array $context = []): bool
     {
         if (!$this->has($name)) {
             if ($this->strict) {
@@ -83,18 +77,12 @@ class Toggle implements ToggleInterface
         return $this->preserveResult[$name];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function isInactive($name, array $context = [])
+    public function isInactive(string $name, array $context = []): bool
     {
         return !$this->isActive($name, $context);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function params($name, $key = null, $default = null)
+    public function params(string $name, $key = null, $default = null)
     {
         return $this->feature($name)->params($key, $default);
     }
@@ -130,9 +118,7 @@ class Toggle implements ToggleInterface
     {
         if (null === $result) {
             return array_reduce($this->names(), function ($carry, $feature) {
-                $carry[$feature] = isset($this->preserveResult[$feature])
-                    ? $this->preserveResult[$feature]
-                    : $this->isActive($feature);
+                $carry[$feature] = $this->preserveResult[$feature] ?? $this->isActive($feature);
 
                 return $carry;
             }, []);
@@ -147,17 +133,14 @@ class Toggle implements ToggleInterface
      * @param bool $strict
      * @return static
      */
-    public function setStrict($strict)
+    public function setStrict(bool $strict): ToggleInterface
     {
         $this->strict = $strict;
 
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function when($name, callable $callback, callable $default = null, array $context = [])
+    public function when(string $name, callable $callback, ?callable $default = null, array $context = [])
     {
         $feature = $this->feature($name);
 
@@ -172,10 +155,7 @@ class Toggle implements ToggleInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function unless($name, callable $callback, callable $default = null, array $context = [])
+    public function unless(string $name, callable $callback, ?callable $default = null, array $context = [])
     {
         $feature = $this->feature($name);
 

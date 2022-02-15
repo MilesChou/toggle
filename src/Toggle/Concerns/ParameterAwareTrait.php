@@ -14,7 +14,7 @@ trait ParameterAwareTrait
      * @param mixed|null $default
      * @return mixed
      */
-    public function getParam($name, $default = null)
+    public function getParam(string $name, $default = null)
     {
         return $this->hasParam($name) ? $this->params[$name] : $default;
     }
@@ -31,7 +31,7 @@ trait ParameterAwareTrait
      * @param string $name
      * @return bool
      */
-    public function hasParam($name)
+    public function hasParam(string $name): bool
     {
         return isset($this->params[$name]);
     }
@@ -63,7 +63,7 @@ trait ParameterAwareTrait
      * @param mixed $value
      * @return static
      */
-    public function setParam($name, $value)
+    public function setParam(string $name, $value)
     {
         $this->params[$name] = $value;
 

@@ -19,7 +19,7 @@ trait FeatureAwareTrait
      * @param FeatureInterface $feature
      * @return static
      */
-    public function add($name, FeatureInterface $feature)
+    public function add(string $name, FeatureInterface $feature)
     {
         if ($this->has($name)) {
             throw new RuntimeException("Feature '{$name}' is exist");
@@ -33,7 +33,7 @@ trait FeatureAwareTrait
     /**
      * @return array
      */
-    public function all()
+    public function all(): array
     {
         return $this->features;
     }
@@ -45,7 +45,7 @@ trait FeatureAwareTrait
      * @param bool|null $staticResult
      * @return static
      */
-    public function create($name, $processor = null, array $params = [], $staticResult = null)
+    public function create(string $name, $processor = null, array $params = [], ?bool $staticResult = null)
     {
         return $this->add($name, Feature::create($processor, $params, $staticResult));
     }
@@ -55,7 +55,7 @@ trait FeatureAwareTrait
      * @return FeatureInterface
      * @throws InvalidArgumentException
      */
-    public function feature($name)
+    public function feature(string $name): FeatureInterface
     {
         if (!$this->has($name)) {
             throw new RuntimeException("Feature '{$name}' is not found");
@@ -73,10 +73,10 @@ trait FeatureAwareTrait
     }
 
     /**
-     * @param Feature|string $name
+     * @param string $name
      * @return bool
      */
-    public function has($name)
+    public function has(string $name): bool
     {
         return array_key_exists($name, $this->features);
     }
@@ -84,7 +84,7 @@ trait FeatureAwareTrait
     /**
      * @param string $name
      */
-    public function remove($name)
+    public function remove(string $name)
     {
         unset($this->features[$name]);
     }
@@ -94,7 +94,7 @@ trait FeatureAwareTrait
      * @param FeatureInterface $feature
      * @return static
      */
-    public function set($name, FeatureInterface $feature)
+    public function set(string $name, FeatureInterface $feature)
     {
         $this->features[$name] = $feature;
 
@@ -104,7 +104,7 @@ trait FeatureAwareTrait
     /**
      * @return array
      */
-    public function names()
+    public function names(): array
     {
         return array_keys($this->features);
     }

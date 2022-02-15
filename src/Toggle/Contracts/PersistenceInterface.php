@@ -9,7 +9,7 @@ interface PersistenceInterface
      *
      * @return array
      */
-    public function restore();
+    public function restore(): array;
 
     /**
      * Store config

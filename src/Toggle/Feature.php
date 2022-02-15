@@ -46,7 +46,7 @@ class Feature implements FeatureInterface, ParameterAwareInterface
     }
 
     /**
-     * @param callable $processor The callable will return bool
+     * @param callable $processor The callable must return bool type
      * @param array $params
      * @param bool|null $result
      */
@@ -55,6 +55,20 @@ class Feature implements FeatureInterface, ParameterAwareInterface
         $this->processor($processor)
             ->params($params)
             ->result($result);
+    }
+
+    public function disable(): FeatureInterface
+    {
+        $this->result(false);
+
+        return $this;
+    }
+
+    public function enable(): FeatureInterface
+    {
+        $this->result(true);
+
+        return $this;
     }
 
     /**
@@ -101,7 +115,7 @@ class Feature implements FeatureInterface, ParameterAwareInterface
      * @param mixed $result
      * @return bool
      */
-    protected function isValidProcessedResult($result)
+    protected function isValidProcessedResult($result): bool
     {
         return is_bool($result);
     }

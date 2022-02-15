@@ -11,7 +11,7 @@ class Memory implements PersistenceInterface
      */
     private $data = [];
 
-    public function restore()
+    public function restore(): array
     {
         return $this->data;
     }

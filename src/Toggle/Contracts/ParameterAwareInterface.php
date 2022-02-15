@@ -8,7 +8,7 @@ interface ParameterAwareInterface
      * @param string $key
      * @return bool
      */
-    public function hasParam($key);
+    public function hasParam(string $key): bool;
 
     /**
      * @param mixed|null $key

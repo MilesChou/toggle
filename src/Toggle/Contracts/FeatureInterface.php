@@ -5,15 +5,29 @@ namespace MilesChou\Toggle\Contracts;
 interface FeatureInterface
 {
     /**
+     * Set the feature disable
+     *
+     * @return FeatureInterface
+     */
+    public function disable(): FeatureInterface;
+
+    /**
+     * Set the feature enable
+     *
+     * @return FeatureInterface
+     */
+    public function enable(): FeatureInterface;
+
+    /**
      * @return bool
      */
-    public function hasResult();
+    public function hasResult(): bool;
 
     /**
      * @param array $context
      * @return bool
      */
-    public function isActive(array $context = []);
+    public function isActive(array $context = []): bool;
 
     /**
      * @param array|string|null $key

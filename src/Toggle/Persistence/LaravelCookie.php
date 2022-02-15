@@ -42,7 +42,7 @@ class LaravelCookie implements PersistenceInterface
         $this->cookieJar = $cookieJar;
     }
 
-    public function restore()
+    public function restore(): array
     {
         if (!Cookie::has($this->key)) {
             return [];

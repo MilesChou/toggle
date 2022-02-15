@@ -61,5 +61,5 @@ trait ProcessorAwareTrait
      * @param mixed $result
      * @return bool
      */
-    abstract protected function isValidProcessedResult($result);
+    abstract protected function isValidProcessedResult($result): bool;
 }
