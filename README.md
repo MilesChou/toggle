@@ -2,17 +2,12 @@
 
 ![tests](https://github.com/MilesChou/toggle/workflows/tests/badge.svg)
 [![codecov](https://codecov.io/gh/MilesChou/toggle/branch/master/graph/badge.svg)](https://codecov.io/gh/MilesChou/toggle)
-[![Codacy Badge][codacy-svg]][codacy-link]
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/5689e468a545404bab06316878564e71)](https://www.codacy.com/gh/MilesChou/toggle/dashboard)
 [![Latest Stable Version](https://poser.pugx.org/MilesChou/toggle/v/stable)](https://packagist.org/packages/MilesChou/toggle)
 [![Total Downloads](https://poser.pugx.org/MilesChou/toggle/d/total.svg)](https://packagist.org/packages/MilesChou/toggle)
 [![License](https://poser.pugx.org/MilesChou/toggle/license)](https://packagist.org/packages/MilesChou/toggle)
 
 The feature toggle library for PHP
-
-[license-svg]: https://img.shields.io/badge/license-MIT-brightgreen.svg
-[license-link]: https://github.com/oidcphp/support/blob/master/LICENSE
-[codacy-svg]: https://api.codacy.com/project/badge/Grade/ec882d2aaeae43118578bfdf682b42f3
-[codacy-link]: https://www.codacy.com/manual/MilesChou/toggle
 
 ## Concept
 
