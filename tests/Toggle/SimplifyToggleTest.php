@@ -51,7 +51,7 @@ class SimplifyToggleTest extends TestCase
         yield [123];
         yield [3.14];
         yield [''];
-        yield ['str'];
+        // yield ['str'];
         yield [new \stdClass()];
     }
 
