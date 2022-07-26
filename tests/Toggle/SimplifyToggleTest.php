@@ -46,15 +46,13 @@ class SimplifyToggleTest extends TestCase
         $this->assertTrue($this->target->isInactive('not-exist'));
     }
 
-    public function invalidProcessor()
+    public function invalidProcessor(): iterable
     {
-        return [
-            [123],
-            [3.14],
-            [''],
-            ['str'],
-            [new \stdClass()],
-        ];
+        yield [123];
+        yield [3.14];
+        yield [''];
+        yield ['str'];
+        yield [new \stdClass()];
     }
 
     /**
