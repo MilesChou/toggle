@@ -27,7 +27,7 @@ class YamlSerializerTest extends TestCase
      */
     public function shouldReturnSerializeResult()
     {
-        $expected = <<< EXCEPTED_DATA
+        $expected = <<<'EXCEPTED_DATA'
 feature:
   f1:
     return: true
@@ -44,7 +44,7 @@ EXCEPTED_DATA;
                 'f2' => [
                     'return' => false,
                 ],
-            ]
+            ],
         ]);
 
         $this->assertSame($expected, $actual);
@@ -55,7 +55,7 @@ EXCEPTED_DATA;
      */
     public function shouldReturnDeserializeResult()
     {
-        $input = <<< INPUT_DATA
+        $input = <<<'INPUT_DATA'
 f1:
   return: true
 f2:

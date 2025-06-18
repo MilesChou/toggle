@@ -13,7 +13,7 @@ trait ContextAwareTrait
      * @param array|null $context
      * @return mixed
      */
-    public function context(array $context = null)
+    public function context(?array $context = null)
     {
         if (null === $context) {
             return $this->context;

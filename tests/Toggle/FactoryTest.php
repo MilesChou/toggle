@@ -30,7 +30,7 @@ class FactoryTest extends TestCase
             'f1' => [],
             'f2' => [],
             'f3' => [
-                'processor' => true
+                'processor' => true,
             ],
         ]);
 
@@ -72,7 +72,7 @@ class FactoryTest extends TestCase
                 'processor' => [
                     'class' => DummyProcessor::class,
                     'something' => 'whatever',
-                ]
+                ],
             ],
         ])->processor('f1');
 
@@ -91,7 +91,7 @@ class FactoryTest extends TestCase
             'f1' => [
                 'processor' => [
                     'something' => 'whatever',
-                ]
+                ],
             ],
         ]);
     }

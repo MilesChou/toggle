@@ -38,7 +38,7 @@ class JsonSerializerTest extends TestCase
                 'f3' => [
                     'r' => false,
                 ],
-            ]
+            ],
         ]);
 
         $this->assertSame(

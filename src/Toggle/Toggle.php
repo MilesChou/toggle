@@ -114,7 +114,7 @@ class Toggle implements ToggleInterface
     /**
      * @inheritdoc
      */
-    public function result(array $result = null)
+    public function result(?array $result = null)
     {
         if (null === $result) {
             return array_reduce($this->names(), function ($carry, $feature) {

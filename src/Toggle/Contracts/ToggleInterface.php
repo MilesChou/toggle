@@ -13,7 +13,7 @@ interface ToggleInterface
      * @param array|null $context
      * @return mixed
      */
-    public function context(array $context = null);
+    public function context(?array $context = null);
 
     /**
      * @param string $name
@@ -87,7 +87,7 @@ interface ToggleInterface
      * @param array|null $result
      * @return array|static
      */
-    public function result(array $result = null);
+    public function result(?array $result = null);
 
     /**
      * When $feature on, then call $callable
